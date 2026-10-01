@@ -7,20 +7,20 @@ struct LocationPickerView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top, spacing: 12) {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("01 / 場所")
+                    Text("01 / 場所", bundle: .module)
                         .oisintFont(10, .heavy)
                         .kerning(1.2)
                         .foregroundStyle(DesignTokens.Colors.orange.color)
-                    Text("いまいる場所から探す")
+                    Text("いまいる場所から探す", bundle: .module)
                         .oisintFont(15, .heavy)
                         .foregroundStyle(DesignTokens.Colors.text.color)
-                    Text("位置情報は現在地付近を場所名に変換するためだけに使います。")
+                    Text("位置情報は現在地付近を場所名に変換するためだけに使います。", bundle: .module)
                         .oisintFont(11)
                         .foregroundStyle(DesignTokens.Colors.textSecondary.color)
                 }
                 Spacer()
                 if store.selectedLocation != nil {
-                    Button("クリア") {
+                    Button(String(localized: "クリア", bundle: .module)) {
                         store.clearLocation()
                     }
                     .buttonStyle(.plain)
@@ -40,12 +40,12 @@ struct LocationPickerView: View {
                 Text(store.locationErrorMessage)
                     .oisintFont(11)
                     .foregroundStyle(DesignTokens.Colors.danger.color)
-                    .accessibilityLabel("位置情報エラー。\(store.locationErrorMessage)")
+                    .accessibilityLabel(Text("位置情報エラー。\(store.locationErrorMessage)", bundle: .module))
                     .accessibilityIdentifier("location-error")
             } else {
                 Text(store.locationState == .selected
-                     ? "場所名だけを調査条件に含め、OISINTの調査には座標を送信しません。"
-                     : "許可しない場合も、場所名を入力して続けられます。")
+                     ? String(localized: "場所名だけを調査条件に含め、OISINTの調査には座標を送信しません。", bundle: .module)
+                     : String(localized: "許可しない場合も、場所名を入力して続けられます。", bundle: .module))
                     .oisintFont(10)
                     .foregroundStyle(DesignTokens.Colors.textTertiary.color)
             }
@@ -74,7 +74,7 @@ struct LocationPickerView: View {
                     } else {
                         Image(systemName: "location.fill")
                     }
-                    Text(store.isLocationRequesting ? "現在地を取得中…" : "現在地を使う")
+                    Text(store.isLocationRequesting ? String(localized: "現在地を取得中…", bundle: .module) : String(localized: "現在地を使う", bundle: .module))
                         .oisintFont(12, .heavy)
                 }
                 .foregroundStyle(DesignTokens.Colors.surface.color)
@@ -89,10 +89,10 @@ struct LocationPickerView: View {
             }
             .buttonStyle(.plain)
             .disabled(store.isLocationRequesting)
-            .accessibilityHint("許可後、現在地を市区町村付近の検索条件にします")
+            .accessibilityHint(Text("許可後、現在地を市区町村付近の検索条件にします", bundle: .module))
             .accessibilityIdentifier("location-current")
 
-            Text("または場所名を入力")
+            Text("または場所名を入力", bundle: .module)
                 .oisintFont(10, .bold)
                 .foregroundStyle(DesignTokens.Colors.textTertiary.color)
 
@@ -110,7 +110,7 @@ struct LocationPickerView: View {
     }
 
     private var manualLocationField: some View {
-        TextField("例：池袋駅、渋谷", text: $store.manualLocation)
+        TextField(String(localized: "例：池袋駅、渋谷", bundle: .module), text: $store.manualLocation)
             .textFieldStyle(.plain)
             .oisintFont(13)
             .foregroundStyle(DesignTokens.Colors.text.color)
@@ -123,13 +123,13 @@ struct LocationPickerView: View {
                     .stroke(DesignTokens.Colors.border.color, lineWidth: 1)
             )
             .onSubmit { store.applyManualLocation() }
-            .accessibilityLabel("検索する場所")
-            .accessibilityHint("駅名や市区町村を入力してください")
+            .accessibilityLabel(Text("検索する場所", bundle: .module))
+            .accessibilityHint(Text("駅名や市区町村を入力してください", bundle: .module))
             .accessibilityIdentifier("location-manual-input")
     }
 
     private var applyManualLocationButton: some View {
-        Button("この場所を使う") {
+        Button(String(localized: "この場所を使う", bundle: .module)) {
             store.applyManualLocation()
         }
         .buttonStyle(.bordered)
@@ -146,7 +146,7 @@ struct LocationPickerView: View {
                     .oisintFont(13, .bold)
                     .foregroundStyle(DesignTokens.Colors.text.color)
                     .accessibilityIdentifier("location-selected-label")
-                Text(location.source == .current ? "端末の現在地から取得" : "入力した場所")
+                Text(location.source == .current ? String(localized: "端末の現在地から取得", bundle: .module) : String(localized: "入力した場所", bundle: .module))
                     .oisintFont(11)
                     .foregroundStyle(DesignTokens.Colors.textSecondary.color)
             }

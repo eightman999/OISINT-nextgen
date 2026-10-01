@@ -67,18 +67,18 @@ public struct JoinView: View {
                     if let preview {
                         previewSection(preview)
                     }
-                    Text("この調査に参加")
+                    Text("この調査に参加", bundle: .module)
                         .oisintFont(28, .bold)
                         .foregroundStyle(DesignTokens.Colors.text.color)
                         .padding(.bottom, 4)
-                    Text("まず候補を見てから、必要なら表示名を設定できます。")
+                    Text("まず候補を見てから、必要なら表示名を設定できます。", bundle: .module)
                         .oisintFont(13)
                         .foregroundStyle(DesignTokens.Colors.textSecondary.color)
                         .padding(.bottom, 8)
-                    Text("表示名")
+                    Text("表示名", bundle: .module)
                         .oisintFont(14, .bold)
                         .foregroundStyle(DesignTokens.Colors.textSecondary.color)
-                    TextField("任意（未入力はゲスト）", text: $localName)
+                    TextField(String(localized: "任意（未入力はゲスト）", bundle: .module), text: $localName)
                         .textFieldStyle(.plain)
                         .oisintFont(16)
                         .foregroundStyle(DesignTokens.Colors.text.color)
@@ -99,7 +99,7 @@ public struct JoinView: View {
                                     .controlSize(.small)
                                     .tint(DesignTokens.Colors.surface.color)
                             }
-                            Text("参加")
+                            Text("参加", bundle: .module)
                                 .oisintFont(15, .bold)
                                 .foregroundStyle(DesignTokens.Colors.surface.color)
                         }
@@ -109,7 +109,7 @@ public struct JoinView: View {
                     }
                     .buttonStyle(.plain)
                     .disabled(loading)
-                    .accessibilityLabel(loading ? "調査に参加中" : "調査に参加")
+                    .accessibilityLabel(loading ? String(localized: "調査に参加中", bundle: .module) : String(localized: "調査に参加", bundle: .module))
                     .accessibilityIdentifier("join-button")
                     .padding(.top, 8)
                     if !errorMessage.isEmpty {
@@ -138,7 +138,7 @@ public struct JoinView: View {
                 .oisintFont(22, .bold)
                 .foregroundStyle(DesignTokens.Colors.text.color)
                 .accessibilityIdentifier("join-context-preview")
-            Text("候補を先に確認できます。表示名は投票や条件追加のときに使います。")
+            Text("候補を先に確認できます。表示名は投票や条件追加のときに使います。", bundle: .module)
                 .oisintFont(13)
                 .foregroundStyle(DesignTokens.Colors.textSecondary.color)
             VStack(spacing: 10) {
@@ -152,7 +152,7 @@ public struct JoinView: View {
             }
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier("join-candidates-preview")
-            Text("今すぐ決めなくても、候補と根拠を見てから参加できます。")
+            Text("今すぐ決めなくても、候補と根拠を見てから参加できます。", bundle: .module)
                 .oisintFont(12)
                 .foregroundStyle(DesignTokens.Colors.textTertiary.color)
                 .accessibilityIdentifier("impulse-exit")
@@ -184,11 +184,11 @@ public struct JoinView: View {
             }
             app.openInvestigation(id: response.investigationId, shareToken: token)
         } catch let error as OISINTError where error.message == "調査が見つかりません" {
-            errorMessage = "共有URLが無効か期限切れです。発行した人に新しいURLを依頼してください。"
+            errorMessage = String(localized: "共有URLが無効か期限切れです。発行した人に新しいURLを依頼してください。", bundle: .module)
         } catch let error as OISINTError where error.message.contains("上限") {
-            errorMessage = "この調査は参加人数の上限に達しています。発行した人にご相談ください。"
+            errorMessage = String(localized: "この調査は参加人数の上限に達しています。発行した人にご相談ください。", bundle: .module)
         } catch {
-            errorMessage = "共有調査に接続できませんでした。通信状態を確認して、もう一度お試しください。"
+            errorMessage = String(localized: "共有調査に接続できませんでした。通信状態を確認して、もう一度お試しください。", bundle: .module)
         }
         loading = false
     }

@@ -66,10 +66,10 @@ public struct FooterView: View {
     }
 
     @ViewBuilder private var links: some View {
-        footerLink("使い方", path: "help", label: "OISINTの使い方ガイドを開く", identifier: "footer-help")
-        footerLink("サポート", path: "support", label: "OISINTのサポートを開く", identifier: "footer-support")
-        footerLink("お問い合わせ", path: "contact", label: "OISINTにお問い合わせする", identifier: "footer-contact")
-        footerLink("フィードバック", path: "feedback", label: "OISINTにフィードバックを送る", identifier: "footer-feedback")
+        footerLink(String(localized: "使い方", bundle: .module), path: "help", label: String(localized: "OISINTの使い方ガイドを開く", bundle: .module), identifier: "footer-help")
+        footerLink(String(localized: "サポート", bundle: .module), path: "support", label: String(localized: "OISINTのサポートを開く", bundle: .module), identifier: "footer-support")
+        footerLink(String(localized: "お問い合わせ", bundle: .module), path: "contact", label: String(localized: "OISINTにお問い合わせする", bundle: .module), identifier: "footer-contact")
+        footerLink(String(localized: "フィードバック", bundle: .module), path: "feedback", label: String(localized: "OISINTにフィードバックを送る", bundle: .module), identifier: "footer-feedback")
     }
 
     /// サポート系画面はネイティブでは P1（計画書 §3.6-2）のため、実在する Web ページをブラウザで開く

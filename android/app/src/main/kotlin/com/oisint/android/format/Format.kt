@@ -1,5 +1,7 @@
 package com.oisint.android.format
 
+import com.oisint.android.R
+import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import com.oisint.android.design.DesignTokens
 import com.oisint.android.model.InvestigationStatus
@@ -26,12 +28,13 @@ object Format {
         MatchState.Unknown -> DesignTokens.Colors.textTertiary
     }
 
-    /** format.ts L32-44（TalkBack 用日本語逐語） */
-    fun matchStateAccessibilityLabel(state: MatchState): String = when (state) {
-        MatchState.Match -> "条件を満たす"
-        MatchState.Partial -> "一部満たす"
-        MatchState.Mismatch -> "条件を満たさない"
-        MatchState.Unknown -> "判定不明"
+    /** format.ts L32-44（TalkBack 用ラベル。日本語は values/strings.xml に逐語で保持） */
+    @StringRes
+    fun matchStateAccessibilityLabel(state: MatchState): Int = when (state) {
+        MatchState.Match -> R.string.match_state_match
+        MatchState.Partial -> R.string.match_state_partial
+        MatchState.Mismatch -> R.string.match_state_mismatch
+        MatchState.Unknown -> R.string.match_state_unknown
     }
 
     /** format.ts L46-54（7 ステップ。draft / failed は含まない） */
@@ -45,17 +48,18 @@ object Format {
         InvestigationStatus.Complete,
     )
 
-    /** format.ts L56-77 */
-    fun statusLabel(status: InvestigationStatus): String = when (status) {
-        InvestigationStatus.Draft -> "下書き"
-        InvestigationStatus.Parsing -> "条件解析"
-        InvestigationStatus.Recalling -> "類似調査の確認"
-        InvestigationStatus.Searching -> "候補店探索"
-        InvestigationStatus.CollectingEvidence -> "Evidence収集"
-        InvestigationStatus.Evaluating -> "条件評価"
-        InvestigationStatus.Ranking -> "ランキング"
-        InvestigationStatus.Complete -> "完了"
-        InvestigationStatus.Failed -> "失敗"
+    /** format.ts L56-77（日本語は values/strings.xml に逐語で保持） */
+    @StringRes
+    fun statusLabel(status: InvestigationStatus): Int = when (status) {
+        InvestigationStatus.Draft -> R.string.status_draft
+        InvestigationStatus.Parsing -> R.string.status_parsing
+        InvestigationStatus.Recalling -> R.string.status_recalling
+        InvestigationStatus.Searching -> R.string.status_searching
+        InvestigationStatus.CollectingEvidence -> R.string.status_collecting_evidence
+        InvestigationStatus.Evaluating -> R.string.status_evaluating
+        InvestigationStatus.Ranking -> R.string.status_ranking
+        InvestigationStatus.Complete -> R.string.status_complete
+        InvestigationStatus.Failed -> R.string.status_failed
     }
 
     /** format.ts L79-87（✓ 済 / ● 現在 / ○ 未 / ! failed） */

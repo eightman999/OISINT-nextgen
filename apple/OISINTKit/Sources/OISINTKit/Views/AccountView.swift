@@ -16,10 +16,10 @@ public struct AccountView: View {
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Text("アカウント")
+                Text("アカウント", bundle: .module)
                     .oisintFont(28, .bold)
                     .foregroundStyle(DesignTokens.Colors.text.color)
-                Text("ログイン、アカウントの切替、ログアウト、永久削除をここで管理します。")
+                Text("ログイン、アカウントの切替、ログアウト、永久削除をここで管理します。", bundle: .module)
                     .oisintFont(13)
                     .foregroundStyle(DesignTokens.Colors.textSecondary.color)
 
@@ -27,7 +27,7 @@ public struct AccountView: View {
                     authenticatedSection
                 } else {
                     if app.isAnonymous {
-                        Text("匿名利用中。メールでログイン・新規登録する場合は別アカウントになります。現在の調査履歴は引き継がれません。")
+                        Text("匿名利用中。メールでログイン・新規登録する場合は別アカウントになります。現在の調査履歴は引き継がれません。", bundle: .module)
                             .oisintFont(13)
                             .foregroundStyle(DesignTokens.Colors.textSecondary.color)
                     }
@@ -61,7 +61,7 @@ public struct AccountView: View {
             .frame(maxWidth: .infinity, alignment: .center)
         }
         .background(DesignTokens.Colors.bg.color)
-        .navigationTitle("アカウント")
+        .navigationTitle(Text("アカウント", bundle: .module))
         .accessibilityIdentifier("account-screen")
         .onChange(of: isRegistering) { _, _ in
             password = ""
@@ -77,16 +77,16 @@ public struct AccountView: View {
 
     private var authenticatedSection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("接続済み")
+            Text("接続済み", bundle: .module)
                 .oisintFont(15, .bold)
                 .foregroundStyle(DesignTokens.Colors.success.color)
-            Text(app.authEmail ?? "恒久アカウント")
+            Text(app.authEmail ?? String(localized: "恒久アカウント", bundle: .module))
                 .oisintFont(14)
                 .foregroundStyle(DesignTokens.Colors.text.color)
-            Text("ログアウトすると、表示中のPlus状態も安全側へ戻ります。")
+            Text("ログアウトすると、表示中のPlus状態も安全側へ戻ります。", bundle: .module)
                 .oisintFont(12)
                 .foregroundStyle(DesignTokens.Colors.textSecondary.color)
-            Button("ログアウト") {
+            Button(String(localized: "ログアウト", bundle: .module)) {
                 Task { await app.signOut() }
             }
             .buttonStyle(.bordered)
@@ -97,27 +97,27 @@ public struct AccountView: View {
 
     private var authenticationForm: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Button("Googleアカウントで続ける") {
+            Button(String(localized: "Googleアカウントで続ける", bundle: .module)) {
                 Task { await app.signInWithGoogle() }
             }
             .buttonStyle(.borderedProminent)
             .disabled(app.authBusy)
             .accessibilityIdentifier("account-google")
 
-            Picker("メール認証", selection: $isRegistering) {
-                Text("ログイン").tag(false)
-                Text("新規登録").tag(true)
+            Picker(String(localized: "メール認証", bundle: .module), selection: $isRegistering) {
+                Text("ログイン", bundle: .module).tag(false)
+                Text("新規登録", bundle: .module).tag(true)
             }
             .pickerStyle(.segmented)
             .disabled(app.authBusy)
             .accessibilityIdentifier("account-email-mode")
 
             Text(isRegistering
-                ? "メールアドレスを確認して、OISINTアカウントを作成します。"
-                : "登録済みのOISINTアカウントのメールアドレスとパスワードでログインできます。")
+                ? String(localized: "メールアドレスを確認して、OISINTアカウントを作成します。", bundle: .module)
+                : String(localized: "登録済みのOISINTアカウントのメールアドレスとパスワードでログインできます。", bundle: .module))
                 .oisintFont(12)
                 .foregroundStyle(DesignTokens.Colors.textSecondary.color)
-            TextField("メールアドレス", text: $email)
+            TextField(String(localized: "メールアドレス", bundle: .module), text: $email)
                 .textFieldStyle(.roundedBorder)
                 .textContentType(.username)
                 #if os(iOS)
@@ -127,17 +127,17 @@ public struct AccountView: View {
                 #endif
                 .disabled(app.authBusy)
                 .accessibilityIdentifier("account-email")
-            SecureField("パスワード", text: $password)
+            SecureField(String(localized: "パスワード", bundle: .module), text: $password)
                 .textFieldStyle(.roundedBorder)
                 .textContentType(isRegistering ? .newPassword : .password)
                 .disabled(app.authBusy)
                 .accessibilityIdentifier("account-password")
 
             if isRegistering {
-                Text("12文字以上で、英大文字・英小文字・数字を含めてください。")
+                Text("12文字以上で、英大文字・英小文字・数字を含めてください。", bundle: .module)
                     .oisintFont(12)
                     .foregroundStyle(DesignTokens.Colors.textSecondary.color)
-                SecureField("パスワード（確認）", text: $passwordConfirmation)
+                SecureField(String(localized: "パスワード（確認）", bundle: .module), text: $passwordConfirmation)
                     .textFieldStyle(.roundedBorder)
                     .textContentType(.newPassword)
                     .disabled(app.authBusy)
@@ -150,13 +150,13 @@ public struct AccountView: View {
             }
 
             if app.isAnonymous {
-                Toggle("別のメールアカウントへ切り替えることを確認", isOn: $confirmAccountSwitch)
+                Toggle(String(localized: "別のメールアカウントへ切り替えることを確認", bundle: .module), isOn: $confirmAccountSwitch)
                     .font(.caption)
                     .accessibilityIdentifier("account-switch-confirm")
             }
 
             if isRegistering {
-                Button("新規登録して確認メールを送る") {
+                Button(String(localized: "新規登録して確認メールを送る", bundle: .module)) {
                     Task {
                         let accepted = await app.signUpWithEmail(
                             email: email, password: password, confirmAccountSwitch: confirmAccountSwitch
@@ -170,12 +170,12 @@ public struct AccountView: View {
                 .disabled(app.authBusy || registrationValidationMessage != nil || (app.isAnonymous && !confirmAccountSwitch))
                 .accessibilityIdentifier("account-email-signup")
                 HStack {
-                    Link("利用規約", destination: URL(string: "https://oisint.com/terms")!)
-                    Link("プライバシーポリシー", destination: URL(string: "https://oisint.com/privacy")!)
+                    Link(String(localized: "利用規約", bundle: .module), destination: URL(string: "https://oisint.com/terms")!)
+                    Link(String(localized: "プライバシーポリシー", bundle: .module), destination: URL(string: "https://oisint.com/privacy")!)
                 }
                 .font(.caption)
             } else {
-                Button("メールでログイン") {
+                Button(String(localized: "メールでログイン", bundle: .module)) {
                     Task {
                         await app.signInWithEmail(
                             email: email,
@@ -188,7 +188,7 @@ public struct AccountView: View {
                 .buttonStyle(.bordered)
                 .disabled(app.authBusy || email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || password.isEmpty)
                 .accessibilityIdentifier("account-email-login")
-                Button("確認メールを再送") {
+                Button(String(localized: "確認メールを再送", bundle: .module)) {
                     Task { await app.resendSignUpConfirmation(email: email) }
                 }
                 .disabled(app.authBusy || email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
@@ -203,26 +203,26 @@ public struct AccountView: View {
 
     private var deletionSection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("アカウントを完全に削除")
+            Text("アカウントを完全に削除", bundle: .module)
                 .oisintFont(15, .bold)
                 .foregroundStyle(DesignTokens.Colors.danger.color)
-            Text("削除すると個人データとログイン情報を消去します。App Store / Google Play等のサブスクリプションは解約されません。先に各ストアで管理・解約してください。")
+            Text("削除すると個人データとログイン情報を消去します。App Store / Google Play等のサブスクリプションは解約されません。先に各ストアで管理・解約してください。", bundle: .module)
                 .oisintFont(12)
                 .foregroundStyle(DesignTokens.Colors.textSecondary.color)
             if confirmDeletion {
-                Text("もう一度押すと永久削除を実行します。取り消せません。")
+                Text("もう一度押すと永久削除を実行します。取り消せません。", bundle: .module)
                     .oisintFont(12)
                     .foregroundStyle(DesignTokens.Colors.danger.color)
                     .accessibilityIdentifier("account-delete-confirmation")
                 HStack {
-                    Button("永久削除を実行") {
+                    Button(String(localized: "永久削除を実行", bundle: .module)) {
                         Task { await app.deleteAccount() }
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(DesignTokens.Colors.danger.color)
                     .disabled(app.authBusy)
                     .accessibilityIdentifier("account-delete-confirm")
-                    Button("キャンセル") {
+                    Button(String(localized: "キャンセル", bundle: .module)) {
                         confirmDeletion = false
                     }
                     .buttonStyle(.bordered)
@@ -230,7 +230,7 @@ public struct AccountView: View {
                     .accessibilityIdentifier("account-delete-cancel")
                 }
             } else {
-                Button("アカウント削除を続ける") {
+                Button(String(localized: "アカウント削除を続ける", bundle: .module)) {
                     confirmDeletion = true
                 }
                 .buttonStyle(.bordered)

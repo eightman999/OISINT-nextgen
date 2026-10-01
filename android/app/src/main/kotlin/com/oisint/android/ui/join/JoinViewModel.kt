@@ -1,5 +1,7 @@
 package com.oisint.android.ui.join
 
+import com.oisint.android.R
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oisint.android.data.DataProvider
@@ -17,7 +19,8 @@ import kotlinx.coroutines.launch
 data class JoinUiState(
     val displayName: String = "",
     val loading: Boolean = false,
-    val errorMessage: String = "",
+    /** 表示用エラー（string resource ID）。null はエラーなし。 */
+    @StringRes val errorMessage: Int? = null,
     val preview: Investigation? = null,
     /** 参加成功時に一度だけ発火する遷移イベント（investigationId, shareToken） */
     val navigateTo: Pair<String, String>? = null,
@@ -43,11 +46,11 @@ class JoinViewModel(
         val name = _uiState.value.displayName.trim().ifEmpty { "ゲスト" }
         if (token.isNullOrEmpty()) {
             _uiState.update {
-                it.copy(errorMessage = "共有URLに参加用トークンがありません。URLをもう一度開いてください。")
+                it.copy(errorMessage = R.string.join_error_missing_token)
             }
             return
         }
-        _uiState.update { it.copy(loading = true, errorMessage = "") }
+        _uiState.update { it.copy(loading = true, errorMessage = null) }
         viewModelScope.launch {
             try {
                 val userId = try {
@@ -64,12 +67,10 @@ class JoinViewModel(
                 _uiState.update {
                     it.copy(
                         errorMessage = when {
-                            message.contains("見つかりません") ->
-                                "共有URLが無効か期限切れです。発行した人に新しいURLを依頼してください。"
-                            message.contains("上限") ->
-                                "この調査は参加人数の上限に達しています。発行した人にご相談ください。"
-                            else ->
-                                "共有調査に接続できませんでした。通信状態を確認して、もう一度お試しください。"
+                            // provider/API が返す日本語エラー文言での分岐（サーバ契約。翻訳しない）
+                            message.contains("見つかりません") -> R.string.join_error_invalid_link
+                            message.contains("上限") -> R.string.join_error_full
+                            else -> R.string.join_error_connection
                         },
                     )
                 }

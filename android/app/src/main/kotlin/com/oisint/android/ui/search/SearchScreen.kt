@@ -1,5 +1,8 @@
 package com.oisint.android.ui.search
 
+import com.oisint.android.ui.home.FILTER_CHIPS
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -44,9 +47,6 @@ import com.oisint.android.ui.components.TasteProfilePanel
 import com.oisint.android.ui.home.HomeUiState
 import com.oisint.android.ui.home.HomeViewModel
 
-/** index.tsx L35 FILTER_CHIPS（逐語） */
-private val FILTER_CHIPS = listOf("禁煙", "個室", "カード可", "徒歩5分以内", "Wi-Fi", "静か", "子連れOK")
-
 /**
  * 検索スクリーン。
  *
@@ -87,7 +87,7 @@ fun SearchScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                "← 戻る",
+                stringResource(R.string.common_back),
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
                 color = DesignTokens.Colors.orange,
@@ -119,7 +119,7 @@ private fun WorkbenchHeader() {
     ) {
         Column(Modifier.weight(1f)) {
             Text(
-                "条件を整える",
+                stringResource(R.string.search_eyebrow),
                 fontSize = 9.sp,
                 letterSpacing = 1.5.sp,
                 fontWeight = FontWeight.ExtraBold,
@@ -127,7 +127,7 @@ private fun WorkbenchHeader() {
             )
             Spacer(Modifier.height(7.dp))
             Text(
-                "今夜の条件を、もう少しだけ具体的に。",
+                stringResource(R.string.search_heading),
                 fontSize = 21.sp,
                 lineHeight = 31.sp,
                 fontWeight = FontWeight.ExtraBold,
@@ -136,7 +136,7 @@ private fun WorkbenchHeader() {
         }
         Spacer(Modifier.width(20.dp))
         Text(
-            "新しい店探しをはじめる",
+            stringResource(R.string.search_new_search),
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold,
             color = DesignTokens.Colors.textTertiary,
@@ -181,11 +181,11 @@ private fun WorkbenchMain(viewModel: HomeViewModel, state: HomeUiState) {
                     .background(DesignTokens.Colors.black, CircleShape),
                 contentAlignment = Alignment.Center,
             ) {
-                Text("店", color = DesignTokens.Colors.surface, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.search_workbench_marker), color = DesignTokens.Colors.surface, fontSize = 12.sp, fontWeight = FontWeight.Bold)
             }
             Spacer(Modifier.width(8.dp))
             Text(
-                "いまの気分を、そのまま書く",
+                stringResource(R.string.search_workbench_intro),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 color = DesignTokens.Colors.text,
@@ -220,7 +220,7 @@ private fun WorkbenchMain(viewModel: HomeViewModel, state: HomeUiState) {
             ) {
                 if (state.query.isEmpty()) {
                     Text(
-                        "例：池袋で、みんなが話しやすい肉の店を探して",
+                        stringResource(R.string.search_query_placeholder),
                         fontSize = 13.sp,
                         color = DesignTokens.Colors.textTertiary,
                     )
@@ -257,7 +257,7 @@ private fun WorkbenchMain(viewModel: HomeViewModel, state: HomeUiState) {
                     )
                 } else {
                     Text(
-                        "捜査をはじめる ↗",
+                        stringResource(R.string.search_start),
                         color = DesignTokens.Colors.surface,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
@@ -266,9 +266,9 @@ private fun WorkbenchMain(viewModel: HomeViewModel, state: HomeUiState) {
             }
         }
 
-        if (state.errorMessage.isNotEmpty()) {
+        state.errorMessage?.let { errorRes ->
             Text(
-                state.errorMessage,
+                stringResource(errorRes),
                 fontSize = 12.sp,
                 color = DesignTokens.Colors.danger,
             )
@@ -280,7 +280,7 @@ private fun WorkbenchMain(viewModel: HomeViewModel, state: HomeUiState) {
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             FILTER_CHIPS.forEach { chip ->
-                val active = state.selectedChips.contains(chip)
+                val active = state.selectedChips.contains(chip.wireValue)
                 Box(
                     Modifier
                         .background(
@@ -292,11 +292,11 @@ private fun WorkbenchMain(viewModel: HomeViewModel, state: HomeUiState) {
                             if (active) DesignTokens.Colors.orange else DesignTokens.Colors.borderSoft,
                             RoundedCornerShape(DesignTokens.Radius.pill),
                         )
-                        .clickable { viewModel.toggleChip(chip) }
+                        .clickable { viewModel.toggleChip(chip.wireValue) }
                         .padding(horizontal = 12.dp, vertical = 7.dp),
                 ) {
                     Text(
-                        chip,
+                        stringResource(chip.labelRes),
                         fontSize = 12.sp,
                         color = if (active) DesignTokens.Colors.orange else DesignTokens.Colors.textSecondary,
                         fontWeight = if (active) FontWeight.Bold else FontWeight.Normal,
@@ -316,7 +316,7 @@ private fun WorkbenchMain(viewModel: HomeViewModel, state: HomeUiState) {
             ) {
                 if (state.displayName.isEmpty()) {
                     Text(
-                        "表示名（任意）",
+                        stringResource(R.string.search_display_name_placeholder),
                         fontSize = 13.sp,
                         color = DesignTokens.Colors.textTertiary,
                     )
@@ -334,14 +334,14 @@ private fun WorkbenchMain(viewModel: HomeViewModel, state: HomeUiState) {
                 )
             }
             Text(
-                "任意です。共有したときに表示されます",
+                stringResource(R.string.search_display_name_hint),
                 fontSize = 10.sp,
                 color = DesignTokens.Colors.textTertiary,
             )
         }
 
         Text(
-            "急ぎなら、場所と条件を一文だけで開始できます。調査の途中でも、みんなで条件を足せます。",
+            stringResource(R.string.search_quick_tip),
             fontSize = 11.sp,
             color = DesignTokens.Colors.textSecondary,
         )

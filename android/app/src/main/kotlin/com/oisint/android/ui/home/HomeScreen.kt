@@ -1,5 +1,8 @@
 package com.oisint.android.ui.home
 
+import com.oisint.android.ui.components.tasteOptionLabel
+import androidx.compose.ui.res.stringResource
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -49,20 +52,21 @@ import com.oisint.android.ui.components.LocationPickerPanel
 import com.oisint.android.ui.components.OisintFooter
 import com.oisint.android.ui.components.TasteProfilePanel
 
-/** index.tsx L35 FILTER_CHIPS（逐語） */
-private val FILTER_CHIPS = listOf("禁煙", "個室", "カード可", "徒歩5分以内", "Wi-Fi", "静か", "子連れOK")
-
-/** index.tsx L37-77 SCENES（逐語） */
+/**
+ * index.tsx L37-77 SCENES。
+ * [query] は検索欄へ入りサーバへ送る調査クエリのテンプレート（日本語固定・翻訳しない）。
+ * 表示用の文言だけを string resource で切り替える。
+ */
 data class Scene(
     val id: String,
     val index: String,
-    val label: String,
-    val title: String,
+    @StringRes val label: Int,
+    @StringRes val title: Int,
     val query: String,
-    val location: String,
-    val people: String,
-    val budget: String,
-    val note: String,
+    @StringRes val location: Int,
+    @StringRes val people: Int,
+    @StringRes val budget: Int,
+    @StringRes val note: Int,
     val accent: Color,
     val soft: Color,
 )
@@ -71,39 +75,39 @@ private val SCENES = listOf(
     Scene(
         id = "home-template-company",
         index = "01",
-        label = "会社の飲み会",
-        title = "ちゃんと話せる、肉の夜",
+        label = R.string.home_scene_company_label,
+        title = R.string.home_scene_company_title,
         query = "池袋で3人。3000円くらい。肉。カード可。静かめ。",
-        location = "池袋",
-        people = "3人",
-        budget = "3,000円前後",
-        note = "仕事の話も、近況も。声が届く店。",
+        location = R.string.home_scene_company_location,
+        people = R.string.home_scene_company_people,
+        budget = R.string.home_scene_company_budget,
+        note = R.string.home_scene_company_note,
         accent = Color(0xFFF4511E),
         soft = Color(0xFFFFF0E8),
     ),
     Scene(
         id = "home-template-omotenashi",
         index = "02",
-        label = "接待・会食",
-        title = "落ち着いて選ぶ、和食の席",
+        label = R.string.home_scene_omotenashi_label,
+        title = R.string.home_scene_omotenashi_title,
         query = "新宿で4人。ひとり6000円前後。個室。落ち着いた和食。",
-        location = "新宿",
-        people = "4人",
-        budget = "6,000円前後",
-        note = "店選びの理由まで、きちんと持っていく。",
+        location = R.string.home_scene_omotenashi_location,
+        people = R.string.home_scene_omotenashi_people,
+        budget = R.string.home_scene_omotenashi_budget,
+        note = R.string.home_scene_omotenashi_note,
         accent = Color(0xFF49655D),
         soft = Color(0xFFEDF3EF),
     ),
     Scene(
         id = "home-template-travel",
         index = "03",
-        label = "旅行先",
-        title = "知らない街で、外さない一軒",
+        label = R.string.home_scene_travel_label,
+        title = R.string.home_scene_travel_title,
         query = "渋谷で2人。ランチ。写真映えするカフェ。駅から徒歩5分以内。",
-        location = "渋谷",
-        people = "2人",
-        budget = "ランチ",
-        note = "せっかくの一日を、店探しで終わらせない。",
+        location = R.string.home_scene_travel_location,
+        people = R.string.home_scene_travel_people,
+        budget = R.string.home_scene_travel_budget,
+        note = R.string.home_scene_travel_note,
         accent = Color(0xFFD99A00),
         soft = Color(0xFFFFF6DD),
     ),
@@ -181,7 +185,7 @@ private fun SearchLinkCard(onClick: () -> Unit) {
     ) {
         Column(Modifier.weight(1f)) {
             Text(
-                "条件を整える",
+                stringResource(R.string.search_eyebrow),
                 fontSize = 10.sp,
                 letterSpacing = 1.5.sp,
                 fontWeight = FontWeight.ExtraBold,
@@ -189,7 +193,7 @@ private fun SearchLinkCard(onClick: () -> Unit) {
             )
             Spacer(Modifier.height(5.dp))
             Text(
-                "今夜の条件を、もう少しだけ具体的に。",
+                stringResource(R.string.search_heading),
                 fontSize = 16.sp,
                 lineHeight = 24.sp,
                 fontWeight = FontWeight.ExtraBold,
@@ -197,7 +201,7 @@ private fun SearchLinkCard(onClick: () -> Unit) {
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                "場所・好み・条件を入れて捜査をはじめる",
+                stringResource(R.string.home_search_card_body),
                 fontSize = 11.sp,
                 color = DesignTokens.Colors.borderSoft,
             )
@@ -227,21 +231,21 @@ private fun AboutLinkCard(onClick: () -> Unit) {
     ) {
         Column(Modifier.weight(1f)) {
             Text(
-                "選び方の流れ",
+                stringResource(R.string.process_guide_eyebrow),
                 fontSize = 10.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = DesignTokens.Colors.orange,
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                "話しながら、候補が見えてくる。",
+                stringResource(R.string.home_about_card_title),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = DesignTokens.Colors.text,
             )
             Spacer(Modifier.height(3.dp))
             Text(
-                "OISINT がどう候補を絞るのかを見る",
+                stringResource(R.string.home_about_card_body),
                 fontSize = 11.sp,
                 color = DesignTokens.Colors.textSecondary,
             )
@@ -268,9 +272,9 @@ private fun PlusLinkCard(onClick: () -> Unit) {
         Column(Modifier.weight(1f)) {
             Text("OISINT PLUS", fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, color = DesignTokens.Colors.orange)
             Spacer(Modifier.height(4.dp))
-            Text("無料とPlusのプランを見る", fontSize = 14.sp, fontWeight = FontWeight.ExtraBold, color = DesignTokens.Colors.text)
+            Text(stringResource(R.string.home_plus_card_title), fontSize = 14.sp, fontWeight = FontWeight.ExtraBold, color = DesignTokens.Colors.text)
             Spacer(Modifier.height(3.dp))
-            Text("匿名利用中は購入できません。アカウント登録後に利用できます。", fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
+            Text(stringResource(R.string.home_plus_card_body), fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
         }
         Spacer(Modifier.width(12.dp))
         Text("→", fontSize = 18.sp, color = DesignTokens.Colors.orange)
@@ -292,11 +296,11 @@ private fun AccountLinkCard(onClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(Modifier.weight(1f)) {
-            Text("アカウント", fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, color = DesignTokens.Colors.orange)
+            Text(stringResource(R.string.account_title), fontSize = 10.sp, fontWeight = FontWeight.ExtraBold, color = DesignTokens.Colors.orange)
             Spacer(Modifier.height(4.dp))
-            Text("匿名の調査を引き継ぐ", fontSize = 14.sp, fontWeight = FontWeight.ExtraBold, color = DesignTokens.Colors.text)
+            Text(stringResource(R.string.home_account_card_title), fontSize = 14.sp, fontWeight = FontWeight.ExtraBold, color = DesignTokens.Colors.text)
             Spacer(Modifier.height(3.dp))
-            Text("Google接続またはメールでアカウントを管理します。", fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
+            Text(stringResource(R.string.home_account_card_body), fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
         }
         Spacer(Modifier.width(12.dp))
         Text("→", fontSize = 18.sp, color = DesignTokens.Colors.orange)
@@ -314,7 +318,7 @@ private fun Topbar(onOpenHelp: () -> Unit) {
         // index.tsx L280: ロゴ画像（assets/branding/oisint-logo-horizontal.png のコピー）
         Image(
             painter = painterResource(R.drawable.oisint_logo_horizontal),
-            contentDescription = "OISINT ロゴ",
+            contentDescription = stringResource(R.string.home_logo_description),
             modifier = Modifier.size(width = 119.dp, height = 36.dp),
         )
         Spacer(Modifier.weight(1f))
@@ -333,14 +337,14 @@ private fun Topbar(onOpenHelp: () -> Unit) {
                 )
                 Spacer(Modifier.width(6.dp))
                 Text(
-                    "今夜の作戦会議",
+                    stringResource(R.string.home_topbar_tagline),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     color = DesignTokens.Colors.text,
                 )
             }
             Text(
-                "使い方",
+                stringResource(R.string.home_help_link),
                 fontSize = 11.sp,
                 color = DesignTokens.Colors.orange,
                 textDecoration = TextDecoration.Underline,
@@ -362,7 +366,7 @@ private fun Hero(scene: Scene, state: HomeUiState) {
         )
         Spacer(Modifier.height(8.dp))
         Text(
-            "「どこ行く？」を、\n「ここがいい」に変える。",
+            stringResource(R.string.home_hero_title),
             fontSize = 30.sp,
             lineHeight = 38.sp,
             fontWeight = FontWeight.ExtraBold,
@@ -370,15 +374,15 @@ private fun Hero(scene: Scene, state: HomeUiState) {
         )
         Spacer(Modifier.height(10.dp))
         Text(
-            "店を当てるためじゃない。\n人数も、予算も、その日の空気も持ち寄って、\nみんなが納得できる一軒を見つけるための入口です。",
+            stringResource(R.string.home_hero_body),
             fontSize = 13.sp,
             lineHeight = 20.sp,
             color = DesignTokens.Colors.textSecondary,
         )
         Spacer(Modifier.height(10.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            HeroSignal("3人の条件をひとつに")
-            HeroSignal("?わからないことも残す")
+            HeroSignal(stringResource(R.string.home_hero_signal_conditions))
+            HeroSignal(stringResource(R.string.home_hero_signal_unknowns))
         }
         Spacer(Modifier.height(14.dp))
         BriefCard(scene, state)
@@ -429,15 +433,15 @@ private fun BriefCard(scene: Scene, state: HomeUiState) {
         }
         Spacer(Modifier.height(8.dp))
         Text(
-            "今夜の候補を、\n一緒につくる",
+            stringResource(R.string.home_brief_title),
             fontSize = 18.sp,
             lineHeight = 24.sp,
             fontWeight = FontWeight.ExtraBold,
             color = DesignTokens.Colors.text,
         )
         Spacer(Modifier.height(8.dp))
-        Text("SCENE / ${scene.label}", fontSize = 10.sp, color = DesignTokens.Colors.textSecondary)
-        Text("MOOD / ${scene.note}", fontSize = 10.sp, color = DesignTokens.Colors.textSecondary)
+        Text("SCENE / ${stringResource(scene.label)}", fontSize = 10.sp, color = DesignTokens.Colors.textSecondary)
+        Text("MOOD / ${stringResource(scene.note)}", fontSize = 10.sp, color = DesignTokens.Colors.textSecondary)
         Spacer(Modifier.height(8.dp))
         FlowRowTags(scene, state)
         Spacer(Modifier.height(8.dp))
@@ -463,12 +467,13 @@ private fun BriefCard(scene: Scene, state: HomeUiState) {
 @Composable
 private fun FlowRowTags(scene: Scene, state: HomeUiState) {
     // index.tsx previewTags: location, people, budget, likes[0], selectedChips[0]
+    val firstChip = state.selectedChips.firstOrNull()
     val tags = listOfNotNull(
-        scene.location,
-        scene.people,
-        scene.budget,
-        state.tasteProfile.likes.firstOrNull(),
-        state.selectedChips.firstOrNull(),
+        stringResource(scene.location),
+        stringResource(scene.people),
+        stringResource(scene.budget),
+        state.tasteProfile.likes.firstOrNull()?.let { tasteOptionLabel(it) },
+        firstChip?.let { chip -> filterChipLabelRes(chip)?.let { stringResource(it) } ?: chip },
     )
     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         tags.forEach { tag ->
@@ -494,13 +499,13 @@ private fun SectionIntro() {
             color = DesignTokens.Colors.textTertiary,
         )
         Text(
-            "まずは、今夜の状況を選ぶ。",
+            stringResource(R.string.home_section_title),
             fontSize = 20.sp,
             fontWeight = FontWeight.ExtraBold,
             color = DesignTokens.Colors.text,
         )
         Text(
-            "選んだあとに、場所や条件を自由に書き足せます。",
+            stringResource(R.string.home_section_body),
             fontSize = 12.sp,
             color = DesignTokens.Colors.textSecondary,
         )
@@ -542,7 +547,7 @@ private fun SceneGrid(selectedSceneId: String, onSelect: (Scene) -> Unit) {
                     )
                     Spacer(Modifier.weight(1f))
                     Text(
-                        if (selected) "選択中" else "選ぶ",
+                        stringResource(if (selected) R.string.home_scene_selected else R.string.home_scene_select),
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         color = if (selected) scene.accent else DesignTokens.Colors.textSecondary,
@@ -550,22 +555,27 @@ private fun SceneGrid(selectedSceneId: String, onSelect: (Scene) -> Unit) {
                 }
                 Spacer(Modifier.height(6.dp))
                 Text(
-                    scene.label,
+                    stringResource(scene.label),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     color = scene.accent,
                 )
                 Text(
-                    scene.title,
+                    stringResource(scene.title),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = DesignTokens.Colors.text,
                 )
                 Spacer(Modifier.height(4.dp))
-                Text(scene.note, fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
+                Text(stringResource(scene.note), fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
                 Spacer(Modifier.height(6.dp))
                 Text(
-                    "${scene.location} ・ ${scene.people} ・ ${scene.budget}",
+                    stringResource(
+                        R.string.home_scene_meta,
+                        stringResource(scene.location),
+                        stringResource(scene.people),
+                        stringResource(scene.budget),
+                    ),
                     fontSize = 11.sp,
                     color = DesignTokens.Colors.textSecondary,
                 )

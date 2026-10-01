@@ -1,5 +1,9 @@
 package com.oisint.android.ui.account
 
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertNotNull
+import com.oisint.android.testing.StringResources
+import com.oisint.android.R
 import android.content.Intent
 import com.oisint.android.auth.AuthController
 import com.oisint.android.auth.AuthState
@@ -39,14 +43,16 @@ class AccountViewModelTest {
         viewModel.signIn()
         runCurrent()
 
-        assertTrue(viewModel.uiState.value.errorMessage.contains("確認欄"))
+        assertEquals(R.string.account_error_switch_confirmation, viewModel.uiState.value.errorMessage)
+        assertTrue(StringResources.ja(R.string.account_error_switch_confirmation).contains("確認欄"))
         assertEquals(0, controller.signInCalls)
 
         viewModel.onConfirmAccountSwitchChanged(true)
         viewModel.signIn()
         runCurrent()
         assertEquals(1, controller.signInCalls)
-        assertEquals("アカウントに接続しました。", viewModel.uiState.value.noticeMessage)
+        assertEquals(R.string.account_notice_signed_in, viewModel.uiState.value.noticeMessage)
+        assertEquals("アカウントに接続しました。", StringResources.ja(R.string.account_notice_signed_in))
     }
 
     @Test
@@ -59,7 +65,7 @@ class AccountViewModelTest {
         runCurrent()
 
         assertEquals(1, controller.googleCalls)
-        assertTrue(viewModel.uiState.value.noticeMessage.contains("Google認証"))
+        assertEquals(R.string.account_notice_google_opening, viewModel.uiState.value.noticeMessage)
     }
 
     @Test
@@ -77,8 +83,8 @@ class AccountViewModelTest {
 
         assertEquals(1, controller.googleCalls)
         assertEquals(AuthState.Anonymous(originalUserId), viewModel.uiState.value.authState)
-        assertTrue(viewModel.uiState.value.errorMessage.isNotBlank())
-        assertTrue(viewModel.uiState.value.noticeMessage.isBlank())
+        assertNotNull(viewModel.uiState.value.errorMessage)
+        assertNull(viewModel.uiState.value.noticeMessage)
     }
 
     @Test

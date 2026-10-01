@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		52525B582A40C5DF9356B40E /* OISINTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C160B57B5CF25AD9C075014 /* OISINTApp.swift */; };
 		59E82176106A0AF4EB4C1F1C /* OISINTKit in Frameworks */ = {isa = PBXBuildFile; productRef = 800CAA07C0CBE226CE4CD9A5 /* OISINTKit */; };
+		81AD5E8E709F1C8CF3E33EC2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1B00525708ED5BD2506CC29F /* InfoPlist.xcstrings */; };
 		DD5DC66C3A4662AE558EB056 /* US1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE323354358696870BFEE48 /* US1UITests.swift */; };
 		F29309CE9A6848767CD44DD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43AE5855479F4B472F7C787A /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		076A676413AA6B6F4908B194 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		0C160B57B5CF25AD9C075014 /* OISINTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OISINTApp.swift; sourceTree = "<group>"; };
+		1B00525708ED5BD2506CC29F /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		1EE323354358696870BFEE48 /* US1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = US1UITests.swift; sourceTree = "<group>"; };
 		43AE5855479F4B472F7C787A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6F696A36C19B901B540F5B88 /* OISINTKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OISINTKit; path = OISINTKit; sourceTree = SOURCE_ROOT; };
@@ -79,6 +81,7 @@
 			children = (
 				43AE5855479F4B472F7C787A /* Assets.xcassets */,
 				918A8FDCEF40060C6D1E2A03 /* Info.plist */,
+				1B00525708ED5BD2506CC29F /* InfoPlist.xcstrings */,
 				D5E1433ADA01C42DA8D080F2 /* OISINT-macOS.entitlements */,
 				E49D1AC2AC4D970A3029C0B5 /* OISINT-Simulator.entitlements */,
 				8D75BD403EAC958858533F54 /* OISINT.entitlements */,
@@ -167,11 +170,12 @@
 				};
 			};
 			buildConfigurationList = B9C6D34E2D9D8BF1526C25EC /* Build configuration list for PBXProject "OISINT" */;
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
 				en,
+				ja,
 			);
 			mainGroup = DFA1A9AA6BB9B8CE771C8FDA;
 			minimizedProjectReferenceProxies = 1;
@@ -195,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F29309CE9A6848767CD44DD4 /* Assets.xcassets in Resources */,
+				81AD5E8E709F1C8CF3E33EC2 /* InfoPlist.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

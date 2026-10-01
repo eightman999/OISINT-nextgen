@@ -1,5 +1,8 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -23,13 +26,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.oisint.android.design.DesignTokens
 
-/** index.tsx PROCESS_STEPS（逐語） */
-data class ProcessStep(val index: String, val title: String, val text: String)
+/** index.tsx PROCESS_STEPS（文言は string resource） */
+data class ProcessStep(val index: String, @StringRes val title: Int, @StringRes val text: Int)
 
 val PROCESS_STEPS = listOf(
-    ProcessStep("01", "場面から書き込む", "人数、予算、空気感。うまく言葉にできない条件も、そのままで。"),
-    ProcessStep("02", "候補の裏側を確かめる", "公開情報と出典を並べて、良さそうだけで終わらせない。"),
-    ProcessStep("03", "みんなで「これだね」へ", "共有した画面で条件を足し、最後は自分たちの判断で決める。"),
+    ProcessStep("01", R.string.process_step1_title, R.string.process_step1_text),
+    ProcessStep("02", R.string.process_step2_title, R.string.process_step2_text),
+    ProcessStep("03", R.string.process_step3_title, R.string.process_step3_text),
 )
 
 /**
@@ -56,7 +59,7 @@ fun ProcessGuideCard(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                "選び方の流れ",
+                stringResource(R.string.process_guide_eyebrow),
                 fontSize = 10.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = DesignTokens.Colors.orange,
@@ -64,14 +67,14 @@ fun ProcessGuideCard(modifier: Modifier = Modifier) {
             Text("↘", fontSize = 20.sp, color = DesignTokens.Colors.orange)
         }
         Text(
-            "話しながら、\n候補が見えてくる。",
+            stringResource(R.string.process_guide_title),
             fontSize = 24.sp,
             lineHeight = 34.sp,
             fontWeight = FontWeight.ExtraBold,
             color = DesignTokens.Colors.text,
         )
         Text(
-            "候補を並べて終わりではなく、条件を持ち寄るたびに「じゃあ、ここはどう？」が見えてくる。",
+            stringResource(R.string.process_guide_body),
             fontSize = 11.sp,
             lineHeight = 19.sp,
             color = DesignTokens.Colors.textSecondary,
@@ -96,13 +99,13 @@ fun ProcessGuideCard(modifier: Modifier = Modifier) {
                 Spacer(Modifier.width(12.dp))
                 Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                     Text(
-                        step.title,
+                        stringResource(step.title),
                         fontSize = 12.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = DesignTokens.Colors.text,
                     )
                     Text(
-                        step.text,
+                        stringResource(step.text),
                         fontSize = 11.sp,
                         lineHeight = 18.sp,
                         color = DesignTokens.Colors.textSecondary,
@@ -116,7 +119,7 @@ fun ProcessGuideCard(modifier: Modifier = Modifier) {
                 .padding(horizontal = 9.dp, vertical = 6.dp),
         ) {
             Text(
-                "理由を見ながら、ちゃんと決める",
+                stringResource(R.string.process_guide_badge),
                 fontSize = 9.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = DesignTokens.Colors.textSecondary,

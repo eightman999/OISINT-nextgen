@@ -1,0 +1,24 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "NSLocationWhenInUseUsageDescription" : {
+      "comment" : "Location permission prompt",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OISINT uses your location to add nearby restaurants to your search conditions."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在地付近のお店を検索条件に反映するため、位置情報を使用します。"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

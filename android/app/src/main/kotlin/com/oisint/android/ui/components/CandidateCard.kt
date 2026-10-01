@@ -1,5 +1,8 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -53,16 +56,27 @@ private val WalkRegex = Regex("""徒歩\d+分""")
  * 徒歩◯分(Blue) → 予算(Green) → カード可(Orange) → 矛盾(Red)。
  * `if (place.budget)` は truthy 判定のため isNullOrEmpty で移植。
  */
+@Composable
 private fun buildTags(candidate: Candidate): List<Pair<String, TagTone>> {
     val place = candidate.place
+    // 徒歩◯分は店舗データ（サーバ返却の access 文字列）からの抜粋なので原文のまま表示する。
+    val walk = place.access?.let { WalkRegex.find(it)?.value }
+    val budgetTag = place.budget?.takeIf { it.isNotEmpty() }?.let {
+        stringResource(R.string.candidate_tag_budget, it)
+    }
+    // place.card == "可" はサーバ値の判定（翻訳しない）。表示ラベルだけローカライズする。
+    val cardTag = if (place.card == "可") stringResource(R.string.candidate_tag_card_ok) else null
+    val contradictionCount = candidate.contradictions.size
+    val contradictionTag = if (contradictionCount > 0) {
+        pluralStringResource(R.plurals.candidate_tag_contradictions, contradictionCount, contradictionCount)
+    } else {
+        null
+    }
     return buildList {
-        val walk = place.access?.let { WalkRegex.find(it)?.value }
         if (walk != null) add(walk to TagTone.Blue)
-        if (!place.budget.isNullOrEmpty()) add("予算 ${place.budget}" to TagTone.Green)
-        if (place.card == "可") add("カード可" to TagTone.Orange)
-        if (candidate.contradictions.isNotEmpty()) {
-            add("⚠ 矛盾${candidate.contradictions.size}件" to TagTone.Red)
-        }
+        if (budgetTag != null) add(budgetTag to TagTone.Green)
+        if (cardTag != null) add(cardTag to TagTone.Orange)
+        if (contradictionTag != null) add(contradictionTag to TagTone.Red)
     }
 }
 
@@ -100,11 +114,12 @@ fun CandidateCard(
     val place = candidate.place
 
     // tsx L54-60: value != 0 の投票のみ。表示名は members から id 一致で解決（無ければ '不明'）
+    val unknownMemberName = stringResource(R.string.common_unknown)
     val voteDisplay = candidate.votes.entries
         .filter { it.value != 0 }
         .map { (userId, value) ->
             val member = members.firstOrNull { it.id == userId }
-            (member?.displayName ?: "不明") to value
+            (member?.displayName ?: unknownMemberName) to value
         }
 
     val tags = buildTags(candidate)
@@ -141,13 +156,18 @@ fun CandidateCard(
         candidate.rank == 1 && unresolvedMustRequirements.isNotEmpty()
 
     val shape = RoundedCornerShape(DesignTokens.Radius.sm)
+    val cardLabelHead = stringResource(R.string.candidate_a11y_label, candidate.rank, place.name)
+    val cardLabelUnverified = stringResource(R.string.candidate_a11y_unverified_suffix)
+    val cardLabelDetails = stringResource(R.string.candidate_a11y_show_details)
     val cardLabel = buildString {
-        append("候補${candidate.rank}位 ${place.name}")
+        append(cardLabelHead)
         if (suppressRecommendationEmphasis) {
-            append("。必須条件に未確認項目があるためおすすめ未確定です")
+            append(cardLabelUnverified)
         }
-        append("。候補の詳細を表示")
+        append(cardLabelDetails)
     }
+    val cardClickLabel = stringResource(R.string.candidate_click_label)
+    val separator = stringResource(R.string.list_separator)
 
     // tsx L78-93 container: surface 背景 / border 1（selected 時 orange 2）/ radius.sm / overflow hidden
     Column(
@@ -161,7 +181,7 @@ fun CandidateCard(
                 shape = shape,
             )
             .clickable(
-                onClickLabel = "タップすると条件適合度と根拠を確認できます",
+                onClickLabel = cardClickLabel,
                 role = Role.Button,
                 onClick = onClick,
             )
@@ -174,7 +194,7 @@ fun CandidateCard(
                 .background(DesignTokens.genreColor(place.genre)),
         ) {
             Text(
-                text = place.genre ?: "グルメ",
+                text = place.genre ?: stringResource(R.string.candidate_genre_fallback),
                 color = DesignTokens.Colors.surface,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
@@ -184,6 +204,7 @@ fun CandidateCard(
             )
 
             if (suppressRecommendationEmphasis) {
+                val unverifiedDescription = stringResource(R.string.candidate_rank_unverified_a11y)
                 Box(
                     modifier = Modifier
                         .align(Alignment.TopStart)
@@ -194,13 +215,12 @@ fun CandidateCard(
                         )
                         .padding(horizontal = 9.dp, vertical = 6.dp)
                         .semantics {
-                            contentDescription =
-                                "1位候補ですが、必須条件が未確認のためおすすめ未確定です"
+                            contentDescription = unverifiedDescription
                         },
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        text = "調査不足",
+                        text = stringResource(R.string.candidate_rank_unverified),
                         color = DesignTokens.Colors.warning,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.ExtraBold,
@@ -251,7 +271,7 @@ fun CandidateCard(
                 lineHeight = 15.sp,
             )
 
-            val fillText = "条件 $matchedRequirements/${totalRequirements}件が一致"
+            val fillText = stringResource(R.string.candidate_fill, matchedRequirements, totalRequirements)
             Text(
                 text = fillText,
                 color = DesignTokens.Colors.textSecondary,
@@ -264,7 +284,10 @@ fun CandidateCard(
 
             if (suppressRecommendationEmphasis) {
                 Text(
-                    text = "未確認の必須条件あり: ${unresolvedMustRequirements.joinToString("、") { it.normalizedText }}",
+                    text = stringResource(
+                        R.string.candidate_unresolved_must,
+                        unresolvedMustRequirements.joinToString(separator) { it.normalizedText },
+                    ),
                     color = DesignTokens.Colors.warning,
                     fontSize = 10.sp,
                     lineHeight = 15.sp,
@@ -280,7 +303,10 @@ fun CandidateCard(
                 )
                 if (mismatchedMustRequirements.isNotEmpty()) {
                     Text(
-                        text = "不適合の必須条件: ${mismatchedMustRequirements.joinToString("、") { it.normalizedText }}",
+                        text = stringResource(
+                            R.string.candidate_mismatched_must,
+                            mismatchedMustRequirements.joinToString(separator) { it.normalizedText },
+                        ),
                         color = DesignTokens.Colors.warning,
                         fontSize = 10.sp,
                         lineHeight = 15.sp,
@@ -297,7 +323,10 @@ fun CandidateCard(
                 }
             } else if (missingMustRequirements.isNotEmpty()) {
                 Text(
-                    text = "要確認: ${missingMustRequirements.joinToString("、") { it.normalizedText }}",
+                    text = stringResource(
+                        R.string.candidate_missing_must,
+                        missingMustRequirements.joinToString(separator) { it.normalizedText },
+                    ),
                     color = DesignTokens.Colors.warning,
                     fontSize = 10.sp,
                     lineHeight = 15.sp,
@@ -319,7 +348,7 @@ fun CandidateCard(
 
             if (!place.open.isNullOrEmpty() || !place.close.isNullOrEmpty()) {
                 Text(
-                    text = "営業 ${place.open ?: "?"}〜${place.close ?: "?"}",
+                    text = stringResource(R.string.candidate_hours, place.open ?: "?", place.close ?: "?"),
                     color = SummaryTextColor,
                     fontSize = 10.sp,
                     lineHeight = 15.sp,
@@ -352,7 +381,7 @@ fun CandidateCard(
                                 overflow = TextOverflow.Ellipsis,
                                 modifier = Modifier.weight(1f),
                             )
-                            val stateLabel = Format.matchStateAccessibilityLabel(state)
+                            val stateLabel = stringResource(Format.matchStateAccessibilityLabel(state))
                             Text(
                                 text = Format.matchStateSymbol(state),
                                 color = Format.matchStateColor(state),
@@ -374,7 +403,7 @@ fun CandidateCard(
                         .padding(top = 8.dp),
                 ) {
                     Text(
-                        text = "予算目安　${place.budget} / 人",
+                        text = stringResource(R.string.candidate_budget_per_person, place.budget.orEmpty()),
                         color = PriceTextColor,
                         fontSize = 10.sp,
                     )

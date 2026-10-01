@@ -15,7 +15,7 @@ public struct ProgressIndicatorView: View {
                 HStack(spacing: 4) {
                     Text(Format.statusSymbol(step, current: status))
                         .oisintFont(12)
-                    Text(Format.statusLabel(step))
+                    Text(Format.localizedStatusLabel(step))
                         .oisintFont(12, step == status ? .bold : .regular)
                         .foregroundStyle(
                             step == status
@@ -32,7 +32,7 @@ public struct ProgressIndicatorView: View {
         }
         .padding(.vertical, 12)
         .accessibilityElement(children: .contain)
-        .accessibilityLabel("調査の進行状況: \(Format.statusLabel(status))")
+        .accessibilityLabel(Text("調査の進行状況: \(Format.localizedStatusLabel(status))", bundle: .module))
         .accessibilityIdentifier("progress-steps")
     }
 }

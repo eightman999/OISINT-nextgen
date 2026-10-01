@@ -217,13 +217,14 @@ public final class RevenueCatEntitlementProvider: EntitlementProviding {
     private static let allowedProductIdentifiers: Set<String> = [monthlyProductIdentifier, annualProductIdentifier]
 
     private static func periodLabel(_ period: SubscriptionPeriod?) -> String {
-        guard let period else { return "サブスクリプション" }
+        guard let period else { return String(localized: "サブスクリプション", bundle: .module) }
+        let value = period.value
         switch period.unit {
-        case .day: return period.value == 1 ? "日ごと" : "\(period.value)日ごと"
-        case .week: return period.value == 1 ? "週間ごと" : "\(period.value)週間ごと"
-        case .month: return period.value == 1 ? "月ごと" : "\(period.value)か月ごと"
-        case .year: return period.value == 1 ? "年ごと" : "\(period.value)年ごと"
-        @unknown default: return "サブスクリプション"
+        case .day: return value == 1 ? String(localized: "日ごと", bundle: .module) : String(localized: "\(value)日ごと", bundle: .module)
+        case .week: return value == 1 ? String(localized: "週間ごと", bundle: .module) : String(localized: "\(value)週間ごと", bundle: .module)
+        case .month: return value == 1 ? String(localized: "月ごと", bundle: .module) : String(localized: "\(value)か月ごと", bundle: .module)
+        case .year: return value == 1 ? String(localized: "年ごと", bundle: .module) : String(localized: "\(value)年ごと", bundle: .module)
+        @unknown default: return String(localized: "サブスクリプション", bundle: .module)
         }
     }
 }

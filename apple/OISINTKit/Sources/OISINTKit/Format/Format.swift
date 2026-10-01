@@ -33,6 +33,12 @@ public enum Format {
         }
     }
 
+    /// 表示用: matchStateAccessibilityLabel の日本語正典をキーに、端末/アプリの言語へ解決する。
+    /// 正典（上の関数）は format.ts との突合対象なので変更しない。
+    public static func localizedMatchStateAccessibilityLabel(_ state: MatchState) -> String {
+        String(localized: String.LocalizationValue(matchStateAccessibilityLabel(state)), bundle: .module)
+    }
+
     /// statusOrder（format.ts L46-54 逐語）
     public static let statusOrder: [InvestigationStatus] = [
         .parsing,
@@ -57,6 +63,11 @@ public enum Format {
         case .complete: return "完了"
         case .failed: return "失敗"
         }
+    }
+
+    /// 表示用: statusLabel の日本語正典をキーに、端末/アプリの言語へ解決する。
+    public static func localizedStatusLabel(_ status: InvestigationStatus) -> String {
+        String(localized: String.LocalizationValue(statusLabel(status)), bundle: .module)
     }
 
     /// statusSymbol（format.ts L79-87 のロジック同値移植）

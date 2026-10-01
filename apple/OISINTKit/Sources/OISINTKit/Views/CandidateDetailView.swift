@@ -72,7 +72,7 @@ public struct CandidateDetailView: View {
 
     private var evaluationSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            sectionHeading("条件")
+            sectionHeading(String(localized: "条件", bundle: .module))
             ForEach(candidate.evaluations, id: \.requirementId) { evaluation in
                 let requirement = requirements.first { $0.id == evaluation.requirementId }
                 let evidence = evaluation.evidenceIds
@@ -83,7 +83,7 @@ public struct CandidateDetailView: View {
                         .oisintFont(18, .heavy)
                         .foregroundStyle(Format.matchStateColor(evaluation.state).color)
                         .frame(width: 24)
-                        .accessibilityLabel(Format.matchStateAccessibilityLabel(evaluation.state))
+                        .accessibilityLabel(Format.localizedMatchStateAccessibilityLabel(evaluation.state))
                     VStack(alignment: .leading, spacing: 2) {
                         Text(requirement?.normalizedText ?? evaluation.requirementId)
                             .oisintFont(14)
@@ -109,7 +109,7 @@ public struct CandidateDetailView: View {
         VStack(alignment: .leading, spacing: 8) {
             sectionHeading("Evidence")
             if candidate.evidence.isEmpty {
-                Text("Evidenceはまだ収集されていません")
+                Text("Evidenceはまだ収集されていません", bundle: .module)
                     .oisintFont(13)
                     .italic()
                     .foregroundStyle(DesignTokens.Colors.textTertiary.color)
@@ -142,10 +142,10 @@ public struct CandidateDetailView: View {
                         )
                     }
                     .buttonStyle(.plain)
-                    .accessibilityLabel("\(evidence.sourceTitle ?? evidence.sourceType)。Evidenceを開く")
+                    .accessibilityLabel(Text("\(evidence.sourceTitle ?? evidence.sourceType)。Evidenceを開く", bundle: .module))
                 }
             }
-            Text("引用は原文照合していません。重要な条件は出典を開いて店舗へ直接確認してください。")
+            Text("引用は原文照合していません。重要な条件は出典を開いて店舗へ直接確認してください。", bundle: .module)
                 .oisintFont(10)
                 .foregroundStyle(DesignTokens.Colors.textTertiary.color)
                 .accessibilityIdentifier("inv-evidence-footnote")
@@ -156,7 +156,7 @@ public struct CandidateDetailView: View {
 
     private var contradictionSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            sectionHeading("⚠ 矛盾")
+            sectionHeading(String(localized: "⚠ 矛盾", bundle: .module))
             ForEach(Array(candidate.contradictions.enumerated()), id: \.offset) { _, contradiction in
                 VStack(alignment: .leading, spacing: 4) {
                     Text(contradiction.key)
@@ -200,7 +200,7 @@ public struct CandidateDetailView: View {
 
     private var voteSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            sectionHeading("投票")
+            sectionHeading(String(localized: "投票", bundle: .module))
             VoteButtonsView(value: userVote, onChange: onVoteChange)
         }
     }
@@ -209,14 +209,14 @@ public struct CandidateDetailView: View {
 
     private func decisionSection(_ text: DecisionText.Result) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            sectionHeading("この店に決めた")
+            sectionHeading(String(localized: "この店に決めた", bundle: .module))
             Button {
                 if decisionFormat == nil {
                     decisionFormat = .short
                 }
                 copyStatus = .idle
             } label: {
-                Text("貼り付け用テキストを作る")
+                Text("貼り付け用テキストを作る", bundle: .module)
                     .oisintFont(13, .bold)
                     .foregroundStyle(DesignTokens.Colors.surface.color)
                     .frame(maxWidth: .infinity, minHeight: 42)
@@ -224,14 +224,14 @@ public struct CandidateDetailView: View {
                     .clipShape(RoundedRectangle(cornerRadius: DesignTokens.Radius.sm))
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("この店に決めた。決定テキストの形式を選ぶ")
+            .accessibilityLabel(Text("この店に決めた。決定テキストの形式を選ぶ", bundle: .module))
             .accessibilityIdentifier("decision-button")
 
             if let format = decisionFormat {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 8) {
-                        formatButton("短い版", format: .short, current: format, identifier: "decision-short")
-                        formatButton("詳しい版", format: .detailed, current: format, identifier: "decision-detailed")
+                        formatButton(String(localized: "短い版", bundle: .module), format: .short, current: format, identifier: "decision-short")
+                        formatButton(String(localized: "詳しい版", bundle: .module), format: .detailed, current: format, identifier: "decision-detailed")
                     }
                     Text(format == .short ? text.short : text.detailed)
                         .oisintFont(12)
@@ -244,7 +244,7 @@ public struct CandidateDetailView: View {
                     Button {
                         copyStatus = copyText(format == .short ? text.short : text.detailed) ? .copied : .unavailable
                     } label: {
-                        Text("コピー")
+                        Text("コピー", bundle: .module)
                             .oisintFont(12, .bold)
                             .foregroundStyle(DesignTokens.Colors.text.color)
                             .frame(maxWidth: .infinity, minHeight: 38)
@@ -254,13 +254,13 @@ public struct CandidateDetailView: View {
                             )
                     }
                     .buttonStyle(.plain)
-                    .accessibilityLabel("\(format == .short ? "短い版" : "詳しい版")をコピー")
+                    .accessibilityLabel(Text("\(format == .short ? String(localized: "短い版", bundle: .module) : String(localized: "詳しい版", bundle: .module))をコピー", bundle: .module))
                     .accessibilityIdentifier("decision-copy")
                     if copyStatus == .copied {
-                        copyStatusText("コピーしました")
+                        copyStatusText(String(localized: "コピーしました", bundle: .module))
                     }
                     if copyStatus == .unavailable {
-                        copyStatusText("この環境ではコピーできません。テキストを長押しして選択してください。")
+                        copyStatusText(String(localized: "この環境ではコピーできません。テキストを長押しして選択してください。", bundle: .module))
                     }
                 }
             }
@@ -292,7 +292,7 @@ public struct CandidateDetailView: View {
                 )
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("\(title)を選ぶ")
+        .accessibilityLabel(Text("\(title)を選ぶ", bundle: .module))
         .accessibilityAddTraits(active ? [.isSelected] : [])
         .accessibilityIdentifier(identifier)
     }

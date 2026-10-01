@@ -184,7 +184,7 @@ public enum DecisionText {
 
     /// CandidateDetail.tsx sourceLabel の移植
     public static func sourceLabel(_ evidence: Evidence?) -> String {
-        guard let evidence else { return "出典不明" }
+        guard let evidence else { return String(localized: "出典不明", bundle: .module) }
         if let host = URL(string: evidence.sourceUrl)?.host {
             let domain = host.replacingOccurrences(of: "^www\\.", with: "", options: [.regularExpression, .caseInsensitive])
             return "\(evidence.sourceTitle ?? evidence.sourceType) · \(domain)"

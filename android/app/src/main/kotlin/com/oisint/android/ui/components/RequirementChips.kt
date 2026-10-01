@@ -1,5 +1,7 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -50,7 +52,7 @@ fun RequirementChips(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
-            "条件",
+            stringResource(R.string.requirements_title),
             modifier = Modifier.padding(bottom = 2.dp),
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
@@ -77,9 +79,10 @@ fun RequirementChips(
                     )
                 }
             }
+            val addDescription = stringResource(R.string.requirements_add_a11y)
             Box(
                 modifier = Modifier
-                    .semantics { contentDescription = "条件を追加" }
+                    .semantics { contentDescription = addDescription }
                     .clip(pill)
                     .clickable(role = Role.Button, onClick = onAddClick)
                     .defaultMinSize(minHeight = 28.dp)
@@ -87,7 +90,7 @@ fun RequirementChips(
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    "＋ 条件を追加",
+                    stringResource(R.string.requirements_add),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = DesignTokens.Colors.orange,

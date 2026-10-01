@@ -1,5 +1,7 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -37,7 +39,9 @@ class VoteCommentEditorTest {
         }
 
         composeRule.onNodeWithTag("vote-comment-input").performTextInput("  辛い料理が多そう  ")
-        composeRule.onNodeWithContentDescription("行きたい").performClick()
+        // 票ボタンのラベルは端末ロケールで変わるため string resource から引く
+        val wantLabel = InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.vote_want)
+        composeRule.onNodeWithContentDescription(wantLabel).performClick()
 
         composeRule.runOnIdle {
             assertEquals(listOf(1 to "辛い料理が多そう"), saved)

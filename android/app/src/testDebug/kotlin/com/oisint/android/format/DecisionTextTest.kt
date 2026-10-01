@@ -1,5 +1,6 @@
 package com.oisint.android.format
 
+import com.oisint.android.testing.StringResources
 import com.oisint.android.data.mock.MockData
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -11,11 +12,14 @@ import org.junit.Test
  */
 class DecisionTextTest {
 
+    /** 既定ロケール（values/strings.xml = 日本語）の定型文。Web 正典の日本語と逐語照合する。 */
+    private val JA = DecisionText.Labels.from(StringResources::ja)
+
     @Test
     fun goldenShortForMockStoreA() {
         val inv = MockData.mockInvestigation
         val storeA = inv.candidates.first { it.id == "c-1" }
-        val result = DecisionText.generateDecisionText(inv, storeA)
+        val result = DecisionText.generateDecisionText(inv, storeA, JA)
 
         val expectedShort = listOf(
             "店名: 店A",
@@ -31,7 +35,7 @@ class DecisionTextTest {
     fun goldenDetailedForMockStoreA() {
         val inv = MockData.mockInvestigation
         val storeA = inv.candidates.first { it.id == "c-1" }
-        val result = DecisionText.generateDecisionText(inv, storeA)
+        val result = DecisionText.generateDecisionText(inv, storeA, JA)
 
         val expectedDetailed = listOf(
             "店名: 店A",
@@ -57,7 +61,7 @@ class DecisionTextTest {
         val inv = MockData.mockInvestigation
         // 店 C は evidence 0 件 → 生成理由なし → フォールバック文。r-4 が unknown → 電話質問 1 件
         val storeC = inv.candidates.first { it.id == "c-3" }
-        val result = DecisionText.generateDecisionText(inv, storeC)
+        val result = DecisionText.generateDecisionText(inv, storeC, JA)
 
         val expectedDetailed = listOf(
             "店名: 店C",
@@ -85,6 +89,7 @@ class DecisionTextTest {
         val result = DecisionText.generateDecisionText(
             inv,
             storeA,
+            JA,
             DecisionText.Options(
                 dateTime = "8/23 19:00",
                 phoneNumber = "03-1234-5678",
@@ -114,6 +119,7 @@ class DecisionTextTest {
         val result = DecisionText.generateDecisionText(
             inv,
             storeA,
+            JA,
             // javascript: URL や相対パスは JS の new URL 同様に不採用（http/https のみ）
             DecisionText.Options(mapUrl = "javascript:alert(1)", verificationUrl = "example.com/no-scheme"),
         )

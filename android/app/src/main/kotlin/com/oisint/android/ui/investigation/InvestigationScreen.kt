@@ -1,5 +1,9 @@
 package com.oisint.android.ui.investigation
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -111,8 +115,8 @@ fun InvestigationScreen(
     ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             // actionError（[id].tsx L163-167）
-            if (state.actionError.isNotEmpty()) {
-                Text(state.actionError, color = DesignTokens.Colors.danger, fontSize = 12.sp)
+            state.actionError?.let { actionErrorRes ->
+                Text(stringResource(actionErrorRes), color = DesignTokens.Colors.danger, fontSize = 12.sp)
             }
 
             // failedState（[id].tsx L169-184）
@@ -188,7 +192,7 @@ private fun selectTopRanked(viewModel: InvestigationViewModel, investigation: In
 
 /** [id].tsx L136-152 */
 @Composable
-private fun NotFoundState(error: String?, onRetry: () -> Unit) {
+private fun NotFoundState(@StringRes error: Int?, onRetry: () -> Unit) {
     Column(
         Modifier
             .fillMaxSize()
@@ -198,19 +202,20 @@ private fun NotFoundState(error: String?, onRetry: () -> Unit) {
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            error ?: "調査を読み込めませんでした",
+            stringResource(error ?: R.string.investigation_error_load_default),
             color = DesignTokens.Colors.danger,
             fontSize = 13.sp,
         )
         Spacer(Modifier.height(12.dp))
+        val reloadDescription = stringResource(R.string.investigation_reload_a11y)
         Box(
             Modifier
                 .background(DesignTokens.Colors.black, RoundedCornerShape(DesignTokens.Radius.sm))
                 .clickable(onClick = onRetry)
-                .semantics { contentDescription = "調査を再読み込み" }
+                .semantics { contentDescription = reloadDescription }
                 .padding(horizontal = 20.dp, vertical = 10.dp),
         ) {
-            Text("再読み込み", color = DesignTokens.Colors.surface, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.investigation_reload), color = DesignTokens.Colors.surface, fontSize = 13.sp, fontWeight = FontWeight.Bold)
         }
     }
 }
@@ -226,12 +231,13 @@ private fun FailedBanner(retrying: Boolean, onRetry: () -> Unit) {
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Text("調査の実行に失敗しました。", color = DesignTokens.Colors.danger, fontSize = 13.sp)
+        Text(stringResource(R.string.investigation_failed), color = DesignTokens.Colors.danger, fontSize = 13.sp)
+        val retryDescription = stringResource(R.string.investigation_retry_a11y)
         Box(
             Modifier
                 .background(DesignTokens.Colors.black, RoundedCornerShape(DesignTokens.Radius.sm))
                 .clickable(enabled = !retrying, onClick = onRetry)
-                .semantics { contentDescription = "調査を再試行" }
+                .semantics { contentDescription = retryDescription }
                 .padding(horizontal = 20.dp, vertical = 10.dp),
             contentAlignment = Alignment.Center,
         ) {
@@ -242,7 +248,7 @@ private fun FailedBanner(retrying: Boolean, onRetry: () -> Unit) {
                     strokeWidth = 2.dp,
                 )
             } else {
-                Text("再試行", color = DesignTokens.Colors.surface, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.investigation_retry), color = DesignTokens.Colors.surface, fontSize = 13.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
@@ -266,6 +272,9 @@ private fun HeaderSection(
                 modifier = Modifier.weight(1f),
             )
             val shareEnabled = investigation.candidates.isNotEmpty()
+            val shareDescription = stringResource(
+                if (shareCopied) R.string.investigation_share_copied_a11y else R.string.investigation_share_copy_a11y,
+            )
             Box(
                 Modifier
                     .testTag("inv-share")
@@ -275,12 +284,12 @@ private fun HeaderSection(
                     )
                     .clickable(enabled = shareEnabled, onClick = onShare)
                     .semantics {
-                        contentDescription = if (shareCopied) "共有URLをコピーしました" else "共有URLをコピー"
+                        contentDescription = shareDescription
                     }
                     .padding(horizontal = 14.dp, vertical = 8.dp),
             ) {
                 Text(
-                    if (shareCopied) "コピーしました" else "共有",
+                    stringResource(if (shareCopied) R.string.investigation_share_copied else R.string.investigation_share),
                     color = DesignTokens.Colors.surface,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
@@ -321,7 +330,7 @@ private fun RequirementsSection(viewModel: InvestigationViewModel, state: Invest
                     .padding(horizontal = 12.dp, vertical = 10.dp),
             ) {
                 if (state.newRequirementText.isEmpty()) {
-                    Text("追加する条件", fontSize = 13.sp, color = DesignTokens.Colors.textTertiary)
+                    Text(stringResource(R.string.investigation_requirement_placeholder), fontSize = 13.sp, color = DesignTokens.Colors.textTertiary)
                 }
                 BasicTextField(
                     value = state.newRequirementText,
@@ -343,7 +352,7 @@ private fun RequirementsSection(viewModel: InvestigationViewModel, state: Invest
                         .clickable { viewModel.setAddingRequirement(false) }
                         .padding(horizontal = 16.dp, vertical = 9.dp),
                 ) {
-                    Text("キャンセル", fontSize = 12.sp, color = DesignTokens.Colors.textSecondary)
+                    Text(stringResource(R.string.common_cancel), fontSize = 12.sp, color = DesignTokens.Colors.textSecondary)
                 }
                 Box(
                     Modifier
@@ -352,7 +361,7 @@ private fun RequirementsSection(viewModel: InvestigationViewModel, state: Invest
                         .padding(horizontal = 16.dp, vertical = 9.dp),
                 ) {
                     Text(
-                        "追加",
+                        stringResource(R.string.investigation_requirement_add),
                         fontSize = 12.sp,
                         color = DesignTokens.Colors.surface,
                         fontWeight = FontWeight.Bold,
@@ -380,14 +389,24 @@ private fun CandidatesSection(
 
     Column(Modifier.testTag("inv-candidates"), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text(
-            if (topCandidateHasUnresolvedMust) "候補の比較結果" else "おすすめのレストラン",
+            stringResource(
+                if (topCandidateHasUnresolvedMust) {
+                    R.string.investigation_candidates_comparison
+                } else {
+                    R.string.investigation_candidates_recommended
+                },
+            ),
             fontSize = 16.sp,
             fontWeight = FontWeight.ExtraBold,
             color = DesignTokens.Colors.text,
             modifier = Modifier.testTag("inv-candidates-heading"),
         )
         Text(
-            "${investigation.candidates.size}件の候補が見つかりました",
+            pluralStringResource(
+                R.plurals.investigation_candidates_found,
+                investigation.candidates.size,
+                investigation.candidates.size,
+            ),
             fontSize = 12.sp,
             color = DesignTokens.Colors.textSecondary,
         )
@@ -405,7 +424,7 @@ private fun CandidatesSection(
             }
             investigation.status.wire == "complete" -> {
                 Text(
-                    "条件に合う候補店が見つかりませんでした。条件を追加して再検索してください。",
+                    stringResource(R.string.investigation_no_candidates),
                     fontSize = 12.sp,
                     color = DesignTokens.Colors.textSecondary,
                 )
@@ -419,7 +438,7 @@ private fun CandidatesSection(
                     )
                     Spacer(Modifier.width(8.dp))
                     Text(
-                        "候補店を探索中…",
+                        stringResource(R.string.investigation_searching),
                         fontSize = 12.sp,
                         color = DesignTokens.Colors.textSecondary,
                     )

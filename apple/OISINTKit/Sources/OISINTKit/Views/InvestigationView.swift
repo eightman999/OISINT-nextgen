@@ -41,24 +41,24 @@ public struct InvestigationView: View {
     private var loadingState: some View {
         VStack(spacing: 12) {
             ProgressView()
-            Text("調査を読み込んでいます…")
+            Text("調査を読み込んでいます…", bundle: .module)
                 .oisintFont(14)
                 .foregroundStyle(DesignTokens.Colors.textSecondary.color)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .accessibilityLabel("読み込み中")
+        .accessibilityLabel(Text("読み込み中", bundle: .module))
     }
 
     private var notFoundState: some View {
         VStack(spacing: 12) {
-            Text(store.errorMessage ?? "調査を読み込めませんでした")
+            Text(store.errorMessage ?? String(localized: "調査を読み込めませんでした", bundle: .module))
                 .oisintFont(13)
                 .foregroundStyle(DesignTokens.Colors.danger.color)
                 .multilineTextAlignment(.center)
             Button {
                 Task { await store.retry() }
             } label: {
-                Text("再読み込み")
+                Text("再読み込み", bundle: .module)
                     .oisintFont(13, .bold)
                     .foregroundStyle(DesignTokens.Colors.surface.color)
                     .padding(.horizontal, 16)
@@ -67,7 +67,7 @@ public struct InvestigationView: View {
                     .clipShape(RoundedRectangle(cornerRadius: DesignTokens.Radius.sm))
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("調査を再読み込み")
+            .accessibilityLabel(Text("調査を再読み込み", bundle: .module))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -192,13 +192,13 @@ public struct InvestigationView: View {
 
     private var failedState: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("調査の実行に失敗しました。")
+            Text("調査の実行に失敗しました。", bundle: .module)
                 .oisintFont(14, .bold)
                 .foregroundStyle(DesignTokens.Colors.danger.color)
             Button {
                 Task { await store.handleRetryRun() }
             } label: {
-                Text("再試行")
+                Text("再試行", bundle: .module)
                     .oisintFont(13, .bold)
                     .foregroundStyle(DesignTokens.Colors.surface.color)
                     .padding(.horizontal, 16)
@@ -208,7 +208,7 @@ public struct InvestigationView: View {
             }
             .buttonStyle(.plain)
             .disabled(store.retrying)
-            .accessibilityLabel("調査を再試行")
+            .accessibilityLabel(Text("調査を再試行", bundle: .module))
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -231,7 +231,7 @@ public struct InvestigationView: View {
                 Button {
                     store.handleShare(copyToPasteboard: Pasteboard.copy)
                 } label: {
-                    Text(store.shareCopied ? "コピーしました" : "共有する")
+                    Text(store.shareCopied ? String(localized: "コピーしました", bundle: .module) : String(localized: "共有する", bundle: .module))
                         .oisintFont(13, .semibold)
                         .foregroundStyle(DesignTokens.Colors.text.color)
                         .padding(.vertical, 8)
@@ -244,7 +244,7 @@ public struct InvestigationView: View {
                         )
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(store.shareCopied ? "共有URLをコピーしました" : "共有URLをコピー")
+                .accessibilityLabel(store.shareCopied ? String(localized: "共有URLをコピーしました", bundle: .module) : String(localized: "共有URLをコピー", bundle: .module))
                 .accessibilityIdentifier("inv-share")
             }
             Text(store.shareUrl)
@@ -258,7 +258,7 @@ public struct InvestigationView: View {
 
     private var addRequirementForm: some View {
         VStack(alignment: .leading, spacing: 8) {
-            TextField("追加する条件", text: Bindable(store).newRequirement)
+            TextField(String(localized: "追加する条件", bundle: .module), text: Bindable(store).newRequirement)
                 .textFieldStyle(.plain)
                 .oisintFont(14)
                 .foregroundStyle(DesignTokens.Colors.text.color)
@@ -274,7 +274,7 @@ public struct InvestigationView: View {
                 Button {
                     store.adding = false
                 } label: {
-                    Text("キャンセル")
+                    Text("キャンセル", bundle: .module)
                         .oisintFont(13, .bold)
                         .foregroundStyle(DesignTokens.Colors.textSecondary.color)
                         .frame(maxWidth: .infinity, minHeight: 40)
@@ -286,12 +286,12 @@ public struct InvestigationView: View {
                         )
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("条件追加をキャンセル")
+                .accessibilityLabel(Text("条件追加をキャンセル", bundle: .module))
                 .accessibilityIdentifier("inv-add-cancel")
                 Button {
                     Task { await store.handleAddRequirement(userId: app.userId) }
                 } label: {
-                    Text("追加")
+                    Text("追加", bundle: .module)
                         .oisintFont(13, .bold)
                         .foregroundStyle(DesignTokens.Colors.surface.color)
                         .frame(maxWidth: .infinity, minHeight: 40)
@@ -304,7 +304,7 @@ public struct InvestigationView: View {
                 }
                 .buttonStyle(.plain)
                 .disabled(store.newRequirement.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                .accessibilityLabel("条件を追加")
+                .accessibilityLabel(Text("条件を追加", bundle: .module))
                 .accessibilityIdentifier("inv-add-submit")
             }
         }
@@ -325,11 +325,11 @@ public struct InvestigationView: View {
 
         return VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .firstTextBaseline, spacing: 10) {
-                Text(topCandidateHasUnresolvedMust ? "候補の比較結果" : "おすすめのレストラン")
+                Text(topCandidateHasUnresolvedMust ? String(localized: "候補の比較結果", bundle: .module) : String(localized: "おすすめのレストラン", bundle: .module))
                     .oisintFont(16, .bold)
                     .foregroundStyle(DesignTokens.Colors.text.color)
                     .accessibilityIdentifier("inv-candidates-heading")
-                Text("\(investigation.candidates.count)件の候補が見つかりました")
+                Text("\(investigation.candidates.count)件の候補が見つかりました", bundle: .module)
                     .oisintFont(10)
                     .foregroundStyle(DesignTokens.Colors.textSecondary.color)
             }
@@ -337,7 +337,7 @@ public struct InvestigationView: View {
 
             if investigation.candidates.isEmpty {
                 if investigation.status == .complete {
-                    Text("条件に合う候補店が見つかりませんでした。条件を追加して再検索してください。")
+                    Text("条件に合う候補店が見つかりませんでした。条件を追加して再検索してください。", bundle: .module)
                         .oisintFont(14)
                         .foregroundStyle(DesignTokens.Colors.textTertiary.color)
                         .frame(maxWidth: .infinity)
@@ -370,7 +370,7 @@ public struct InvestigationView: View {
     private var loadingCandidates: some View {
         VStack(spacing: 8) {
             ProgressView()
-            Text("候補店を探索中です…")
+            Text("候補店を探索中です…", bundle: .module)
                 .oisintFont(14)
                 .foregroundStyle(DesignTokens.Colors.textTertiary.color)
             VStack(spacing: 10) {

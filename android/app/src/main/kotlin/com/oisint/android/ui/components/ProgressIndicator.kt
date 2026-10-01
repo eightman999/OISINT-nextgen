@@ -1,5 +1,7 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -39,13 +41,14 @@ import com.oisint.android.model.InvestigationStatus
 @Composable
 fun ProgressIndicator(status: InvestigationStatus, modifier: Modifier = Modifier) {
     val pill = RoundedCornerShape(DesignTokens.Radius.pill)
+    val progressDescription = stringResource(R.string.progress_a11y, stringResource(Format.statusLabel(status)))
     FlowRow(
         modifier = modifier
             .testTag("progress-steps")
             // ProgressIndicator.tsx L15-16: accessibilityLiveRegion="polite" + 全体ラベル
             .semantics {
                 liveRegion = LiveRegionMode.Polite
-                contentDescription = "調査の進行状況: ${Format.statusLabel(status)}"
+                contentDescription = progressDescription
             }
             .padding(vertical = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -68,7 +71,7 @@ fun ProgressIndicator(status: InvestigationStatus, modifier: Modifier = Modifier
                     color = DesignTokens.Colors.text,
                 )
                 Text(
-                    Format.statusLabel(step),
+                    stringResource(Format.statusLabel(step)),
                     fontSize = 12.sp,
                     fontWeight = if (active) FontWeight.Bold else null,
                     color = if (active) DesignTokens.Colors.orange else DesignTokens.Colors.textSecondary,

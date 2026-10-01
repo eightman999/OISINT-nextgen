@@ -1,5 +1,6 @@
 package com.oisint.android.ui
 
+import com.oisint.android.R
 import com.oisint.android.data.DataProvider
 import com.oisint.android.data.InvestigationListener
 import com.oisint.android.data.mock.MockDataProvider
@@ -280,7 +281,7 @@ class InvestigationViewModelTest {
         val provider = MockDataProvider(backgroundScope, Random(14))
         val vm = InvestigationViewModel(provider, null)
         runCurrent()
-        assertEquals("調査IDが指定されていません", vm.uiState.value.error)
+        assertEquals(R.string.investigation_error_missing_id, vm.uiState.value.error)
         assertNull(vm.uiState.value.investigation)
     }
 
@@ -289,7 +290,7 @@ class InvestigationViewModelTest {
         val provider = MockDataProvider(backgroundScope, Random(15))
         val vm = InvestigationViewModel(provider, "inv-does-not-exist")
         runCurrent()
-        assertEquals("調査が見つかりません", vm.uiState.value.error)
+        assertEquals(R.string.investigation_error_not_found, vm.uiState.value.error)
     }
 
     /** subscribe が解除されることの検証用フェイク */

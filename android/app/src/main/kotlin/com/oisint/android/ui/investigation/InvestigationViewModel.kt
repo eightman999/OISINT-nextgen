@@ -1,5 +1,7 @@
 package com.oisint.android.ui.investigation
 
+import com.oisint.android.R
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oisint.android.data.DataProvider
@@ -25,8 +27,9 @@ import kotlinx.coroutines.launch
 data class InvestigationUiState(
     val investigation: Investigation? = null,
     val loading: Boolean = true,
-    val error: String? = null,
-    val actionError: String = "",
+    /** 表示用エラー（string resource ID）。null はエラーなし。 */
+    @StringRes val error: Int? = null,
+    @StringRes val actionError: Int? = null,
     val selectedCandidateId: String? = null,
     val retrying: Boolean = false,
     val addingRequirement: Boolean = false,
@@ -56,7 +59,7 @@ class InvestigationViewModel(
         unsubscribe?.invoke()
         unsubscribe = null
         if (investigationId.isNullOrEmpty()) {
-            _uiState.update { it.copy(loading = false, error = "調査IDが指定されていません") }
+            _uiState.update { it.copy(loading = false, error = R.string.investigation_error_missing_id) }
             return
         }
         _uiState.update { it.copy(loading = true, error = null) }
@@ -70,7 +73,7 @@ class InvestigationViewModel(
                 val investigation = provider.getInvestigation(investigationId)
                 if (investigation == null) {
                     _uiState.update {
-                        it.copy(loading = false, error = "調査が見つかりません", currentUserId = userId)
+                        it.copy(loading = false, error = R.string.investigation_error_not_found, currentUserId = userId)
                     }
                     return@launch
                 }
@@ -94,7 +97,7 @@ class InvestigationViewModel(
                     }
                 }
             } catch (_: Exception) {
-                _uiState.update { it.copy(loading = false, error = "調査データを読み込めませんでした") }
+                _uiState.update { it.copy(loading = false, error = R.string.investigation_error_load_failed) }
             }
         }
     }
@@ -109,11 +112,11 @@ class InvestigationViewModel(
         _uiState.update { it.copy(newRequirementText = value) }
 
     fun setAddingRequirement(adding: Boolean) =
-        _uiState.update { it.copy(addingRequirement = adding, actionError = "") }
+        _uiState.update { it.copy(addingRequirement = adding, actionError = null) }
 
     /** [id].tsx L55-71 handleShare 相当（クリップボードコピーは画面側。ここは表示状態管理のみ） */
     fun onShareCopied() {
-        _uiState.update { it.copy(shareCopied = true, actionError = "") }
+        _uiState.update { it.copy(shareCopied = true, actionError = null) }
         shareCopiedJob?.cancel()
         shareCopiedJob = viewModelScope.launch {
             delay(2200)
@@ -128,9 +131,9 @@ class InvestigationViewModel(
         val investigation = state.investigation
         if (text.isEmpty() || investigation == null) return
 
-        _uiState.update { it.copy(actionError = "") }
+        _uiState.update { it.copy(actionError = null) }
         if (state.currentUserId == null) {
-            _uiState.update { it.copy(actionError = "条件を追加する権限がありません。") }
+            _uiState.update { it.copy(actionError = R.string.investigation_error_no_permission) }
             return
         }
         viewModelScope.launch {
@@ -142,7 +145,7 @@ class InvestigationViewModel(
                 )
             } catch (_: Exception) {
                 _uiState.update {
-                    it.copy(actionError = "条件の追加または候補の再評価に失敗しました。再試行してください。")
+                    it.copy(actionError = R.string.investigation_error_add_requirement)
                 }
             }
         }
@@ -155,23 +158,20 @@ class InvestigationViewModel(
             retry()
             return
         }
-        _uiState.update { it.copy(actionError = "", retrying = true) }
+        _uiState.update { it.copy(actionError = null, retrying = true) }
         viewModelScope.launch {
             try {
                 // [id].tsx L274-279: anchor 不足の受理応答は再試行エラーではなく入力待ち。
                 val response = provider.runInvestigation(RunInvestigationRequest(investigation.id))
                 if (response.reason == RunInvestigationReason.LocationAnchorRequired) {
                     _uiState.update {
-                        it.copy(
-                            actionError =
-                                "現在地を検索に使用できませんでした。駅名・地名を入力してください。",
-                        )
+                        it.copy(actionError = R.string.investigation_error_location_anchor_required)
                     }
                     return@launch
                 }
             } catch (_: Exception) {
                 _uiState.update {
-                    it.copy(actionError = "調査を再試行できませんでした。時間を置いてもう一度お試しください。")
+                    it.copy(actionError = R.string.investigation_error_retry_run)
                 }
             } finally {
                 _uiState.update { it.copy(retrying = false) }
@@ -199,7 +199,7 @@ class InvestigationViewModel(
                 provider.setVote(investigation.id, candidateId, value, comment)
             } catch (_: Exception) {
                 _uiState.update {
-                    it.copy(actionError = "投票を保存できませんでした。通信状態を確認してください。")
+                    it.copy(actionError = R.string.investigation_error_vote_save)
                 }
             }
         }
@@ -212,7 +212,7 @@ class InvestigationViewModel(
                 )
             } catch (_: Exception) {
                 _uiState.update {
-                    it.copy(actionError = "投票を保存しましたが、順位の更新に失敗しました。")
+                    it.copy(actionError = R.string.investigation_error_vote_rerank)
                 }
             }
         }

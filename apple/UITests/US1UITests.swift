@@ -31,6 +31,8 @@ final class US1UITests: XCTestCase {
 
     func testUS1MockFlow() throws {
         let app = XCUIApplication()
+        // 文言で要素を探すため、端末言語に依らず日本語（開発言語）で起動する。
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         // mock モードを明示（DEBUG 既定も mock。Release 検証でも同じテストが使えるよう明示する）
         app.launchEnvironment["OISINT_DATA_PROVIDER_MODE"] = "mock"
         app.launch()
@@ -119,6 +121,8 @@ final class US1UITests: XCTestCase {
     /// （§1.9 golden-path E2E と同値）
     func testJoinFlow() throws {
         let app = XCUIApplication()
+        // 文言で要素を探すため、端末言語に依らず日本語（開発言語）で起動する。
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launchEnvironment["OISINT_DATA_PROVIDER_MODE"] = "mock"
         app.launchEnvironment["OISINT_TEST_OPEN_URL"] = "oisint://i/0123456789abcdef0123456789abcdef"
         app.launch()
@@ -146,6 +150,8 @@ final class US1UITests: XCTestCase {
     func testRealDeepLinkOpensJoinView() throws {
         #if os(iOS)
         let app = XCUIApplication()
+        // 文言で要素を探すため、端末言語に依らず日本語（開発言語）で起動する。
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launchEnvironment["OISINT_DATA_PROVIDER_MODE"] = "mock"
         app.launch()
         XCTAssertTrue(app.descendants(matching: .any)["home-query"].firstMatch.waitForExistence(timeout: 10))
@@ -178,6 +184,8 @@ final class US1UITests: XCTestCase {
         XCUIDevice.shared.orientation = .landscapeLeft
         #endif
         let app = XCUIApplication()
+        // 文言で要素を探すため、端末言語に依らず日本語（開発言語）で起動する。
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launchEnvironment["OISINT_DATA_PROVIDER_MODE"] = "mock"
         app.launch()
 
@@ -220,6 +228,8 @@ final class US1UITests: XCTestCase {
     func testAccessibilityLabels() throws {
         #if os(iOS)
         let app = XCUIApplication()
+        // 文言で要素を探すため、端末言語に依らず日本語（開発言語）で起動する。
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launchEnvironment["OISINT_DATA_PROVIDER_MODE"] = "mock"
         app.launchEnvironment["OISINT_TEST_OPEN_URL"] = "oisint://investigations/inv-001"
         app.launch()
@@ -283,6 +293,8 @@ final class US1UITests: XCTestCase {
             // リンクごとにアプリを新規起動し、Safari 復帰後も query を取り直す。
             // これにより前のリンクの accessibility snapshot / frame を次のリンクへ持ち越さない。
             let app = XCUIApplication()
+            // 文言で要素を探すため、端末言語に依らず日本語（開発言語）で起動する。
+            app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
             app.launchEnvironment["OISINT_DATA_PROVIDER_MODE"] = "mock"
             app.launch()
             XCTAssertTrue(
@@ -328,6 +340,8 @@ final class US1UITests: XCTestCase {
     /// 条件追加 → チップ増加（Phase 5 ゲート。スクロール位置が上部のうちに実施する独立フロー）
     func testAddRequirementFlow() throws {
         let app = XCUIApplication()
+        // 文言で要素を探すため、端末言語に依らず日本語（開発言語）で起動する。
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launchEnvironment["OISINT_DATA_PROVIDER_MODE"] = "mock"
         app.launch()
 
@@ -362,6 +376,8 @@ final class US1UITests: XCTestCase {
         XCUIDevice.shared.orientation = UIDevice.current.userInterfaceIdiom == .pad ? .landscapeLeft : .portrait
         #endif
         let app = XCUIApplication()
+        // 文言で要素を探すため、端末言語に依らず日本語（開発言語）で起動する。
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launchEnvironment["OISINT_DATA_PROVIDER_MODE"] = "mock"
         app.launch()
 
@@ -417,6 +433,8 @@ final class US1UITests: XCTestCase {
         #if os(iOS)
         XCUIDevice.shared.orientation = .portrait
         let app = XCUIApplication()
+        // 文言で要素を探すため、端末言語に依らず日本語（開発言語）で起動する。
+        app.launchArguments += ["-AppleLanguages", "(ja)", "-AppleLocale", "ja_JP"]
         app.launchEnvironment["OISINT_DATA_PROVIDER_MODE"] = "mock"
         var permissionPromptShown = false
         let monitor = addUIInterruptionMonitor(withDescription: "位置情報の使用許可") { alert in

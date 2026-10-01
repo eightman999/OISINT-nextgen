@@ -113,6 +113,12 @@ android {
         buildConfig = true
     }
 
+    androidResources {
+        // 対応言語は日本語（既定 values/）と英語（values-en/）。依存ライブラリの他言語リソースを
+        // APK へ含めず、res/xml/locales_config.xml（Android 13+ のアプリ別言語）と一致させる。
+        localeFilters += listOf("ja", "en")
+    }
+
     sourceSets {
         getByName("main").kotlin.srcDir("src/main/kotlin")
         getByName("debug").kotlin.srcDir("src/debug/kotlin")

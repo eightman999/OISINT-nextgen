@@ -1,5 +1,8 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -44,12 +47,37 @@ private val AVOID_OPTIONS = listOf("辛いもの", "混雑", "騒がしい", "�
 /** TasteProfilePanel.tsx L14 */
 private val ALLERGY_OPTIONS = listOf("小麦", "乳製品", "卵", "ナッツ")
 
-/** TasteProfilePanel.tsx L15-19（value はモデル enum、label は逐語） */
-private val HEALTH_OPTIONS: List<Pair<TasteHealthGoal, String>> = listOf(
-    TasteHealthGoal.None to "指定なし",
-    TasteHealthGoal.Diet to "ダイエット",
-    TasteHealthGoal.HighProtein to "高たんぱく",
+/** TasteProfilePanel.tsx L15-19（value はモデル enum、label は string resource） */
+private val HEALTH_OPTIONS: List<Pair<TasteHealthGoal, Int>> = listOf(
+    TasteHealthGoal.None to R.string.taste_health_none,
+    TasteHealthGoal.Diet to R.string.taste_health_diet,
+    TasteHealthGoal.HighProtein to R.string.taste_health_high_protein,
 )
+
+/**
+ * 好み/アレルギーの選択肢は調査クエリへそのまま連結してサーバへ送る値（日本語固定・翻訳しない）。
+ * 画面表示だけを string resource で切り替える。
+ */
+private val TASTE_OPTION_LABELS: Map<String, Int> = mapOf(
+    "肉" to R.string.taste_like_meat,
+    "寿司" to R.string.taste_like_sushi,
+    "ラーメン" to R.string.taste_like_ramen,
+    "カフェ" to R.string.taste_like_cafe,
+    "野菜" to R.string.taste_like_vegetables,
+    "辛いもの" to R.string.taste_avoid_spicy,
+    "混雑" to R.string.taste_avoid_crowded,
+    "騒がしい" to R.string.taste_avoid_noisy,
+    "高価格" to R.string.taste_avoid_expensive,
+    "小麦" to R.string.taste_allergy_wheat,
+    "乳製品" to R.string.taste_allergy_dairy,
+    "卵" to R.string.taste_allergy_egg,
+    "ナッツ" to R.string.taste_allergy_nuts,
+)
+
+/** サーバへ送る好み値の表示ラベル。未知の値（自由入力など）は原文のまま返す。 */
+@Composable
+fun tasteOptionLabel(value: String): String =
+    TASTE_OPTION_LABELS[value]?.let { stringResource(it) } ?: value
 
 /** tsx L25-33 toggleListValue: 含まれていれば除去、なければ末尾に追加 */
 private fun toggleListValue(current: List<String>, option: String): List<String> =
@@ -108,7 +136,7 @@ fun TasteProfilePanel(
             ) {
                 // tsx L57 eyebrow: 10sp / 800 / letterSpacing 1.2 / orange
                 Text(
-                    text = "02 / あなたの好み",
+                    text = stringResource(R.string.taste_eyebrow),
                     color = DesignTokens.Colors.orange,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.ExtraBold,
@@ -116,14 +144,14 @@ fun TasteProfilePanel(
                 )
                 // tsx L58 title: 15sp / 700 / text
                 Text(
-                    text = "好みを30秒で設定する",
+                    text = stringResource(R.string.taste_title),
                     color = DesignTokens.Colors.text,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                 )
                 // tsx L59-61 description: 11sp / lineHeight 17 / textSecondary
                 Text(
-                    text = "好き・避けたいは検索条件に、アレルギー・健康目的は候補確認の補助情報として使います。",
+                    text = stringResource(R.string.taste_body),
                     color = DesignTokens.Colors.textSecondary,
                     fontSize = 11.sp,
                     lineHeight = 17.sp,
@@ -136,7 +164,11 @@ fun TasteProfilePanel(
             ) {
                 // tsx L67: >0 なら「{N}件」、0 なら「任意」。色は常に orange（tsx L220-224）
                 Text(
-                    text = if (selectedCount > 0) "${selectedCount}件" else "任意",
+                    text = if (selectedCount > 0) {
+                        pluralStringResource(R.plurals.taste_selected_count, selectedCount, selectedCount)
+                    } else {
+                        stringResource(R.string.taste_optional)
+                    },
                     color = DesignTokens.Colors.orange,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
@@ -168,7 +200,7 @@ fun TasteProfilePanel(
             ) {
                 // tsx L74: 好きなもの（複数選択トグル）
                 TasteChipGroup(
-                    label = "好きなもの",
+                    label = stringResource(R.string.taste_likes),
                     options = LIKE_OPTIONS,
                     selected = profile.likes,
                     testPrefix = "taste-like",
@@ -179,7 +211,7 @@ fun TasteProfilePanel(
 
                 // tsx L75: 避けたいもの（複数選択トグル）
                 TasteChipGroup(
-                    label = "避けたいもの",
+                    label = stringResource(R.string.taste_avoid),
                     options = AVOID_OPTIONS,
                     selected = profile.avoid,
                     testPrefix = "taste-avoid",
@@ -190,13 +222,13 @@ fun TasteProfilePanel(
 
                 // tsx L77-108: アレルギー・食事制限（チップ + 自由入力が同じ String を編集）
                 Column(verticalArrangement = Arrangement.spacedBy(7.dp)) {
-                    GroupLabel("アレルギー・食事制限")
+                    GroupLabel(stringResource(R.string.taste_allergies))
                     ChipFlowRow {
                         ALLERGY_OPTIONS.forEach { option ->
                             // tsx L81: 選択判定は trim なしの生 split（toggle 側 L36-39 のみ trim）
                             val active = profile.allergies.split("、").contains(option)
                             TasteChip(
-                                label = option,
+                                label = tasteOptionLabel(option),
                                 active = active,
                                 tag = "taste-allergy-$option",
                                 role = Role.Checkbox,
@@ -215,7 +247,7 @@ fun TasteProfilePanel(
                     )
                     // tsx L107 safetyNote: 10sp / lineHeight 15 / warning
                     Text(
-                        text = "アレルギーは候補の確認条件です。最終的には店舗へ直接確認してください。",
+                        text = stringResource(R.string.taste_allergy_note),
                         color = DesignTokens.Colors.warning,
                         fontSize = 10.sp,
                         lineHeight = 15.sp,
@@ -224,11 +256,11 @@ fun TasteProfilePanel(
 
                 // tsx L110-131: 健康目的（単一選択）
                 Column(verticalArrangement = Arrangement.spacedBy(7.dp)) {
-                    GroupLabel("健康目的")
+                    GroupLabel(stringResource(R.string.taste_health))
                     ChipFlowRow {
                         HEALTH_OPTIONS.forEach { (goal, label) ->
                             TasteChip(
-                                label = label,
+                                label = stringResource(label),
                                 active = profile.healthGoal == goal,
                                 tag = "taste-health-${goal.wire}",
                                 role = Role.RadioButton,
@@ -238,7 +270,7 @@ fun TasteProfilePanel(
                     }
                     // tsx L130 futureNote（逐語）: 10sp / lineHeight 15 / textTertiary
                     Text(
-                        text = "Appleヘルス / Google Health Connectとの連携はアプリ版で対応予定です。Web版では接続しません。",
+                        text = stringResource(R.string.taste_health_note),
                         color = DesignTokens.Colors.textTertiary,
                         fontSize = 10.sp,
                         lineHeight = 15.sp,
@@ -264,7 +296,7 @@ private fun TasteChipGroup(
         ChipFlowRow {
             options.forEach { option ->
                 TasteChip(
-                    label = option,
+                    label = tasteOptionLabel(option),
                     active = selected.contains(option),
                     tag = "$testPrefix-$option",
                     role = Role.Checkbox,
@@ -367,7 +399,7 @@ private fun AllergyTextField(
                 if (value.isEmpty()) {
                     // tsx L103-104 placeholder / textTertiary
                     Text(
-                        text = "その他・補足（例：甲殻類）",
+                        text = stringResource(R.string.taste_allergy_placeholder),
                         color = DesignTokens.Colors.textTertiary,
                         fontSize = 13.sp,
                     )

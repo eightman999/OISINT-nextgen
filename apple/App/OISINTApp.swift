@@ -19,7 +19,7 @@ struct OISINTApp: App {
             provider = UnavailableDataProvider(
                 reason: "本番接続設定を確認できないため、現在は利用できません。"
             )
-            providerErrorMessage = "本番接続設定を確認できないため、現在は利用できません。"
+            providerErrorMessage = ProviderFactory.configurationUnavailableMessage
         }
         let authService: (any AuthProviding)? = (provider as? LiveProvider)?.authService
         let serverEntitlementFetcher: ServerEntitlementFetcher = {

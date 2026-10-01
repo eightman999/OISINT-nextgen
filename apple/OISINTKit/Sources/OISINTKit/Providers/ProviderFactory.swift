@@ -11,6 +11,11 @@ public enum DataProviderMode: String, Sendable {
 /// mock/live 分岐はここ 1 箇所のみ（spec.md §26: 「Provider 生成箇所 1 箇所に閉じ込める。
 /// 呼び出し側や UI に if (mock) を書かない」）。
 public enum ProviderFactory {
+    /// live 設定を確認できないときに Home へ出す利用者向け文言（端末/アプリの表示言語で解決）。
+    public static var configurationUnavailableMessage: String {
+        String(localized: "本番接続設定を確認できないため、現在は利用できません。", bundle: .module)
+    }
+
     /// RevenueCat SDKはこの境界でだけ生成する。公開key未設定時はfail-closedで
     /// 購入/復元を利用不能にし、Plusを推測付与しない。
     @MainActor

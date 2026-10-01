@@ -1,0 +1,4095 @@
+{
+  "sourceLanguage": "ja",
+  "strings": {
+    "%@ を開く": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ を開く"
+          }
+        }
+      }
+    },
+    "%@。Evidenceを開く": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@. Open evidence"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@。Evidenceを開く"
+          }
+        }
+      }
+    },
+    "%@をコピー": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@をコピー"
+          }
+        }
+      }
+    },
+    "%@を選ぶ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@を選ぶ"
+          }
+        }
+      }
+    },
+    "%lldか月ごと": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every %lld months"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lldか月ごと"
+          }
+        }
+      }
+    },
+    "%lld人が参加中": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld participating"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld人が参加中"
+          }
+        }
+      }
+    },
+    "%lld件の候補が見つかりました": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candidates found: %lld"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld件の候補が見つかりました"
+          }
+        }
+      }
+    },
+    "%lld年ごと": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every %lld years"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld年ごと"
+          }
+        }
+      }
+    },
+    "%lld日ごと": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every %lld days"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld日ごと"
+          }
+        }
+      }
+    },
+    "%lld票": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld vote"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld votes"
+                }
+              }
+            }
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld票"
+          }
+        }
+      }
+    },
+    "%lld週間ごと": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every %lld weeks"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld週間ごと"
+          }
+        }
+      }
+    },
+    "01 / 場所": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "01 / Location"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "01 / 場所"
+          }
+        }
+      }
+    },
+    "12文字以上で、英大文字・英小文字・数字を含めてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At least 12 characters, including uppercase letters, lowercase letters, and numbers."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12文字以上で、英大文字・英小文字・数字を含めてください。"
+          }
+        }
+      }
+    },
+    "1位候補ですが、必須条件が未確認のためおすすめ未確定です": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top candidate, but not yet recommended because required conditions are unconfirmed"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1位候補ですが、必須条件が未確認のためおすすめ未確定です"
+          }
+        }
+      }
+    },
+    "Evidenceはまだ収集されていません": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No evidence collected yet"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evidenceはまだ収集されていません"
+          }
+        }
+      }
+    },
+    "Evidence収集": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collecting evidence"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evidence収集"
+          }
+        }
+      }
+    },
+    "Googleアカウントで続ける": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue with Google"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Googleアカウントで続ける"
+          }
+        }
+      }
+    },
+    "Googleアカウントを接続": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connect Google account"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Googleアカウントを接続"
+          }
+        }
+      }
+    },
+    "GoogleログインはSupabaseの本番設定後に利用できます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google sign-in will be available once the production Supabase setup is complete."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GoogleログインはSupabaseの本番設定後に利用できます。"
+          }
+        }
+      }
+    },
+    "Googleログインを開始できませんでした。設定を確認して再度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't start Google sign-in. Check your settings and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Googleログインを開始できませんでした。設定を確認して再度お試しください。"
+          }
+        }
+      }
+    },
+    "OISINT ロゴ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OISINT logo"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OISINT ロゴ"
+          }
+        }
+      }
+    },
+    "OISINTにお問い合わせする": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contact OISINT"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OISINTにお問い合わせする"
+          }
+        }
+      }
+    },
+    "OISINTにフィードバックを送る": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send feedback to OISINT"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OISINTにフィードバックを送る"
+          }
+        }
+      }
+    },
+    "OISINTのサポートを開く": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open OISINT support"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OISINTのサポートを開く"
+          }
+        }
+      }
+    },
+    "OISINTの使い方ガイドを開く": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open the OISINT guide"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OISINTの使い方ガイドを開く"
+          }
+        }
+      }
+    },
+    "Plusが有効です。期限や更新状態は購入元で確認できます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus is active. Check the expiration and renewal status where you purchased it."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plusが有効です。期限や更新状態は購入元で確認できます。"
+          }
+        }
+      }
+    },
+    "Plusの状態を確認できません。無料プランとして継続します。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't verify your Plus status. Continuing on the free plan."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plusの状態を確認できません。無料プランとして継続します。"
+          }
+        }
+      }
+    },
+    "Plusの状態を解除できません。次回起動時に再試行します。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't clear your Plus status. We'll retry next time the app starts."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plusの状態を解除できません。次回起動時に再試行します。"
+          }
+        }
+      }
+    },
+    "⚠ 矛盾": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠ Conflicts"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠ 矛盾"
+          }
+        }
+      }
+    },
+    "⚠ 矛盾%lld件": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "⚠ %lld conflict"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "⚠ %lld conflicts"
+                }
+              }
+            }
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⚠ 矛盾%lld件"
+          }
+        }
+      }
+    },
+    "、": {
+      "comment": "List separator between requirement texts",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ", "
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "、"
+          }
+        }
+      }
+    },
+    "。候補の詳細を表示": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ". Show candidate details"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "。候補の詳細を表示"
+          }
+        }
+      }
+    },
+    "。必須条件に未確認項目があるためおすすめ未確定です": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ". Not yet recommended because some required conditions are unconfirmed"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "。必須条件に未確認項目があるためおすすめ未確定です"
+          }
+        }
+      }
+    },
+    "「静かめ」「駅から近い」「誰かが喜ぶ」も立派な条件。あとから場所と好みを足せます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "\"Quiet,\" \"near the station,\" \"someone will love it\" all count. You can add location and preferences later."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「静かめ」「駅から近い」「誰かが喜ぶ」も立派な条件。あとから場所と好みを足せます。"
+          }
+        }
+      }
+    },
+    "いまいる場所から探す": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search near you"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "いまいる場所から探す"
+          }
+        }
+      }
+    },
+    "いまの気分を、そのまま書く": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Describe what you're in the mood for"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "いまの気分を、そのまま書く"
+          }
+        }
+      }
+    },
+    "おすすめのレストラン": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recommended restaurants"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "おすすめのレストラン"
+          }
+        }
+      }
+    },
+    "お問い合わせ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contact"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "お問い合わせ"
+          }
+        }
+      }
+    },
+    "ここから調べる": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "START HERE"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ここから調べる"
+          }
+        }
+      }
+    },
+    "この場所を使う": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use this location"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この場所を使う"
+          }
+        }
+      }
+    },
+    "この店に決めた": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose this place"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この店に決めた"
+          }
+        }
+      }
+    },
+    "この店に決めた。決定テキストの形式を選ぶ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose this place. Pick a format for the decision text"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この店に決めた。決定テキストの形式を選ぶ"
+          }
+        }
+      }
+    },
+    "この環境ではコピーできません。テキストを長押しして選択してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copying isn't available here. Long-press the text to select it."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この環境ではコピーできません。テキストを長押しして選択してください。"
+          }
+        }
+      }
+    },
+    "この調査に参加": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Join this search"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この調査に参加"
+          }
+        }
+      }
+    },
+    "この調査は参加人数の上限に達しています。発行した人にご相談ください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This search has reached its participant limit. Please contact the person who shared it."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この調査は参加人数の上限に達しています。発行した人にご相談ください。"
+          }
+        }
+      }
+    },
+    "どちらでも": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Either way"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "どちらでも"
+          }
+        }
+      }
+    },
+    "まず候補を見てから、必要なら表示名を設定できます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Look at the candidates first, then set a display name if you like."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "まず候補を見てから、必要なら表示名を設定できます。"
+          }
+        }
+      }
+    },
+    "または場所名を入力": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Or enter a place name"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "または場所名を入力"
+          }
+        }
+      }
+    },
+    "みんなで「これだね」へ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agree on \"this one\" together"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "みんなで「これだね」へ"
+          }
+        }
+      }
+    },
+    "みんなの投票": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Everyone's votes"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "みんなの投票"
+          }
+        }
+      }
+    },
+    "もう一度押すと永久削除を実行します。取り消せません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap again to permanently delete. This can't be undone."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "もう一度押すと永久削除を実行します。取り消せません。"
+          }
+        }
+      }
+    },
+    "アカウント": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アカウント"
+          }
+        }
+      }
+    },
+    "アカウントを削除できませんでした。通信状態を確認して再度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't delete the account. Check your connection and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アカウントを削除できませんでした。通信状態を確認して再度お試しください。"
+          }
+        }
+      }
+    },
+    "アカウントを完全に削除": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permanently delete account"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アカウントを完全に削除"
+          }
+        }
+      }
+    },
+    "アカウント削除には認証が必要です。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You need to sign in to delete your account."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アカウント削除には認証が必要です。"
+          }
+        }
+      }
+    },
+    "アカウント削除を続ける": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue to delete account"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アカウント削除を続ける"
+          }
+        }
+      }
+    },
+    "カード可": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cards accepted"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "カード可"
+          }
+        }
+      }
+    },
+    "キャンセル": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "キャンセル"
+          }
+        }
+      }
+    },
+    "クリア": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clear"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "クリア"
+          }
+        }
+      }
+    },
+    "グルメ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Food"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "グルメ"
+          }
+        }
+      }
+    },
+    "コピー": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コピー"
+          }
+        }
+      }
+    },
+    "コピーしました": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copied"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コピーしました"
+          }
+        }
+      }
+    },
+    "サブスクリプション": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subscription"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サブスクリプション"
+          }
+        }
+      }
+    },
+    "サポート": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Support"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サポート"
+          }
+        }
+      }
+    },
+    "サーバー上のアカウントを削除しましたが、端末セッションの破棄に失敗しました。アプリを再起動して再確認してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your account was deleted on the server, but the session on this device couldn't be cleared. Restart the app and check again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サーバー上のアカウントを削除しましたが、端末セッションの破棄に失敗しました。アプリを再起動して再確認してください。"
+          }
+        }
+      }
+    },
+    "タップすると条件適合度と根拠を確認できます": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap to see how well it matches and the supporting evidence"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "タップすると条件適合度と根拠を確認できます"
+          }
+        }
+      }
+    },
+    "パスワード": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パスワード"
+          }
+        }
+      }
+    },
+    "パスワードは12文字以上で、英大文字・英小文字・数字を含めてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your password must be at least 12 characters and include uppercase letters, lowercase letters, and numbers."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パスワードは12文字以上で、英大文字・英小文字・数字を含めてください。"
+          }
+        }
+      }
+    },
+    "パスワード（確認）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password (confirm)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "パスワード（確認）"
+          }
+        }
+      }
+    },
+    "フィードバック": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feedback"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "フィードバック"
+          }
+        }
+      }
+    },
+    "プライバシー": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "プライバシー"
+          }
+        }
+      }
+    },
+    "プライバシーポリシー": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy Policy"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "プライバシーポリシー"
+          }
+        }
+      }
+    },
+    "メールでログイン": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in with email"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メールでログイン"
+          }
+        }
+      }
+    },
+    "メールまたはパスワードが正しくありません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incorrect email or password."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メールまたはパスワードが正しくありません。"
+          }
+        }
+      }
+    },
+    "メールまたはパスワードが正しくありません。登録時のパスワードを入力してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incorrect email or password. Enter the password you registered with."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メールまたはパスワードが正しくありません。登録時のパスワードを入力してください。"
+          }
+        }
+      }
+    },
+    "メールアドレス": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メールアドレス"
+          }
+        }
+      }
+    },
+    "メールアドレスを確認して、OISINTアカウントを作成します。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirm your email address to create an OISINT account."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メールアドレスを確認して、OISINTアカウントを作成します。"
+          }
+        }
+      }
+    },
+    "メールアドレスを確認してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please check your email address."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メールアドレスを確認してください。"
+          }
+        }
+      }
+    },
+    "メールログインはSupabaseの本番設定後に利用できます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email sign-in will be available once the production Supabase setup is complete."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メールログインはSupabaseの本番設定後に利用できます。"
+          }
+        }
+      }
+    },
+    "メール確認が完了していません。最新の確認メールのリンクを開いてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your email hasn't been confirmed yet. Open the link in the latest confirmation email."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メール確認が完了していません。最新の確認メールのリンクを開いてください。"
+          }
+        }
+      }
+    },
+    "メール確認の設定を確認できないため、新規登録を完了できませんでした。サポートへお問い合わせください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't complete sign-up because the email confirmation settings couldn't be verified. Please contact support."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メール確認の設定を確認できないため、新規登録を完了できませんでした。サポートへお問い合わせください。"
+          }
+        }
+      }
+    },
+    "メール認証": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email authentication"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メール認証"
+          }
+        }
+      }
+    },
+    "ランキング": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ranking"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ランキング"
+          }
+        }
+      }
+    },
+    "ログアウト": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign out"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログアウト"
+          }
+        }
+      }
+    },
+    "ログアウトすると、表示中のPlus状態も安全側へ戻ります。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Signing out also resets the Plus status shown here."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログアウトすると、表示中のPlus状態も安全側へ戻ります。"
+          }
+        }
+      }
+    },
+    "ログアウトできませんでした。通信状態を確認して再度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't sign out. Check your connection and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログアウトできませんでした。通信状態を確認して再度お試しください。"
+          }
+        }
+      }
+    },
+    "ログイン": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log in"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログイン"
+          }
+        }
+      }
+    },
+    "ログイン、アカウントの切替、ログアウト、永久削除をここで管理します。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in, switch accounts, sign out, or permanently delete your account here."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログイン、アカウントの切替、ログアウト、永久削除をここで管理します。"
+          }
+        }
+      }
+    },
+    "ログインの試行回数が上限に達しました。時間をおいて再度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too many login attempts. Please wait a while and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログインの試行回数が上限に達しました。時間をおいて再度お試しください。"
+          }
+        }
+      }
+    },
+    "ログインを完了できませんでした。通信状態を確認して再度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't complete login. Check your connection and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログインを完了できませんでした。通信状態を確認して再度お試しください。"
+          }
+        }
+      }
+    },
+    "ログイン情報を端末に保存できませんでした。アプリの署名・Keychain設定を確認してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't save your login on this device. Check the app's signing and Keychain settings."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログイン情報を端末に保存できませんでした。アプリの署名・Keychain設定を確認してください。"
+          }
+        }
+      }
+    },
+    "一部満たす": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partially meets"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一部満たす"
+          }
+        }
+      }
+    },
+    "下書き": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Draft"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下書き"
+          }
+        }
+      }
+    },
+    "不明": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不明"
+          }
+        }
+      }
+    },
+    "不適合の必須条件: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Required conditions not met: %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不適合の必須条件: %@"
+          }
+        }
+      }
+    },
+    "予算 %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "予算 %@"
+          }
+        }
+      }
+    },
+    "予算目安　%@ / 人": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget approx. %@ / person"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "予算目安　%@ / 人"
+          }
+        }
+      }
+    },
+    "人数、予算、空気感。うまく言葉にできない条件も、そのままで。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Group size, budget, vibe. Even conditions that are hard to put into words."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "人数、予算、空気感。うまく言葉にできない条件も、そのままで。"
+          }
+        }
+      }
+    },
+    "今すぐ決めなくても、候補と根拠を見てから参加できます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No need to decide now. You can join after reviewing the candidates and evidence."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今すぐ決めなくても、候補と根拠を見てから参加できます。"
+          }
+        }
+      }
+    },
+    "今夜の作戦会議": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tonight's plan"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今夜の作戦会議"
+          }
+        }
+      }
+    },
+    "今夜の条件を、もう少しだけ具体的に。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make tonight's conditions a little more specific."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今夜の条件を、もう少しだけ具体的に。"
+          }
+        }
+      }
+    },
+    "任意（未入力はゲスト）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optional (Guest if blank)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "任意（未入力はゲスト）"
+          }
+        }
+      }
+    },
+    "位置情報が許可されていません。場所名を入力して続けてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Location access isn't allowed. Enter a place name to continue."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "位置情報が許可されていません。場所名を入力して続けてください。"
+          }
+        }
+      }
+    },
+    "位置情報は現在地付近を場所名に変換するためだけに使います。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your location is only used to convert where you are into a nearby place name."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "位置情報は現在地付近を場所名に変換するためだけに使います。"
+          }
+        }
+      }
+    },
+    "位置情報エラー。%@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Location error. %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "位置情報エラー。%@"
+          }
+        }
+      }
+    },
+    "位置情報サービスが無効です。場所名を入力して続けてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Location Services are off. Enter a place name to continue."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "位置情報サービスが無効です。場所名を入力して続けてください。"
+          }
+        }
+      }
+    },
+    "使い方": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guide"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使い方"
+          }
+        }
+      }
+    },
+    "例：池袋で、みんなが話しやすい肉の店を探して": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g. Find a meat place in Ikebukuro where everyone can talk"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "例：池袋で、みんなが話しやすい肉の店を探して"
+          }
+        }
+      }
+    },
+    "例：池袋駅、渋谷": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g. Ikebukuro Station, Shibuya"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "例：池袋駅、渋谷"
+          }
+        }
+      }
+    },
+    "価格・契約期間・更新・解約・返金条件は、購入元と下記の案内を確認してください。アカウント削除はストア定期購入の解約ではありません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check the price, term, renewal, cancellation, and refund terms with the store and the links below. Deleting your account does not cancel a store subscription."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "価格・契約期間・更新・解約・返金条件は、購入元と下記の案内を確認してください。アカウント削除はストア定期購入の解約ではありません。"
+          }
+        }
+      }
+    },
+    "候補%lld位 %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candidate #%lld %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "候補%lld位 %@"
+          }
+        }
+      }
+    },
+    "候補に投票する": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vote for a candidate"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "候補に投票する"
+          }
+        }
+      }
+    },
+    "候補の比較結果": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candidate comparison"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "候補の比較結果"
+          }
+        }
+      }
+    },
+    "候補の裏側を確かめる": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check what's behind each candidate"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "候補の裏側を確かめる"
+          }
+        }
+      }
+    },
+    "候補を並べて終わりではなく、条件を持ち寄るたびに「じゃあ、ここはどう？」が見えてくる。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not just a list of candidates: each condition you add brings up a new \"How about this one?\""
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "候補を並べて終わりではなく、条件を持ち寄るたびに「じゃあ、ここはどう？」が見えてくる。"
+          }
+        }
+      }
+    },
+    "候補を先に確認できます。表示名は投票や条件追加のときに使います。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can review the candidates first. Your display name is used when voting or adding conditions."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "候補を先に確認できます。表示名は投票や条件追加のときに使います。"
+          }
+        }
+      }
+    },
+    "候補店を探索中です…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Searching for candidates…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "候補店を探索中です…"
+          }
+        }
+      }
+    },
+    "候補店探索": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finding restaurants"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "候補店探索"
+          }
+        }
+      }
+    },
+    "入力した場所": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entered location"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "入力した場所"
+          }
+        }
+      }
+    },
+    "入力した条件で候補を探します": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finds candidates for the conditions you entered"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "入力した条件で候補を探します"
+          }
+        }
+      }
+    },
+    "公開情報と出典を並べて、良さそうだけで終わらせない。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Line up public information and sources instead of stopping at \"looks good.\""
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "公開情報と出典を並べて、良さそうだけで終わらせない。"
+          }
+        }
+      }
+    },
+    "共有URLが無効か期限切れです。発行した人に新しいURLを依頼してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This share link is invalid or expired. Ask the person who shared it for a new link."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有URLが無効か期限切れです。発行した人に新しいURLを依頼してください。"
+          }
+        }
+      }
+    },
+    "共有URLをコピー": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy share link"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有URLをコピー"
+          }
+        }
+      }
+    },
+    "共有URLをコピーしました": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share link copied"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有URLをコピーしました"
+          }
+        }
+      }
+    },
+    "共有URLをコピーできませんでした。URLを選択してコピーしてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't copy the share link. Select the URL and copy it."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有URLをコピーできませんでした。URLを選択してコピーしてください。"
+          }
+        }
+      }
+    },
+    "共有したときに表示されます": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shown when you share"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有したときに表示されます"
+          }
+        }
+      }
+    },
+    "共有した画面で条件を足し、最後は自分たちの判断で決める。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add conditions on the shared screen, then make the final call yourselves."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有した画面で条件を足し、最後は自分たちの判断で決める。"
+          }
+        }
+      }
+    },
+    "共有する": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有する"
+          }
+        }
+      }
+    },
+    "共有調査に接続できませんでした。通信状態を確認して、もう一度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't connect to the shared search. Check your connection and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有調査に接続できませんでした。通信状態を確認して、もう一度お試しください。"
+          }
+        }
+      }
+    },
+    "再試行": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retry"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再試行"
+          }
+        }
+      }
+    },
+    "再読み込み": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reload"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再読み込み"
+          }
+        }
+      }
+    },
+    "出典不明": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown source"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "出典不明"
+          }
+        }
+      }
+    },
+    "判定不明": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undetermined"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "判定不明"
+          }
+        }
+      }
+    },
+    "別のアカウントへ切り替える場合は、確認欄にチェックしてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To switch to another account, check the confirmation box."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "別のアカウントへ切り替える場合は、確認欄にチェックしてください。"
+          }
+        }
+      }
+    },
+    "別のアカウントを作成する場合は、確認欄にチェックしてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To create a different account, check the confirmation box."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "別のアカウントを作成する場合は、確認欄にチェックしてください。"
+          }
+        }
+      }
+    },
+    "別のシーン：": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Other scenes:"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "別のシーン："
+          }
+        }
+      }
+    },
+    "別のメールアカウントへ切り替えることを確認": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I confirm switching to a different email account"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "別のメールアカウントへ切り替えることを確認"
+          }
+        }
+      }
+    },
+    "利用規約": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terms"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "利用規約"
+          }
+        }
+      }
+    },
+    "削除すると個人データとログイン情報を消去します。App Store / Google Play等のサブスクリプションは解約されません。先に各ストアで管理・解約してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deleting erases your personal data and sign-in information. Subscriptions on the App Store, Google Play, etc. are not canceled. Manage or cancel them in each store first."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "削除すると個人データとログイン情報を消去します。App Store / Google Play等のサブスクリプションは解約されません。先に各ストアで管理・解約してください。"
+          }
+        }
+      }
+    },
+    "匿名利用中。メールでログイン・新規登録する場合は別アカウントになります。現在の調査履歴は引き継がれません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Using anonymously. Logging in or signing up with email switches to a separate account, and your current investigation history won't carry over."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "匿名利用中。メールでログイン・新規登録する場合は別アカウントになります。現在の調査履歴は引き継がれません。"
+          }
+        }
+      }
+    },
+    "匿名利用中。メールログインで別アカウントへ切り替えるには確認が必要です。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You're using the app anonymously. Switching to another account with email sign-in requires confirmation."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "匿名利用中。メールログインで別アカウントへ切り替えるには確認が必要です。"
+          }
+        }
+      }
+    },
+    "参加": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Join"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "参加"
+          }
+        }
+      }
+    },
+    "呼ばれる名前": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your name"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "呼ばれる名前"
+          }
+        }
+      }
+    },
+    "営業 %@〜%@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open %@–%@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "営業 %@〜%@"
+          }
+        }
+      }
+    },
+    "場所名だけを調査条件に含め、OISINTの調査には座標を送信しません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only the place name is added to your search; coordinates are never sent to OISINT."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "場所名だけを調査条件に含め、OISINTの調査には座標を送信しません。"
+          }
+        }
+      }
+    },
+    "場面から書き込む": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start with the occasion"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "場面から書き込む"
+          }
+        }
+      }
+    },
+    "失敗": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "失敗"
+          }
+        }
+      }
+    },
+    "完了": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Complete"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完了"
+          }
+        }
+      }
+    },
+    "年ごと": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yearly"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "年ごと"
+          }
+        }
+      }
+    },
+    "引用は原文照合していません。重要な条件は出典を開いて店舗へ直接確認してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quotes are not verified against the original. For important conditions, open the source and confirm with the restaurant directly."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "引用は原文照合していません。重要な条件は出典を開いて店舗へ直接確認してください。"
+          }
+        }
+      }
+    },
+    "復元状態を確認しました。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore status checked."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "復元状態を確認しました。"
+          }
+        }
+      }
+    },
+    "復元状態を確認できませんでした。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't check restore status."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "復元状態を確認できませんでした。"
+          }
+        }
+      }
+    },
+    "急ぎなら、場所と条件を一文だけで開始できます。調査の途中でも、みんなで条件を足せます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In a hurry? Start with one sentence of location and conditions. Everyone can add conditions during the search."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "急ぎなら、場所と条件を一文だけで開始できます。調査の途中でも、みんなで条件を足せます。"
+          }
+        }
+      }
+    },
+    "恒久アカウント": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permanent account"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恒久アカウント"
+          }
+        }
+      }
+    },
+    "投票": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votes"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "投票"
+          }
+        }
+      }
+    },
+    "投票する": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vote"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "投票する"
+          }
+        }
+      }
+    },
+    "投票を保存しましたが、順位の更新に失敗しました。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your vote was saved, but the ranking couldn't be updated."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "投票を保存しましたが、順位の更新に失敗しました。"
+          }
+        }
+      }
+    },
+    "投票を保存できませんでした。通信状態を確認してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't save your vote. Check your connection."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "投票を保存できませんでした。通信状態を確認してください。"
+          }
+        }
+      }
+    },
+    "捜査をはじめる ↗": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start searching ↗"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "捜査をはじめる ↗"
+          }
+        }
+      }
+    },
+    "接続済み": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connected"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "接続済み"
+          }
+        }
+      }
+    },
+    "新しい店探しをはじめる": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start a new restaurant search"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新しい店探しをはじめる"
+          }
+        }
+      }
+    },
+    "新規登録": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign up"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新規登録"
+          }
+        }
+      }
+    },
+    "新規登録して確認メールを送る": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign up and send confirmation email"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新規登録して確認メールを送る"
+          }
+        }
+      }
+    },
+    "新規登録はSupabaseの本番設定後に利用できます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign-up becomes available after Supabase is configured for production."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新規登録はSupabaseの本番設定後に利用できます。"
+          }
+        }
+      }
+    },
+    "日ごと": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日ごと"
+          }
+        }
+      }
+    },
+    "最近の調査": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recent searches"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最近の調査"
+          }
+        }
+      }
+    },
+    "月ごと": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monthly"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "月ごと"
+          }
+        }
+      }
+    },
+    "未確認の必須条件あり: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unconfirmed required conditions: %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未確認の必須条件あり: %@"
+          }
+        }
+      }
+    },
+    "本番接続設定を確認できないため、現在は利用できません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unavailable right now because the production connection settings couldn't be verified."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本番接続設定を確認できないため、現在は利用できません。"
+          }
+        }
+      }
+    },
+    "条件": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conditions"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件"
+          }
+        }
+      }
+    },
+    "条件 %lld/%lld件が一致": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld conditions met"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件 %lld/%lld件が一致"
+          }
+        }
+      }
+    },
+    "条件に合う候補店が見つかりませんでした。条件を追加して再検索してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No restaurants matched your conditions. Add conditions and search again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件に合う候補店が見つかりませんでした。条件を追加して再検索してください。"
+          }
+        }
+      }
+    },
+    "条件の追加または候補の再評価に失敗しました。再試行してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't add the condition or re-evaluate candidates. Please try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件の追加または候補の再評価に失敗しました。再試行してください。"
+          }
+        }
+      }
+    },
+    "条件を満たさない": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doesn't meet condition"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件を満たさない"
+          }
+        }
+      }
+    },
+    "条件を満たす": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meets condition"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件を満たす"
+          }
+        }
+      }
+    },
+    "条件を追加": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add condition"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件を追加"
+          }
+        }
+      }
+    },
+    "条件を追加する権限がありません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You don't have permission to add conditions."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件を追加する権限がありません。"
+          }
+        }
+      }
+    },
+    "条件解析": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parsing conditions"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件解析"
+          }
+        }
+      }
+    },
+    "条件評価": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evaluating conditions"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件評価"
+          }
+        }
+      }
+    },
+    "条件追加をキャンセル": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel adding condition"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条件追加をキャンセル"
+          }
+        }
+      }
+    },
+    "検索する場所": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search location"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "検索する場所"
+          }
+        }
+      }
+    },
+    "検索条件を入力すると押せます": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter search conditions to enable"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "検索条件を入力すると押せます"
+          }
+        }
+      }
+    },
+    "比較": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compare"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "比較"
+          }
+        }
+      }
+    },
+    "永久削除を実行": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete permanently"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "永久削除を実行"
+          }
+        }
+      }
+    },
+    "特商法表記": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legal notice (Japan)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "特商法表記"
+          }
+        }
+      }
+    },
+    "現在地の取得がタイムアウトしました。場所名を入力して続けてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Getting your location timed out. Enter a place name to continue."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "現在地の取得がタイムアウトしました。場所名を入力して続けてください。"
+          }
+        }
+      }
+    },
+    "現在地を使う": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use current location"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "現在地を使う"
+          }
+        }
+      }
+    },
+    "現在地を取得できませんでした。場所名を入力して続けてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't get your location. Enter a place name to continue."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "現在地を取得できませんでした。場所名を入力して続けてください。"
+          }
+        }
+      }
+    },
+    "現在地を取得中…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Getting location…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "現在地を取得中…"
+          }
+        }
+      }
+    },
+    "現在地を地名に変換できませんでした。場所名を入力して続けてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't convert your location into a place name. Enter a place name to continue."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "現在地を地名に変換できませんでした。場所名を入力して続けてください。"
+          }
+        }
+      }
+    },
+    "理由を見ながら、ちゃんと決める": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Decide with the reasons in view"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "理由を見ながら、ちゃんと決める"
+          }
+        }
+      }
+    },
+    "登録を受け付けられませんでした。入力内容と通信状態を確認してください。登録済みの場合はログインし、再送する場合は時間をおいてお試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't accept your registration. Check your input and connection. If you're already registered, log in; to resend, please wait a while and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登録を受け付けられませんでした。入力内容と通信状態を確認してください。登録済みの場合はログインし、再送する場合は時間をおいてお試しください。"
+          }
+        }
+      }
+    },
+    "登録済みのOISINTアカウントのメールアドレスとパスワードでログインできます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log in with the email address and password of your registered OISINT account."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登録済みのOISINTアカウントのメールアドレスとパスワードでログインできます。"
+          }
+        }
+      }
+    },
+    "短い版": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Short"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "短い版"
+          }
+        }
+      }
+    },
+    "確認メールを再送": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resend confirmation email"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確認メールを再送"
+          }
+        }
+      }
+    },
+    "確認メールを再送できませんでした。時間をおいて再度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't resend the confirmation email. Please wait a while and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確認メールを再送できませんでした。時間をおいて再度お試しください。"
+          }
+        }
+      }
+    },
+    "確認メールを送信しました。メール内のリンクを開き、確認後にこの画面でログインしてください。届かない場合は迷惑メールも確認してください。登録済みの場合はログインしてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We sent a confirmation email. Open the link in the email, then log in on this screen. If it doesn't arrive, check your spam folder. If you're already registered, please log in."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確認メールを送信しました。メール内のリンクを開き、確認後にこの画面でログインしてください。届かない場合は迷惑メールも確認してください。登録済みの場合はログインしてください。"
+          }
+        }
+      }
+    },
+    "確認待ちのアカウントがある場合は確認メールを再送しました。メール内のリンクを開いてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If an account is awaiting confirmation, we've resent the confirmation email. Open the link in the email."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確認待ちのアカウントがある場合は確認メールを再送しました。メール内のリンクを開いてください。"
+          }
+        }
+      }
+    },
+    "確認用パスワードが一致しません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The confirmation password doesn't match."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確認用パスワードが一致しません。"
+          }
+        }
+      }
+    },
+    "端末の制限により位置情報を使用できません。場所名を入力して続けてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Location is restricted on this device. Enter a place name to continue."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "端末の制限により位置情報を使用できません。場所名を入力して続けてください。"
+          }
+        }
+      }
+    },
+    "端末の現在地から取得": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From your device location"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "端末の現在地から取得"
+          }
+        }
+      }
+    },
+    "行きたい": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Want to go"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "行きたい"
+          }
+        }
+      }
+    },
+    "行きたくない": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Don't want to go"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "行きたくない"
+          }
+        }
+      }
+    },
+    "表示名": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Display name"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "表示名"
+          }
+        }
+      }
+    },
+    "表示名（任意）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Display name (optional)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "表示名（任意）"
+          }
+        }
+      }
+    },
+    "要確認: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Needs checking: %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要確認: %@"
+          }
+        }
+      }
+    },
+    "解約・返金案内": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancellation & refunds"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "解約・返金案内"
+          }
+        }
+      }
+    },
+    "許可しない場合も、場所名を入力して続けられます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If you don't allow access, you can still enter a place name."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "許可しない場合も、場所名を入力して続けられます。"
+          }
+        }
+      }
+    },
+    "許可後、現在地を市区町村付近の検索条件にします": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Once allowed, uses your current city area as a search condition"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "許可後、現在地を市区町村付近の検索条件にします"
+          }
+        }
+      }
+    },
+    "話しながら、\n候補が見えてくる。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Talk it through,\nand candidates take shape."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "話しながら、\n候補が見えてくる。"
+          }
+        }
+      }
+    },
+    "詳しい版": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detailed"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "詳しい版"
+          }
+        }
+      }
+    },
+    "認証サービスに接続できませんでした。通信状態を確認して再度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't connect to the authentication service. Check your connection and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "認証サービスに接続できませんでした。通信状態を確認して再度お試しください。"
+          }
+        }
+      }
+    },
+    "認証リンクを確認できませんでした。確認メールを再送するか、再度ログインしてください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't verify the authentication link. Resend the confirmation email or log in again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "認証リンクを確認できませんでした。確認メールを再送するか、再度ログインしてください。"
+          }
+        }
+      }
+    },
+    "認証状態を確認できませんでした。時間をおいて再度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't verify your sign-in status. Please try again later."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "認証状態を確認できませんでした。時間をおいて再度お試しください。"
+          }
+        }
+      }
+    },
+    "読み込み中": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loading"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "読み込み中"
+          }
+        }
+      }
+    },
+    "調査が見つかりません": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search not found"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査が見つかりません"
+          }
+        }
+      }
+    },
+    "調査に参加": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Join search"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査に参加"
+          }
+        }
+      }
+    },
+    "調査に参加中": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Joining search"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査に参加中"
+          }
+        }
+      }
+    },
+    "調査の実行に失敗しました。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The search failed."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査の実行に失敗しました。"
+          }
+        }
+      }
+    },
+    "調査の準備をより快適にする追加プランです。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An add-on plan that makes preparing searches more comfortable."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査の準備をより快適にする追加プランです。"
+          }
+        }
+      }
+    },
+    "調査の進行状況: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search progress: %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査の進行状況: %@"
+          }
+        }
+      }
+    },
+    "調査を再試行": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retry search"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査を再試行"
+          }
+        }
+      }
+    },
+    "調査を再試行できませんでした。時間を置いてもう一度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't retry the search. Please wait a moment and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査を再試行できませんでした。時間を置いてもう一度お試しください。"
+          }
+        }
+      }
+    },
+    "調査を再読み込み": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reload search"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査を再読み込み"
+          }
+        }
+      }
+    },
+    "調査を読み込めませんでした": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't load the search"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査を読み込めませんでした"
+          }
+        }
+      }
+    },
+    "調査を読み込んでいます…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loading search…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査を読み込んでいます…"
+          }
+        }
+      }
+    },
+    "調査を開始": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start search"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査を開始"
+          }
+        }
+      }
+    },
+    "調査を開始できませんでした。入力内容を確認して、もう一度お試しください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't start the search. Check what you entered and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査を開始できませんでした。入力内容を確認して、もう一度お試しください。"
+          }
+        }
+      }
+    },
+    "調査を開始中": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starting search"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査を開始中"
+          }
+        }
+      }
+    },
+    "調査データを読み込めませんでした": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't load search data"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査データを読み込めませんでした"
+          }
+        }
+      }
+    },
+    "調査不足": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Needs more research"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調査不足"
+          }
+        }
+      }
+    },
+    "貼り付け用テキストを作る": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create text to paste"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "貼り付け用テキストを作る"
+          }
+        }
+      }
+    },
+    "購入": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buy"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入"
+          }
+        }
+      }
+    },
+    "購入には恒久アカウントの接続が必要です。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Purchasing requires a connected permanent account."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入には恒久アカウントの接続が必要です。"
+          }
+        }
+      }
+    },
+    "購入をキャンセルしました。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Purchase canceled."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入をキャンセルしました。"
+          }
+        }
+      }
+    },
+    "購入を受け付けました。サーバー反映を待ってからPlus状態を確認します。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Purchase received. We'll check your Plus status once the server is updated."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入を受け付けました。サーバー反映を待ってからPlus状態を確認します。"
+          }
+        }
+      }
+    },
+    "購入を復元": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore purchases"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入を復元"
+          }
+        }
+      }
+    },
+    "購入アカウントを確認しています…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking your purchase account…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入アカウントを確認しています…"
+          }
+        }
+      }
+    },
+    "購入プランを確認できませんでした。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't check the plans."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入プランを確認できませんでした。"
+          }
+        }
+      }
+    },
+    "購入プランを読み込めませんでした。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't load the plans."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入プランを読み込めませんでした。"
+          }
+        }
+      }
+    },
+    "購入プランを読み込めませんでした。設定と通信状態を確認してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't load the plans. Check your settings and connection."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入プランを読み込めませんでした。設定と通信状態を確認してください。"
+          }
+        }
+      }
+    },
+    "購入・復元には恒久アカウントの接続が必要です。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Purchasing and restoring require a connected permanent account."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入・復元には恒久アカウントの接続が必要です。"
+          }
+        }
+      }
+    },
+    "購入前に確認すること": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Before you buy"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入前に確認すること"
+          }
+        }
+      }
+    },
+    "購入機能は現在設定されていません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Purchasing isn't set up right now."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入機能は現在設定されていません。"
+          }
+        }
+      }
+    },
+    "購入状態を確認しました。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Purchase status checked."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入状態を確認しました。"
+          }
+        }
+      }
+    },
+    "購入状態を確認できませんでした。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't check purchase status."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入状態を確認できませんでした。"
+          }
+        }
+      }
+    },
+    "追加": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "追加"
+          }
+        }
+      }
+    },
+    "追加する条件": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Condition to add"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "追加する条件"
+          }
+        }
+      }
+    },
+    "週間ごと": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weekly"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "週間ごと"
+          }
+        }
+      }
+    },
+    "選び方の流れ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HOW IT WORKS"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選び方の流れ"
+          }
+        }
+      }
+    },
+    "開く ↗": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open ↗"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開く ↗"
+          }
+        }
+      }
+    },
+    "類似調査の確認": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking similar searches"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "類似調査の確認"
+          }
+        }
+      }
+    },
+    "駅名や市区町村を入力してください": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a station name or city"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "駅名や市区町村を入力してください"
+          }
+        }
+      }
+    },
+    "＋ 条件を追加": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Add condition"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "＋ 条件を追加"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

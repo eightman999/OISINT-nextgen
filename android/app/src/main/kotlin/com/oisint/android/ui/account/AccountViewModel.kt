@@ -1,5 +1,7 @@
 package com.oisint.android.ui.account
 
+import com.oisint.android.R
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oisint.android.auth.AuthController
@@ -20,8 +22,9 @@ data class AccountUiState(
     val confirmAccountSwitch: Boolean = false,
     val confirmAccountDeletion: Boolean = false,
     val busy: Boolean = false,
-    val errorMessage: String = "",
-    val noticeMessage: String = "",
+    /** 表示用メッセージ（string resource ID）。null は非表示。 */
+    @StringRes val errorMessage: Int? = null,
+    @StringRes val noticeMessage: Int? = null,
 )
 
 class AccountViewModel(private val authController: AuthController) : ViewModel() {
@@ -43,28 +46,28 @@ class AccountViewModel(private val authController: AuthController) : ViewModel()
                             confirmAccountSwitch = false,
                             confirmAccountDeletion = false,
                             busy = false,
-                            errorMessage = "",
-                            noticeMessage = "",
+                            errorMessage = null,
+                            noticeMessage = null,
                         )
                     } else {
-                        current.copy(authState = authState, errorMessage = "")
+                        current.copy(authState = authState, errorMessage = null)
                     }
                 }
             }
         }
     }
 
-    fun onEmailChanged(value: String) = _uiState.update { it.copy(email = value, errorMessage = "") }
-    fun onPasswordChanged(value: String) = _uiState.update { it.copy(password = value, errorMessage = "") }
+    fun onEmailChanged(value: String) = _uiState.update { it.copy(email = value, errorMessage = null) }
+    fun onPasswordChanged(value: String) = _uiState.update { it.copy(password = value, errorMessage = null) }
     fun onConfirmAccountSwitchChanged(value: Boolean) =
-        _uiState.update { it.copy(confirmAccountSwitch = value, errorMessage = "") }
+        _uiState.update { it.copy(confirmAccountSwitch = value, errorMessage = null) }
 
     /** 1回目は確認状態だけを表示し、2回目でEdge Functionを呼ぶ。 */
     fun requestAccountDeletion() {
         val current = _uiState.value
         if (current.authState !is AuthState.Authenticated && current.authState !is AuthState.Anonymous) return
         if (!current.confirmAccountDeletion) {
-            _uiState.update { it.copy(confirmAccountDeletion = true, errorMessage = "") }
+            _uiState.update { it.copy(confirmAccountDeletion = true, errorMessage = null) }
             return
         }
         val expectedSubject = subjectKey(current.authState)
@@ -74,7 +77,7 @@ class AccountViewModel(private val authController: AuthController) : ViewModel()
     }
 
     fun cancelAccountDeletion() =
-        _uiState.update { it.copy(confirmAccountDeletion = false, errorMessage = "") }
+        _uiState.update { it.copy(confirmAccountDeletion = false, errorMessage = null) }
 
     fun signIn() = runAuthAction {
         val state = _uiState.value
@@ -82,47 +85,47 @@ class AccountViewModel(private val authController: AuthController) : ViewModel()
         // AuthState collectorがsubject切替の個人state resetを完了してから、
         // 新subject向けの成功通知を設定する。
         yield()
-        _uiState.update { it.copy(noticeMessage = "アカウントに接続しました。") }
+        _uiState.update { it.copy(noticeMessage = R.string.account_notice_signed_in) }
     }
 
     fun signUp() = runAuthAction {
         val state = _uiState.value
         authController.signUpWithEmail(state.email, state.password, state.confirmAccountSwitch)
         yield()
-        _uiState.update { it.copy(noticeMessage = "登録処理を開始しました。確認メールが届く場合があります。") }
+        _uiState.update { it.copy(noticeMessage = R.string.account_notice_signed_up) }
     }
 
     fun connectGoogle() = runAuthAction {
         authController.beginGoogleAuth()
-        _uiState.update { it.copy(noticeMessage = "Google認証を開いています。完了後にこの画面へ戻ってください。") }
+        _uiState.update { it.copy(noticeMessage = R.string.account_notice_google_opening) }
     }
 
     fun signOut() = runAuthAction {
         authController.signOut()
-        _uiState.update { it.copy(noticeMessage = "ログアウトしました。") }
+        _uiState.update { it.copy(noticeMessage = R.string.account_notice_signed_out) }
     }
 
     private fun runAuthAction(expectedSubject: String? = null, action: suspend () -> Unit) {
         if (_uiState.value.busy) return
-        _uiState.update { it.copy(busy = true, errorMessage = "", noticeMessage = "") }
+        _uiState.update { it.copy(busy = true, errorMessage = null, noticeMessage = null) }
         viewModelScope.launch {
             try {
                 action()
                 if (expectedSubject != null && subjectKey(_uiState.value.authState) == expectedSubject) {
                     val notice = if (authController.lastDeleteLocalCleanupFailed) {
-                        "サーバー上のアカウントを削除しました。端末セッションの破棄に失敗したため、アプリを再起動して再確認してください。"
+                        R.string.account_notice_deleted_cleanup_failed
                     } else {
-                        "アカウントを削除しました。"
+                        R.string.account_notice_deleted
                     }
                     _uiState.update { it.copy(noticeMessage = notice, confirmAccountDeletion = false) }
                 }
             } catch (_: AuthSwitchConfirmationRequired) {
                 _uiState.update {
-                    it.copy(errorMessage = "別のアカウントへ切り替える場合は、確認欄にチェックしてください。")
+                    it.copy(errorMessage = R.string.account_error_switch_confirmation)
                 }
             } catch (_: Exception) {
                 _uiState.update {
-                    it.copy(errorMessage = "認証を完了できませんでした。入力内容と設定を確認してください。")
+                    it.copy(errorMessage = R.string.account_error_auth_failed)
                 }
             } finally {
                 if (expectedSubject == null || subjectKey(_uiState.value.authState) == expectedSubject) {

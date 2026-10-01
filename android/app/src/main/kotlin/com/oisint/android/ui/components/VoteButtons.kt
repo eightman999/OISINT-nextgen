@@ -1,5 +1,8 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -25,13 +28,13 @@ import com.oisint.android.design.DesignTokens
 import com.oisint.android.format.Format
 import com.oisint.android.model.VoteValue
 
-/** VoteButtons.tsx L13-17 options（value・ラベル逐語） */
-private data class VoteOption(val value: VoteValue, val label: String)
+/** VoteButtons.tsx L13-17 options（value 逐語。ラベルは string resource） */
+private data class VoteOption(val value: VoteValue, @StringRes val label: Int)
 
 private val VOTE_OPTIONS = listOf(
-    VoteOption(1, "行きたい"),
-    VoteOption(0, "どちらでも"),
-    VoteOption(-1, "行きたくない"),
+    VoteOption(1, R.string.vote_want),
+    VoteOption(0, R.string.vote_either),
+    VoteOption(-1, R.string.vote_dont_want),
 )
 
 /**
@@ -55,11 +58,12 @@ fun VoteButtons(current: VoteValue?, onVote: (VoteValue) -> Unit, modifier: Modi
     ) {
         VOTE_OPTIONS.forEach { option ->
             val active = current == option.value
+            val label = stringResource(option.label)
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .semantics {
-                        contentDescription = option.label
+                        contentDescription = label
                         selected = active
                     }
                     .clip(shape)
@@ -81,7 +85,7 @@ fun VoteButtons(current: VoteValue?, onVote: (VoteValue) -> Unit, modifier: Modi
                     color = if (active) DesignTokens.Colors.surface else DesignTokens.Colors.text,
                 )
                 Text(
-                    option.label,
+                    label,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = if (active) DesignTokens.Colors.surface else DesignTokens.Colors.textSecondary,

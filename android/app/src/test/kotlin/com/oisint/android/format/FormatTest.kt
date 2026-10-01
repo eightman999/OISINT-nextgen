@@ -1,5 +1,6 @@
 package com.oisint.android.format
 
+import com.oisint.android.testing.StringResources
 import com.oisint.android.design.DesignTokens
 import com.oisint.android.model.InvestigationStatus
 import com.oisint.android.model.MatchState
@@ -30,15 +31,15 @@ class FormatTest {
     @Test
     fun statusLabelsMatchFormatTs() {
         // format.ts L56-77
-        assertEquals("下書き", Format.statusLabel(InvestigationStatus.Draft))
-        assertEquals("条件解析", Format.statusLabel(InvestigationStatus.Parsing))
-        assertEquals("類似調査の確認", Format.statusLabel(InvestigationStatus.Recalling))
-        assertEquals("候補店探索", Format.statusLabel(InvestigationStatus.Searching))
-        assertEquals("Evidence収集", Format.statusLabel(InvestigationStatus.CollectingEvidence))
-        assertEquals("条件評価", Format.statusLabel(InvestigationStatus.Evaluating))
-        assertEquals("ランキング", Format.statusLabel(InvestigationStatus.Ranking))
-        assertEquals("完了", Format.statusLabel(InvestigationStatus.Complete))
-        assertEquals("失敗", Format.statusLabel(InvestigationStatus.Failed))
+        assertEquals("下書き", StringResources.ja(Format.statusLabel(InvestigationStatus.Draft)))
+        assertEquals("条件解析", StringResources.ja(Format.statusLabel(InvestigationStatus.Parsing)))
+        assertEquals("類似調査の確認", StringResources.ja(Format.statusLabel(InvestigationStatus.Recalling)))
+        assertEquals("候補店探索", StringResources.ja(Format.statusLabel(InvestigationStatus.Searching)))
+        assertEquals("Evidence収集", StringResources.ja(Format.statusLabel(InvestigationStatus.CollectingEvidence)))
+        assertEquals("条件評価", StringResources.ja(Format.statusLabel(InvestigationStatus.Evaluating)))
+        assertEquals("ランキング", StringResources.ja(Format.statusLabel(InvestigationStatus.Ranking)))
+        assertEquals("完了", StringResources.ja(Format.statusLabel(InvestigationStatus.Complete)))
+        assertEquals("失敗", StringResources.ja(Format.statusLabel(InvestigationStatus.Failed)))
     }
 
     @Test
@@ -62,10 +63,10 @@ class FormatTest {
     @Test
     fun matchStateAccessibilityLabelsMatchFormatTs() {
         // format.ts L32-44
-        assertEquals("条件を満たす", Format.matchStateAccessibilityLabel(MatchState.Match))
-        assertEquals("一部満たす", Format.matchStateAccessibilityLabel(MatchState.Partial))
-        assertEquals("条件を満たさない", Format.matchStateAccessibilityLabel(MatchState.Mismatch))
-        assertEquals("判定不明", Format.matchStateAccessibilityLabel(MatchState.Unknown))
+        assertEquals("条件を満たす", StringResources.ja(Format.matchStateAccessibilityLabel(MatchState.Match)))
+        assertEquals("一部満たす", StringResources.ja(Format.matchStateAccessibilityLabel(MatchState.Partial)))
+        assertEquals("条件を満たさない", StringResources.ja(Format.matchStateAccessibilityLabel(MatchState.Mismatch)))
+        assertEquals("判定不明", StringResources.ja(Format.matchStateAccessibilityLabel(MatchState.Unknown)))
     }
 
     @Test

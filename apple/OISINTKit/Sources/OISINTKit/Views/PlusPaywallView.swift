@@ -7,11 +7,11 @@ private struct LegalDestination: Identifiable {
 }
 
 private let legalDestinations = [
-    LegalDestination(id: "terms", label: "利用規約", url: "https://oisint.com/terms"),
-    LegalDestination(id: "privacy", label: "プライバシー", url: "https://oisint.com/privacy"),
-    LegalDestination(id: "commercial", label: "特商法表記", url: "https://oisint.com/commercial-transactions"),
-    LegalDestination(id: "refund", label: "解約・返金案内", url: "https://oisint.com/support"),
-    LegalDestination(id: "support", label: "サポート", url: "https://oisint.com/support"),
+    LegalDestination(id: "terms", label: String(localized: "利用規約", bundle: .module), url: "https://oisint.com/terms"),
+    LegalDestination(id: "privacy", label: String(localized: "プライバシー", bundle: .module), url: "https://oisint.com/privacy"),
+    LegalDestination(id: "commercial", label: String(localized: "特商法表記", bundle: .module), url: "https://oisint.com/commercial-transactions"),
+    LegalDestination(id: "refund", label: String(localized: "解約・返金案内", bundle: .module), url: "https://oisint.com/support"),
+    LegalDestination(id: "support", label: String(localized: "サポート", bundle: .module), url: "https://oisint.com/support"),
 ]
 
 /// RevenueCat固有型をUIへ持ち込まないPlus購入/復元画面。
@@ -30,21 +30,21 @@ public struct PlusPaywallView: View {
                     .oisintFont(28, .bold)
                     .foregroundStyle(DesignTokens.Colors.text.color)
                 Text(app.entitlementProvider.currentStatus.isPlus
-                    ? "Plusが有効です。期限や更新状態は購入元で確認できます。"
-                    : "調査の準備をより快適にする追加プランです。")
+                    ? String(localized: "Plusが有効です。期限や更新状態は購入元で確認できます。", bundle: .module)
+                    : String(localized: "調査の準備をより快適にする追加プランです。", bundle: .module))
                     .oisintFont(14)
                     .foregroundStyle(DesignTokens.Colors.textSecondary.color)
 
                 if !app.isAuthenticated {
-                    Text("購入・復元には恒久アカウントの接続が必要です。")
+                    Text("購入・復元には恒久アカウントの接続が必要です。", bundle: .module)
                         .oisintFont(13, .bold)
                         .foregroundStyle(DesignTokens.Colors.orange.color)
-                    Button("Googleアカウントを接続") {
+                    Button(String(localized: "Googleアカウントを接続", bundle: .module)) {
                         Task { await app.signInWithGoogle() }
                     }
                     .buttonStyle(.borderedProminent)
                     .disabled(app.authBusy)
-                    NavigationLink("メールでログイン") {
+                    NavigationLink(String(localized: "メールでログイン", bundle: .module)) {
                         AccountView()
                     }
                     .buttonStyle(.bordered)
@@ -61,9 +61,9 @@ public struct PlusPaywallView: View {
                             .foregroundStyle(DesignTokens.Colors.danger.color)
                     }
                 } else if app.authBusy {
-                    ProgressView("購入アカウントを確認しています…")
+                    ProgressView(String(localized: "購入アカウントを確認しています…", bundle: .module))
                 } else if packages.isEmpty {
-                    Text("購入プランを読み込めませんでした。設定と通信状態を確認してください。")
+                    Text("購入プランを読み込めませんでした。設定と通信状態を確認してください。", bundle: .module)
                         .oisintFont(13)
                         .foregroundStyle(DesignTokens.Colors.danger.color)
                 } else {
@@ -79,7 +79,7 @@ public struct PlusPaywallView: View {
                                         .oisintFont(13)
                                 }
                                 Spacer()
-                                Text("購入")
+                                Text("購入", bundle: .module)
                                     .oisintFont(13, .bold)
                             }
                             .foregroundStyle(DesignTokens.Colors.text.color)
@@ -95,7 +95,7 @@ public struct PlusPaywallView: View {
                 }
 
                 if app.isAuthenticated {
-                    Button("購入を復元") {
+                    Button(String(localized: "購入を復元", bundle: .module)) {
                         Task { await restore() }
                     }
                     .buttonStyle(.bordered)
@@ -109,9 +109,9 @@ public struct PlusPaywallView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("購入前に確認すること")
+                    Text("購入前に確認すること", bundle: .module)
                         .oisintFont(13, .bold)
-                    Text("価格・契約期間・更新・解約・返金条件は、購入元と下記の案内を確認してください。アカウント削除はストア定期購入の解約ではありません。")
+                    Text("価格・契約期間・更新・解約・返金条件は、購入元と下記の案内を確認してください。アカウント削除はストア定期購入の解約ではありません。", bundle: .module)
                         .oisintFont(11)
                         .foregroundStyle(DesignTokens.Colors.textSecondary.color)
                     HStack(spacing: 12) {
@@ -161,7 +161,7 @@ public struct PlusPaywallView: View {
             try await app.entitlementProvider.refresh()
         } catch {
             guard !Task.isCancelled, offeringsUserID == userID else { return }
-            message = "購入プランを確認できませんでした。"
+            message = String(localized: "購入プランを確認できませんでした。", bundle: .module)
         }
     }
 
@@ -171,11 +171,11 @@ public struct PlusPaywallView: View {
         defer { busy = false }
         do {
             _ = try await app.entitlementProvider.purchase(package)
-            message = "購入状態を確認しました。"
+            message = String(localized: "購入状態を確認しました。", bundle: .module)
         } catch let error as EntitlementError {
             message = error.localizedDescription
         } catch {
-            message = "購入状態を確認できませんでした。"
+            message = String(localized: "購入状態を確認できませんでした。", bundle: .module)
         }
     }
 
@@ -185,11 +185,11 @@ public struct PlusPaywallView: View {
         defer { busy = false }
         do {
             _ = try await app.entitlementProvider.restore()
-            message = "復元状態を確認しました。"
+            message = String(localized: "復元状態を確認しました。", bundle: .module)
         } catch let error as EntitlementError {
             message = error.localizedDescription
         } catch {
-            message = "復元状態を確認できませんでした。"
+            message = String(localized: "復元状態を確認できませんでした。", bundle: .module)
         }
     }
 }

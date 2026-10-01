@@ -1,5 +1,7 @@
 package com.oisint.android.ui.home
 
+import com.oisint.android.R
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oisint.android.data.DataProvider
@@ -28,7 +30,8 @@ data class HomeUiState(
     val location: LocationSelection? = null,
     val tasteProfile: TasteProfile = TasteProfile(),
     val loading: Boolean = false,
-    val errorMessage: String = "",
+    /** 表示用エラー（string resource ID）。null はエラーなし。 */
+    @StringRes val errorMessage: Int? = null,
     /** 作成成功時に一度だけ発火する遷移イベント（id, shareToken） */
     val navigateTo: Pair<String, String>? = null,
 ) {
@@ -83,7 +86,7 @@ class HomeViewModel(private val provider: DataProvider) : ViewModel() {
             Profile.tasteProfileToQuery(state.tasteProfile),
         ).joinToString(" / ")
 
-        _uiState.update { it.copy(loading = true, errorMessage = "") }
+        _uiState.update { it.copy(loading = true, errorMessage = null) }
         viewModelScope.launch {
             try {
                 val userId = provider.getUserId()
@@ -175,7 +178,7 @@ class HomeViewModel(private val provider: DataProvider) : ViewModel() {
             } catch (_: Exception) {
                 if (activeStartToken.get() === requestToken) {
                     _uiState.update {
-                        it.copy(errorMessage = "調査を開始できませんでした。入力内容を確認して、もう一度お試しください。")
+                        it.copy(errorMessage = R.string.home_start_failed)
                     }
                 }
             } finally {

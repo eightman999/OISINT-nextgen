@@ -1,5 +1,7 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -75,7 +77,7 @@ fun MemberRow(members: List<InvestigationMember>, modifier: Modifier = Modifier)
             }
         }
         Text(
-            "${members.size}人が参加中",
+            pluralStringResource(R.plurals.member_count, members.size, members.size),
             modifier = Modifier.testTag("member-count"),
             fontSize = 12.sp,
             color = DesignTokens.Colors.textSecondary,

@@ -24,6 +24,12 @@ public struct CandidateCardView: View {
         self.onPress = onPress
     }
 
+    /// 条件文（サーバ由来）は翻訳せず、区切り記号だけを表示言語に合わせる。
+    static func requirementList(_ requirements: [Requirement]) -> String {
+        requirements.map(\.normalizedText)
+            .joined(separator: String(localized: "、", bundle: .module, comment: "List separator between requirement texts"))
+    }
+
     struct CardTag: Identifiable {
         var id: String { label }
         let label: String
@@ -39,13 +45,13 @@ public struct CandidateCardView: View {
             tags.append(CardTag(label: String(access[range]), style: DesignTokens.Components.tagBlue))
         }
         if let budget = place.budget {
-            tags.append(CardTag(label: "予算 \(budget)", style: DesignTokens.Components.tagGreen))
+            tags.append(CardTag(label: String(localized: "予算 \(budget)", bundle: .module), style: DesignTokens.Components.tagGreen))
         }
         if place.card == "可" {
-            tags.append(CardTag(label: "カード可", style: DesignTokens.Components.tagOrange))
+            tags.append(CardTag(label: String(localized: "カード可", bundle: .module), style: DesignTokens.Components.tagOrange))
         }
         if !candidate.contradictions.isEmpty {
-            tags.append(CardTag(label: "⚠ 矛盾\(candidate.contradictions.count)件", style: DesignTokens.Components.tagRed))
+            tags.append(CardTag(label: String(localized: "⚠ 矛盾\(candidate.contradictions.count)件", bundle: .module), style: DesignTokens.Components.tagRed))
         }
         return tags
     }
@@ -76,11 +82,11 @@ public struct CandidateCardView: View {
     }
 
     private var cardAccessibilityLabel: String {
-        var label = "候補\(candidate.rank)位 \(candidate.place.name)"
+        var label = String(localized: "候補\(candidate.rank)位 \(candidate.place.name)", bundle: .module)
         if suppressRecommendationEmphasis {
-            label += "。必須条件に未確認項目があるためおすすめ未確定です"
+            label += String(localized: "。必須条件に未確認項目があるためおすすめ未確定です", bundle: .module)
         }
-        return label + "。候補の詳細を表示"
+        return label + String(localized: "。候補の詳細を表示", bundle: .module)
     }
 
     public var body: some View {
@@ -110,7 +116,7 @@ public struct CandidateCardView: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel(cardAccessibilityLabel)
-        .accessibilityHint("タップすると条件適合度と根拠を確認できます")
+        .accessibilityHint(Text("タップすると条件適合度と根拠を確認できます", bundle: .module))
         .accessibilityIdentifier("inv-candidate-\(candidate.rank)")
     }
 
@@ -122,21 +128,21 @@ public struct CandidateCardView: View {
             genreColor.color
                 .aspectRatio(1.8, contentMode: .fill)
                 .overlay(alignment: .bottomLeading) {
-                    Text(candidate.place.genre ?? "グルメ")
+                    Text(candidate.place.genre ?? String(localized: "グルメ", bundle: .module))
                         .oisintFont(11, .bold)
                         .foregroundStyle(DesignTokens.readableTextColor(for: genreColor).color)
                         .padding(8)
                 }
 
             if suppressRecommendationEmphasis {
-                Text("調査不足")
+                Text("調査不足", bundle: .module)
                     .oisintFont(10, .heavy)
                     .foregroundStyle(DesignTokens.Colors.warning.color)
                     .padding(.horizontal, 9)
                     .frame(minHeight: 27)
                     .background(DesignTokens.Colors.warningSoft.color)
                     .clipShape(UnevenRoundedRectangle(bottomTrailingRadius: 8))
-                    .accessibilityLabel("1位候補ですが、必須条件が未確認のためおすすめ未確定です")
+                    .accessibilityLabel(Text("1位候補ですが、必須条件が未確認のためおすすめ未確定です", bundle: .module))
                     .accessibilityIdentifier("inv-rank-unverified-\(candidate.rank)")
             } else {
                 // rankBadge: 27x27・rankColor・borderBottomRightRadius 8（左上直角）
@@ -169,7 +175,7 @@ public struct CandidateCardView: View {
             .sorted { $0.key < $1.key }
             .filter { $0.value != .neutral }
             .map { userId, value in
-                (members.first { $0.id == userId }?.displayName ?? "不明", value)
+                (members.first { $0.id == userId }?.displayName ?? String(localized: "不明", bundle: .module), value)
             }
 
         return VStack(alignment: .leading, spacing: 8) {
@@ -181,14 +187,14 @@ public struct CandidateCardView: View {
                 .oisintFont(10)
                 .foregroundStyle(DesignTokens.Colors.textSecondary.color)
 
-            Text("条件 \(matchedRequirements)/\(totalRequirements)件が一致")
+            Text("条件 \(matchedRequirements)/\(totalRequirements)件が一致", bundle: .module)
                 .oisintFont(10, .bold)
                 .foregroundStyle(DesignTokens.Colors.textSecondary.color)
-                .accessibilityLabel("条件 \(matchedRequirements)/\(totalRequirements)件が一致")
+                .accessibilityLabel(Text("条件 \(matchedRequirements)/\(totalRequirements)件が一致", bundle: .module))
                 .accessibilityIdentifier("inv-fill-\(candidate.rank)")
 
             if suppressRecommendationEmphasis {
-                Text("未確認の必須条件あり: \(unresolvedMustRequirements.map(\.normalizedText).joined(separator: "、"))")
+                Text("未確認の必須条件あり: \(Self.requirementList(unresolvedMustRequirements))", bundle: .module)
                     .oisintFont(10, .bold)
                     .foregroundStyle(DesignTokens.Colors.warning.color)
                     .padding(.horizontal, 8)
@@ -199,7 +205,7 @@ public struct CandidateCardView: View {
                     .accessibilityIdentifier("inv-gap-\(candidate.rank)")
 
                 if !mismatchedMustRequirements.isEmpty {
-                    Text("不適合の必須条件: \(mismatchedMustRequirements.map(\.normalizedText).joined(separator: "、"))")
+                    Text("不適合の必須条件: \(Self.requirementList(mismatchedMustRequirements))", bundle: .module)
                         .oisintFont(10, .bold)
                         .foregroundStyle(DesignTokens.Colors.warning.color)
                         .padding(.horizontal, 8)
@@ -210,7 +216,7 @@ public struct CandidateCardView: View {
                         .accessibilityIdentifier("inv-mismatch-\(candidate.rank)")
                 }
             } else if !missingMust.isEmpty {
-                Text("要確認: \(missingMust.map(\.normalizedText).joined(separator: "、"))")
+                Text("要確認: \(Self.requirementList(missingMust))", bundle: .module)
                     .oisintFont(10)
                     .foregroundStyle(DesignTokens.Colors.warning.color)
                     .accessibilityIdentifier("inv-gap-\(candidate.rank)")
@@ -231,7 +237,7 @@ public struct CandidateCardView: View {
             }
 
             if candidate.place.open != nil || candidate.place.close != nil {
-                Text("営業 \(candidate.place.open ?? "?")〜\(candidate.place.close ?? "?")")
+                Text("営業 \(candidate.place.open ?? "?")〜\(candidate.place.close ?? "?")", bundle: .module)
                     .oisintFont(10)
                     .foregroundStyle(ColorToken("#555d63").color)
             }
@@ -248,7 +254,7 @@ public struct CandidateCardView: View {
                             Text(Format.matchStateSymbol(evaluation.state))
                                 .oisintFont(12, .heavy)
                                 .foregroundStyle(Format.matchStateColor(evaluation.state).color)
-                                .accessibilityLabel(Format.matchStateAccessibilityLabel(evaluation.state))
+                                .accessibilityLabel(Format.localizedMatchStateAccessibilityLabel(evaluation.state))
                         }
                     }
                 }
@@ -257,7 +263,7 @@ public struct CandidateCardView: View {
             }
 
             if let budget = candidate.place.budget {
-                Text("予算目安　\(budget) / 人")
+                Text("予算目安　\(budget) / 人", bundle: .module)
                     .oisintFont(10)
                     .foregroundStyle(ColorToken("#4e555b").color)
                     .padding(.top, 8)

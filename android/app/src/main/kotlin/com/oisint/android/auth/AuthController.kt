@@ -1,5 +1,7 @@
 package com.oisint.android.auth
 
+import com.oisint.android.R
+import androidx.annotation.StringRes
 import android.content.Intent
 import java.util.UUID
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +15,8 @@ sealed interface AuthState {
     data class Anonymous(val userId: String) : AuthState
     data class Authenticated(val userId: String, val email: String?) : AuthState
     data object SignedOut : AuthState
-    data class Error(val message: String) : AuthState
+    /** 表示用の理由は string resource ID で持つ（UI 側でロケールに応じて解決する）。 */
+    data class Error(@StringRes val messageRes: Int) : AuthState
 }
 
 class AuthSwitchConfirmationRequired : IllegalStateException()
@@ -88,7 +91,7 @@ class EntitlementIdentitySynchronizer(
 /** Releaseの設定不足用。匿名AuthやGoogle遷移を推測実行せず、画面へ安全に失敗を返す。 */
 class UnavailableAuthController : AuthController {
     private val _state = kotlinx.coroutines.flow.MutableStateFlow<AuthState>(
-        AuthState.Error("認証設定を確認できません。現在はアカウント操作を利用できません。"),
+        AuthState.Error(R.string.auth_error_unavailable),
     )
     override val state: StateFlow<AuthState> = _state
 
@@ -109,7 +112,7 @@ class UnavailableAuthController : AuthController {
     override suspend fun beginGoogleAuth() = unavailable()
 
     override fun handleDeepLink(intent: Intent) {
-        _state.value = AuthState.Error("認証設定を確認できません。現在はアカウント操作を利用できません。")
+        _state.value = AuthState.Error(R.string.auth_error_unavailable)
     }
 
     override suspend fun signOut() {

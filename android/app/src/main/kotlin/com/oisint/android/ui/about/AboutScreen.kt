@@ -1,5 +1,7 @@
 package com.oisint.android.ui.about
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -51,7 +53,7 @@ fun AboutScreen(onBack: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                "← 戻る",
+                stringResource(R.string.common_back),
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
                 color = DesignTokens.Colors.orange,
@@ -67,14 +69,14 @@ fun AboutScreen(onBack: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(7.dp),
         ) {
             Text(
-                "OISINT のつかいかた",
+                stringResource(R.string.about_eyebrow),
                 fontSize = 9.sp,
                 letterSpacing = 1.5.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = DesignTokens.Colors.orange,
             )
             Text(
-                "「どこ行く？」から\n「ここがいい」までの流れ。",
+                stringResource(R.string.about_title),
                 fontSize = 21.sp,
                 lineHeight = 31.sp,
                 fontWeight = FontWeight.ExtraBold,

@@ -37,7 +37,7 @@ public struct ComparisonPanelView: View {
         // ラベル列が全幅を奪い候補列（店名・○△×?）が 0 幅に潰れていた（#241 同種の見切れ）
         let ratios = [CGFloat(1.4)] + Array(repeating: CGFloat(1), count: candidates.count)
         VStack(alignment: .leading, spacing: 0) {
-            panelTitle("比較")
+            panelTitle(String(localized: "比較", bundle: .module))
             FlexRow(ratios: ratios, spacing: 4) {
                 Text("").oisintFont(9, .bold)
                     .frame(maxWidth: .infinity)
@@ -65,7 +65,7 @@ public struct ComparisonPanelView: View {
                             .oisintFont(11, .heavy)
                             .foregroundStyle(Format.matchStateColor(state).color)
                             .frame(maxWidth: .infinity)
-                            .accessibilityLabel(Format.matchStateAccessibilityLabel(state))
+                            .accessibilityLabel(Format.localizedMatchStateAccessibilityLabel(state))
                     }
                 }
                 .padding(.vertical, 6)
@@ -126,7 +126,7 @@ public struct VotePanelView: View {
     public var body: some View {
         let sorted = candidates.sorted { $0.rank < $1.rank }
         VStack(alignment: .leading, spacing: 0) {
-            panelTitle("みんなの投票")
+            panelTitle(String(localized: "みんなの投票", bundle: .module))
             VStack(spacing: 7) {
                 ForEach(sorted) { candidate in
                     let upVotes = candidate.votes.values.filter { $0 == .up }.count
@@ -141,7 +141,7 @@ public struct VotePanelView: View {
                             .foregroundStyle(DesignTokens.Colors.text.color)
                             .lineLimit(1)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("\(upVotes)票")
+                        Text("\(upVotes)票", bundle: .module)
                             .oisintFont(10)
                             .foregroundStyle(DesignTokens.Colors.textSecondary.color)
                     }
@@ -153,7 +153,7 @@ public struct VotePanelView: View {
             }
             if let onVotePress {
                 Button(action: onVotePress) {
-                    Text("投票する")
+                    Text("投票する", bundle: .module)
                         .oisintFont(12, .bold)
                         .foregroundStyle(DesignTokens.Colors.surface.color)
                         .frame(maxWidth: .infinity, minHeight: 38)
@@ -163,7 +163,7 @@ public struct VotePanelView: View {
                 }
                 .buttonStyle(.plain)
                 .onHover { voteHovering = $0 }
-                .accessibilityLabel("候補に投票する")
+                .accessibilityLabel(Text("候補に投票する", bundle: .module))
                 .padding(.top, 10)
             }
         }
@@ -183,7 +183,7 @@ public struct EvidencePanelView: View {
         VStack(alignment: .leading, spacing: 0) {
             panelTitle("Evidence")
             if evidence.isEmpty {
-                Text("Evidenceはまだ収集されていません")
+                Text("Evidenceはまだ収集されていません", bundle: .module)
                     .oisintFont(11)
                     .italic()
                     .foregroundStyle(DesignTokens.Colors.textTertiary.color)

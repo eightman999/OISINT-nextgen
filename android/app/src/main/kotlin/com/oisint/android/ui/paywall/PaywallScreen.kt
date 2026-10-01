@@ -1,5 +1,12 @@
 package com.oisint.android.ui.paywall
 
+import com.oisint.android.entitlement.RevenueCatEntitlementContract
+import com.oisint.android.R
+import androidx.annotation.StringRes
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -37,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import com.oisint.android.design.DesignTokens
 import com.oisint.android.entitlement.PlusPackage
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun PaywallScreen(
     viewModel: PaywallViewModel,
@@ -55,7 +63,7 @@ fun PaywallScreen(
             .testTag("paywall-screen"),
     ) {
         Text(
-            "← 戻る",
+            stringResource(R.string.common_back),
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             color = DesignTokens.Colors.orange,
@@ -76,13 +84,13 @@ fun PaywallScreen(
                 color = DesignTokens.Colors.orange,
             )
             Text(
-                "無料とPlusのプラン",
+                stringResource(R.string.paywall_title),
                 fontSize = 22.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = DesignTokens.Colors.text,
             )
             Text(
-                "調査・投票・Evidenceの確認は無料のまま。Plusの適用範囲と利用枠は、購入前の表示内容とアカウント状態で確認できます。",
+                stringResource(R.string.paywall_intro),
                 fontSize = 12.sp,
                 lineHeight = 19.sp,
                 color = DesignTokens.Colors.textSecondary,
@@ -110,12 +118,12 @@ fun PaywallScreen(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text("購入を復元", fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+            Text(stringResource(R.string.paywall_restore), fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
             if (state.restoring) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
         }
         if (!state.isAuthenticated) {
             Text(
-                "匿名または未接続の状態では購入・復元できません。アカウント登録後にお試しください。",
+                stringResource(R.string.paywall_anonymous_notice),
                 fontSize = 11.sp,
                 color = DesignTokens.Colors.textSecondary,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
@@ -127,14 +135,14 @@ fun PaywallScreen(
                     .padding(horizontal = 16.dp)
                     .testTag("paywall-account"),
             ) {
-                Text("アカウントを接続")
+                Text(stringResource(R.string.paywall_connect_account))
             }
         }
-        state.noticeMessage.takeIf { it.isNotEmpty() }?.let {
-            Text(it, color = DesignTokens.Colors.success, fontSize = 12.sp, modifier = Modifier.padding(16.dp).testTag("paywall-notice"))
+        state.noticeMessage?.let {
+            Text(stringResource(it), color = DesignTokens.Colors.success, fontSize = 12.sp, modifier = Modifier.padding(16.dp).testTag("paywall-notice"))
         }
-        state.errorMessage.takeIf { it.isNotEmpty() }?.let {
-            Text(it, color = DesignTokens.Colors.danger, fontSize = 12.sp, modifier = Modifier.padding(16.dp).testTag("paywall-error"))
+        state.errorMessage?.let {
+            Text(stringResource(it), color = DesignTokens.Colors.danger, fontSize = 12.sp, modifier = Modifier.padding(16.dp).testTag("paywall-error"))
         }
         Column(
             modifier = Modifier
@@ -143,22 +151,25 @@ fun PaywallScreen(
                 .testTag("paywall-legal-links"),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Text("購入前に確認すること", fontSize = 13.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.paywall_before_purchase_title), fontSize = 13.sp, fontWeight = FontWeight.Bold)
             Text(
-                "価格・契約期間・更新・解約・返金条件は、購入元と下記の案内を確認してください。アカウント削除はストア定期購入の解約ではありません。",
+                stringResource(R.string.paywall_before_purchase_body),
                 fontSize = 11.sp,
                 color = DesignTokens.Colors.textSecondary,
             )
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
                 listOf(
-                    Triple("terms", "利用規約", "https://oisint.com/terms"),
-                    Triple("privacy", "プライバシー", "https://oisint.com/privacy"),
-                    Triple("commercial", "特商法表記", "https://oisint.com/commercial-transactions"),
-                    Triple("refund", "解約・返金案内", "https://oisint.com/support"),
-                    Triple("support", "サポート", "https://oisint.com/support"),
+                    Triple("terms", R.string.paywall_legal_terms, "https://oisint.com/terms"),
+                    Triple("privacy", R.string.paywall_legal_privacy, "https://oisint.com/privacy"),
+                    Triple("commercial", R.string.paywall_legal_commercial, "https://oisint.com/commercial-transactions"),
+                    Triple("refund", R.string.paywall_legal_refund, "https://oisint.com/support"),
+                    Triple("support", R.string.paywall_legal_support, "https://oisint.com/support"),
                 ).forEach { (id, label, url) ->
                     Text(
-                        label,
+                        stringResource(label),
                         color = DesignTokens.Colors.orange,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
@@ -184,17 +195,19 @@ private fun CurrentPlan(state: PaywallUiState) {
             .border(1.dp, DesignTokens.Colors.border, RoundedCornerShape(8.dp))
             .padding(16.dp),
     ) {
-        Text("現在のプラン", fontSize = 9.sp, fontWeight = FontWeight.Bold, color = DesignTokens.Colors.textTertiary)
+        Text(stringResource(R.string.paywall_current_plan), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = DesignTokens.Colors.textTertiary)
         Spacer(Modifier.height(6.dp))
         Text(
-            if (state.status.isPlus) "OISINT Plus ご利用中" else "無料プラン",
+            stringResource(if (state.status.isPlus) R.string.paywall_status_plus else R.string.paywall_status_free),
             fontSize = 17.sp,
             fontWeight = FontWeight.ExtraBold,
             color = if (state.status.isPlus) DesignTokens.Colors.success else DesignTokens.Colors.text,
         )
         if (state.status.isPlus) {
             Text(
-                if (state.status.willRenew == true) "自動更新あり" else "自動更新なし",
+                stringResource(
+                    if (state.status.willRenew == true) R.string.paywall_auto_renew_on else R.string.paywall_auto_renew_off,
+                ),
                 fontSize = 11.sp,
                 color = DesignTokens.Colors.textSecondary,
             )
@@ -214,13 +227,13 @@ private fun Plans(
             .testTag("paywall-plans"),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        Text("プランを選ぶ", fontSize = 9.sp, fontWeight = FontWeight.Bold, color = DesignTokens.Colors.textTertiary)
+        Text(stringResource(R.string.paywall_choose_plan), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = DesignTokens.Colors.textTertiary)
         if (state.loadingPackages) {
             Box(Modifier.fillMaxWidth().padding(20.dp), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
             }
         } else if (state.packages.isEmpty()) {
-            Text("現在表示できるプランはありません。", fontSize = 12.sp, color = DesignTokens.Colors.textSecondary)
+            Text(stringResource(R.string.paywall_no_plans), fontSize = 12.sp, color = DesignTokens.Colors.textSecondary)
         } else {
             state.packages.forEach { pkg ->
                 PlanCard(
@@ -253,13 +266,56 @@ private fun PlanCard(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(Modifier.weight(1f)) {
-            Text(pkg.title, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold, color = DesignTokens.Colors.text)
-            Text("${pkg.priceString} / ${pkg.period}", fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
+            val title = planTitleRes(pkg.id)?.let { stringResource(it) } ?: pkg.title
+            Text(
+                title,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = DesignTokens.Colors.text,
+                modifier = Modifier.testTag("paywall-package-title-${pkg.id}"),
+            )
+            Text(
+                stringResource(R.string.paywall_price_per_period, pkg.priceString, billingPeriodLabel(pkg.period)),
+                fontSize = 11.sp,
+                color = DesignTokens.Colors.textSecondary,
+                modifier = Modifier.testTag("paywall-package-price-${pkg.id}"),
+            )
         }
         when {
-            isPlus -> Text("ご利用中", fontSize = 11.sp, color = DesignTokens.Colors.success)
+            isPlus -> Text(stringResource(R.string.paywall_plan_active), fontSize = 11.sp, color = DesignTokens.Colors.success)
             purchasing -> CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
-            else -> Text("加入する →", fontSize = 12.sp, color = if (enabled) DesignTokens.Colors.orange else DesignTokens.Colors.placeholder)
+            else -> Text(stringResource(R.string.paywall_subscribe), fontSize = 12.sp, color = if (enabled) DesignTokens.Colors.orange else DesignTokens.Colors.placeholder)
         }
     }
+}
+
+/** Store商品ID（Googleは productId:basePlanId）からローカライズ済みプラン名を引く。未知はnull。 */
+@StringRes
+internal fun planTitleRes(packageId: String): Int? = when (packageId.substringBefore(':')) {
+    RevenueCatEntitlementContract.MONTHLY_PRODUCT -> R.string.paywall_plan_monthly
+    RevenueCatEntitlementContract.ANNUAL_PRODUCT -> R.string.paywall_plan_annual
+    else -> null
+}
+
+/** ISO 8601 の課金期間（P1M / P1Y / P2W / P7D）。単純な単一単位だけを解釈する。 */
+internal data class BillingPeriod(val unit: Char, val count: Int)
+
+internal fun parseBillingPeriod(iso: String): BillingPeriod? {
+    val match = Regex("^P(\\d+)([DWMY])$").matchEntire(iso.trim()) ?: return null
+    val count = match.groupValues[1].toIntOrNull() ?: return null
+    if (count <= 0) return null
+    return BillingPeriod(match.groupValues[2][0], count)
+}
+
+/** 課金期間を端末/アプリのロケールで表示する。解釈できない値は原文のまま出す。 */
+@Composable
+private fun billingPeriodLabel(iso: String): String {
+    val period = parseBillingPeriod(iso) ?: return iso
+    val res = when (period.unit) {
+        'D' -> R.plurals.paywall_period_days
+        'W' -> R.plurals.paywall_period_weeks
+        'M' -> R.plurals.paywall_period_months
+        else -> R.plurals.paywall_period_years
+    }
+    return pluralStringResource(res, period.count, period.count)
 }

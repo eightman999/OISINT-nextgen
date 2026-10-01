@@ -1,5 +1,6 @@
 package com.oisint.android.auth
 
+import com.oisint.android.R
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -46,7 +47,7 @@ class AuthControllerTest {
 
         synchronizer.synchronize(AuthState.Authenticated(userId, null))
         synchronizer.synchronize(AuthState.SignedOut)
-        synchronizer.synchronize(AuthState.Error("safe"))
+        synchronizer.synchronize(AuthState.Error(R.string.auth_error_unavailable))
 
         assertEquals(listOf("bind:$userId", "clear", "clear"), calls)
     }

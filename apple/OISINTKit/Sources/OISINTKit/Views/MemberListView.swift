@@ -16,7 +16,7 @@ public struct MemberListView: View {
                         .padding(.leading, index > 0 ? -8 : 0)
                 }
             }
-            Text("\(members.count)人が参加中")
+            Text("\(members.count)人が参加中", bundle: .module)
                 .oisintFont(12)
                 .foregroundStyle(DesignTokens.Colors.textSecondary.color)
                 .accessibilityIdentifier("member-count")

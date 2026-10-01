@@ -73,15 +73,15 @@ public enum EmailLoginFailure: Error, LocalizedError, Sendable, Equatable {
     public var errorDescription: String? {
         switch self {
         case .unconfirmed:
-            return "メール確認が完了していません。最新の確認メールのリンクを開いてください。"
+            return String(localized: "メール確認が完了していません。最新の確認メールのリンクを開いてください。", bundle: .module)
         case .invalidCredentials:
-            return "メールまたはパスワードが正しくありません。登録時のパスワードを入力してください。"
+            return String(localized: "メールまたはパスワードが正しくありません。登録時のパスワードを入力してください。", bundle: .module)
         case .rateLimited:
-            return "ログインの試行回数が上限に達しました。時間をおいて再度お試しください。"
+            return String(localized: "ログインの試行回数が上限に達しました。時間をおいて再度お試しください。", bundle: .module)
         case .unavailable:
-            return "認証サービスに接続できませんでした。通信状態を確認して再度お試しください。"
+            return String(localized: "認証サービスに接続できませんでした。通信状態を確認して再度お試しください。", bundle: .module)
         case .sessionPersistence:
-            return "ログイン情報を端末に保存できませんでした。アプリの署名・Keychain設定を確認してください。"
+            return String(localized: "ログイン情報を端末に保存できませんでした。アプリの署名・Keychain設定を確認してください。", bundle: .module)
         }
     }
 
@@ -100,15 +100,15 @@ enum EmailRegistrationValidation {
     static func message(email: String, password: String, confirmation: String) -> String? {
         let email = email.trimmingCharacters(in: .whitespacesAndNewlines)
         guard email.range(of: "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$", options: .regularExpression) != nil else {
-            return "メールアドレスを確認してください。"
+            return String(localized: "メールアドレスを確認してください。", bundle: .module)
         }
         guard password.count >= 12,
               password.range(of: "[a-z]", options: .regularExpression) != nil,
               password.range(of: "[A-Z]", options: .regularExpression) != nil,
               password.range(of: "[0-9]", options: .regularExpression) != nil else {
-            return "パスワードは12文字以上で、英大文字・英小文字・数字を含めてください。"
+            return String(localized: "パスワードは12文字以上で、英大文字・英小文字・数字を含めてください。", bundle: .module)
         }
-        guard password == confirmation else { return "確認用パスワードが一致しません。" }
+        guard password == confirmation else { return String(localized: "確認用パスワードが一致しません。", bundle: .module) }
         return nil
     }
 }

@@ -66,7 +66,7 @@ import OISINTKitDebugFixtures
         #expect(store.locationState == .denied)
         #expect(!store.isLocationRequesting)
         #expect(store.selectedLocation == nil)
-        #expect(store.locationErrorMessage == "位置情報が許可されていません。場所名を入力して続けてください。")
+        #expect(store.locationErrorMessage == String(localized: "位置情報が許可されていません。場所名を入力して続けてください。", bundle: .module))
 
         store.manualLocation = "  池袋駅  "
         store.applyManualLocation()
@@ -108,7 +108,7 @@ import OISINTKitDebugFixtures
         #expect(store.locationState == .unavailable)
         #expect(!store.isLocationRequesting)
         #expect(store.selectedLocation == nil)
-        #expect(store.locationErrorMessage == "現在地を地名に変換できませんでした。場所名を入力して続けてください。")
+        #expect(store.locationErrorMessage == String(localized: "現在地を地名に変換できませんでした。場所名を入力して続けてください。", bundle: .module))
     }
 }
 

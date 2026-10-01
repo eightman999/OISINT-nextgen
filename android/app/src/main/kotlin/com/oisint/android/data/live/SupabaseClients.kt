@@ -1,5 +1,6 @@
 package com.oisint.android.data.live
 
+import com.oisint.android.R
 import android.content.Intent
 import com.oisint.android.auth.AuthController
 import com.oisint.android.auth.AuthState
@@ -232,7 +233,7 @@ class SupabaseClients(
         } catch (_: Exception) {
             // Auth failure is a separate state from entitlement failure. Do not expose
             // provider/server error text or turn it into a password error in the UI.
-            _state.value = AuthState.Error("認証状態を取得できませんでした。時間をおいて再試行してください。")
+            _state.value = AuthState.Error(R.string.auth_error_state_unavailable)
         }
     }
 
@@ -297,13 +298,13 @@ class SupabaseClients(
                             val userId = refreshAuthoritativeUserId()
                             publishState(userId)
                         } catch (_: Exception) {
-                            _state.value = AuthState.Error("Google認証を完了できませんでした。もう一度お試しください。")
+                            _state.value = AuthState.Error(R.string.auth_error_google_failed)
                         }
                     }
                 }
             },
             onError = {
-                _state.value = AuthState.Error("Google認証を完了できませんでした。もう一度お試しください。")
+                _state.value = AuthState.Error(R.string.auth_error_google_failed)
             },
         )
     }
@@ -391,7 +392,7 @@ class SupabaseClients(
     private fun publishState(userId: String) {
         val user = client.auth.currentUserOrNull()
         if (user == null || user.id != userId) {
-            _state.value = AuthState.Error("認証状態を確認できませんでした。")
+            _state.value = AuthState.Error(R.string.auth_error_state_unconfirmed)
             return
         }
         _state.value = if (user.isAnonymous == true) {

@@ -1,5 +1,7 @@
 package com.oisint.android.ui.paywall
 
+import com.oisint.android.R
+import androidx.annotation.StringRes
 import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,8 +25,9 @@ data class PaywallUiState(
     val loadingPackages: Boolean = true,
     val purchasingId: String? = null,
     val restoring: Boolean = false,
-    val errorMessage: String = "",
-    val noticeMessage: String = "",
+    /** 表示用メッセージ（string resource ID）。null は非表示。 */
+    @StringRes val errorMessage: Int? = null,
+    @StringRes val noticeMessage: Int? = null,
 ) {
     val busy: Boolean get() = purchasingId != null || restoring
 }
@@ -58,14 +61,14 @@ class PaywallViewModel(private val provider: EntitlementProvider) : ViewModel() 
                 _uiState.update {
                     it.copy(
                         loadingPackages = false,
-                        errorMessage = "購入設定を確認できません。現在は無料プランをご利用ください。",
+                        errorMessage = R.string.paywall_error_not_configured,
                     )
                 }
             } catch (_: Exception) {
                 _uiState.update {
                     it.copy(
                         loadingPackages = false,
-                        errorMessage = "プラン情報を取得できませんでした。時間をおいて再試行してください。",
+                        errorMessage = R.string.paywall_error_plans_failed,
                     )
                 }
             }
@@ -78,31 +81,31 @@ class PaywallViewModel(private val provider: EntitlementProvider) : ViewModel() 
         if (!state.isAuthenticated) {
             _uiState.update {
                 it.copy(
-                    errorMessage = "匿名利用中は購入できません。アカウント登録後にお試しください。",
-                    noticeMessage = "",
+                    errorMessage = R.string.paywall_error_anonymous_purchase,
+                    noticeMessage = null,
                 )
             }
             return
         }
         val target = state.packages.firstOrNull { it.id == packageId } ?: return
-        _uiState.update { it.copy(purchasingId = packageId, errorMessage = "", noticeMessage = "") }
+        _uiState.update { it.copy(purchasingId = packageId, errorMessage = null, noticeMessage = null) }
         viewModelScope.launch {
             try {
                 provider.purchase(activity, target)
-                _uiState.update { it.copy(noticeMessage = "OISINT Plus に加入しました。") }
+                _uiState.update { it.copy(noticeMessage = R.string.paywall_notice_purchased) }
             } catch (_: EntitlementPendingException) {
                 _uiState.update {
-                    it.copy(noticeMessage = "購入を受け付けました。サーバー反映後にPlus状態を確認します。")
+                    it.copy(noticeMessage = R.string.paywall_notice_purchase_pending)
                 }
             } catch (_: EntitlementPurchaseCancelledException) {
-                _uiState.update { it.copy(noticeMessage = "購入をキャンセルしました。") }
+                _uiState.update { it.copy(noticeMessage = R.string.paywall_notice_purchase_cancelled) }
             } catch (_: EntitlementAnonymousException) {
                 _uiState.update {
-                    it.copy(errorMessage = "匿名利用中は購入できません。アカウント登録後にお試しください。")
+                    it.copy(errorMessage = R.string.paywall_error_anonymous_purchase)
                 }
             } catch (_: Exception) {
                 _uiState.update {
-                    it.copy(errorMessage = "購入処理に失敗しました。時間をおいて再試行してください。")
+                    it.copy(errorMessage = R.string.paywall_error_purchase_failed)
                 }
             } finally {
                 _uiState.update { it.copy(purchasingId = null) }
@@ -115,32 +118,32 @@ class PaywallViewModel(private val provider: EntitlementProvider) : ViewModel() 
         if (!_uiState.value.isAuthenticated) {
             _uiState.update {
                 it.copy(
-                    errorMessage = "匿名利用中は購入を復元できません。アカウント登録後にお試しください。",
-                    noticeMessage = "",
+                    errorMessage = R.string.paywall_error_anonymous_restore,
+                    noticeMessage = null,
                 )
             }
             return
         }
-        _uiState.update { it.copy(restoring = true, errorMessage = "", noticeMessage = "") }
+        _uiState.update { it.copy(restoring = true, errorMessage = null, noticeMessage = null) }
         viewModelScope.launch {
             try {
                 val restored = provider.restore()
                 _uiState.update {
                     it.copy(
                         noticeMessage = if (restored.isPlus) {
-                            "購入を復元しました。"
+                            R.string.paywall_notice_restored
                         } else {
-                            "復元できる購入が見つかりませんでした。"
+                            R.string.paywall_notice_nothing_to_restore
                         },
                     )
                 }
             } catch (_: EntitlementPendingException) {
                 _uiState.update {
-                    it.copy(noticeMessage = "復元を受け付けました。サーバー反映後にPlus状態を確認します。")
+                    it.copy(noticeMessage = R.string.paywall_notice_restore_pending)
                 }
             } catch (_: Exception) {
                 _uiState.update {
-                    it.copy(errorMessage = "復元処理に失敗しました。時間をおいて再試行してください。")
+                    it.copy(errorMessage = R.string.paywall_error_restore_failed)
                 }
             } finally {
                 _uiState.update { it.copy(restoring = false) }

@@ -79,11 +79,11 @@ public final class InvestigationStore {
                     selectedCandidateId = first.id
                 }
             } else {
-                errorMessage = "調査が見つかりません"
+                errorMessage = String(localized: "調査が見つかりません", bundle: .module)
                 loading = false
             }
         } catch {
-            errorMessage = "調査データを読み込めませんでした"
+            errorMessage = String(localized: "調査データを読み込めませんでした", bundle: .module)
             loading = false
         }
 
@@ -126,7 +126,7 @@ public final class InvestigationStore {
             do {
                 try await provider.setVote(investigationId: investigationId, candidateId: candidateId, value: value)
             } catch {
-                actionError = "投票を保存できませんでした。通信状態を確認してください。"
+                actionError = String(localized: "投票を保存できませんでした。通信状態を確認してください。", bundle: .module)
             }
         }
 
@@ -139,7 +139,7 @@ public final class InvestigationStore {
                     RerankInvestigationRequest(investigationId: investigationId, trigger: .vote)
                 )
             } catch {
-                actionError = "投票を保存しましたが、順位の更新に失敗しました。"
+                actionError = String(localized: "投票を保存しましたが、順位の更新に失敗しました。", bundle: .module)
             }
         }
     }
@@ -151,7 +151,7 @@ public final class InvestigationStore {
 
         actionError = ""
         guard userId != nil else {
-            actionError = "条件を追加する権限がありません。"
+            actionError = String(localized: "条件を追加する権限がありません。", bundle: .module)
             return
         }
         do {
@@ -162,7 +162,7 @@ public final class InvestigationStore {
                 RerankInvestigationRequest(investigationId: investigationId, trigger: .requirementAdded)
             )
         } catch {
-            actionError = "条件の追加または候補の再評価に失敗しました。再試行してください。"
+            actionError = String(localized: "条件の追加または候補の再評価に失敗しました。再試行してください。", bundle: .module)
         }
     }
 
@@ -177,7 +177,7 @@ public final class InvestigationStore {
         do {
             _ = try await provider.runInvestigation(RunInvestigationRequest(investigationId: investigationId))
         } catch {
-            actionError = "調査を再試行できませんでした。時間を置いてもう一度お試しください。"
+            actionError = String(localized: "調査を再試行できませんでした。時間を置いてもう一度お試しください。", bundle: .module)
         }
         retrying = false
     }
@@ -195,7 +195,7 @@ public final class InvestigationStore {
             }
         } else {
             shareCopied = false
-            actionError = "共有URLをコピーできませんでした。URLを選択してコピーしてください。"
+            actionError = String(localized: "共有URLをコピーできませんでした。URLを選択してコピーしてください。", bundle: .module)
         }
     }
 }

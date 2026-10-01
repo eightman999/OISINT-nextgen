@@ -56,7 +56,7 @@ public struct HomeView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 178, height: 54)
-                .accessibilityLabel("OISINT ロゴ")
+                .accessibilityLabel(Text("OISINT ロゴ", bundle: .module))
             Spacer()
             VStack(alignment: .trailing, spacing: 8) {
                 Text("SHARED FOOD RESEARCH")
@@ -67,7 +67,7 @@ public struct HomeView: View {
                     Circle()
                         .fill(DesignTokens.Colors.orange.color)
                         .frame(width: 7, height: 7)
-                    Text("今夜の作戦会議")
+                    Text("今夜の作戦会議", bundle: .module)
                         .oisintFont(10, .bold)
                         .foregroundStyle(DesignTokens.Colors.text.color)
                 }
@@ -81,7 +81,7 @@ public struct HomeView: View {
                 }
                 .font(.caption.bold())
                 .accessibilityIdentifier("plus-paywall-link")
-                NavigationLink("アカウント") {
+                NavigationLink(String(localized: "アカウント", bundle: .module)) {
                     AccountView()
                 }
                 .font(.caption.bold())
@@ -119,14 +119,14 @@ public struct HomeView: View {
     private var researchCard: some View {
         VStack(alignment: .leading, spacing: 14) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("ここから調べる")
+                Text("ここから調べる", bundle: .module)
                     .oisintFont(10, .heavy)
                     .kerning(1.2)
                     .foregroundStyle(DesignTokens.Colors.orange.color)
-                Text("今夜の条件を、もう少しだけ具体的に。")
+                Text("今夜の条件を、もう少しだけ具体的に。", bundle: .module)
                     .oisintFont(18, .heavy)
                     .foregroundStyle(DesignTokens.Colors.text.color)
-                Text("新しい店探しをはじめる")
+                Text("新しい店探しをはじめる", bundle: .module)
                     .oisintFont(10, .bold)
                     .foregroundStyle(DesignTokens.Colors.textTertiary.color)
             }
@@ -145,10 +145,10 @@ public struct HomeView: View {
                             .foregroundStyle(DesignTokens.Colors.surface.color)
                     )
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("いまの気分を、そのまま書く")
+                    Text("いまの気分を、そのまま書く", bundle: .module)
                         .oisintFont(15, .heavy)
                         .foregroundStyle(DesignTokens.Colors.text.color)
-                    Text("「静かめ」「駅から近い」「誰かが喜ぶ」も立派な条件。あとから場所と好みを足せます。")
+                    Text("「静かめ」「駅から近い」「誰かが喜ぶ」も立派な条件。あとから場所と好みを足せます。", bundle: .module)
                         .oisintFont(11)
                         .foregroundStyle(DesignTokens.Colors.textSecondary.color)
                 }
@@ -167,7 +167,7 @@ public struct HomeView: View {
             identityRow
             examples
 
-            Text("急ぎなら、場所と条件を一文だけで開始できます。調査の途中でも、みんなで条件を足せます。")
+            Text("急ぎなら、場所と条件を一文だけで開始できます。調査の途中でも、みんなで条件を足せます。", bundle: .module)
                 .oisintFont(10)
                 .foregroundStyle(DesignTokens.Colors.textTertiary.color)
                 .accessibilityIdentifier("impulse-exit")
@@ -193,7 +193,7 @@ public struct HomeView: View {
     private var explanationCard: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                Text("選び方の流れ")
+                Text("選び方の流れ", bundle: .module)
                     .oisintFont(10, .heavy)
                     .foregroundStyle(DesignTokens.Colors.orange.color)
                 Spacer()
@@ -202,11 +202,11 @@ public struct HomeView: View {
                     .accessibilityHidden(true)
             }
 
-            Text("話しながら、\n候補が見えてくる。")
+            Text("話しながら、\n候補が見えてくる。", bundle: .module)
                 .oisintFont(24, .heavy)
                 .foregroundStyle(DesignTokens.Colors.text.color)
 
-            Text("候補を並べて終わりではなく、条件を持ち寄るたびに「じゃあ、ここはどう？」が見えてくる。")
+            Text("候補を並べて終わりではなく、条件を持ち寄るたびに「じゃあ、ここはどう？」が見えてくる。", bundle: .module)
                 .oisintFont(11)
                 .foregroundStyle(DesignTokens.Colors.textSecondary.color)
 
@@ -214,21 +214,21 @@ public struct HomeView: View {
 
             processStep(
                 index: "01",
-                title: "場面から書き込む",
-                text: "人数、予算、空気感。うまく言葉にできない条件も、そのままで。"
+                title: String(localized: "場面から書き込む", bundle: .module),
+                text: String(localized: "人数、予算、空気感。うまく言葉にできない条件も、そのままで。", bundle: .module)
             )
             processStep(
                 index: "02",
-                title: "候補の裏側を確かめる",
-                text: "公開情報と出典を並べて、良さそうだけで終わらせない。"
+                title: String(localized: "候補の裏側を確かめる", bundle: .module),
+                text: String(localized: "公開情報と出典を並べて、良さそうだけで終わらせない。", bundle: .module)
             )
             processStep(
                 index: "03",
-                title: "みんなで「これだね」へ",
-                text: "共有した画面で条件を足し、最後は自分たちの判断で決める。"
+                title: String(localized: "みんなで「これだね」へ", bundle: .module),
+                text: String(localized: "共有した画面で条件を足し、最後は自分たちの判断で決める。", bundle: .module)
             )
 
-            Text("理由を見ながら、ちゃんと決める")
+            Text("理由を見ながら、ちゃんと決める", bundle: .module)
                 .oisintFont(9, .heavy)
                 .foregroundStyle(DesignTokens.Colors.textSecondary.color)
                 .padding(.horizontal, 9)
@@ -268,7 +268,7 @@ public struct HomeView: View {
     private var searchBox: some View {
         VStack(alignment: .leading, spacing: 12) {
             TextField(
-                "例：池袋で、みんなが話しやすい肉の店を探して",
+                String(localized: "例：池袋で、みんなが話しやすい肉の店を探して", bundle: .module),
                 text: Bindable(store).query,
                 axis: .vertical
             )
@@ -287,7 +287,7 @@ public struct HomeView: View {
                             .controlSize(.small)
                             .tint(DesignTokens.Colors.surface.color)
                     }
-                    Text("捜査をはじめる ↗")
+                    Text("捜査をはじめる ↗", bundle: .module)
                         .oisintFont(12, .heavy)
                         .foregroundStyle(DesignTokens.Colors.surface.color)
                 }
@@ -304,8 +304,8 @@ public struct HomeView: View {
             .buttonStyle(.plain)
             .onHover { startHovering = $0 }
             .disabled(!store.canStart)
-            .accessibilityLabel(store.loading ? "調査を開始中" : "調査を開始")
-            .accessibilityHint(store.canStart ? "入力した条件で候補を探します" : "検索条件を入力すると押せます")
+            .accessibilityLabel(store.loading ? String(localized: "調査を開始中", bundle: .module) : String(localized: "調査を開始", bundle: .module))
+            .accessibilityHint(store.canStart ? String(localized: "入力した条件で候補を探します", bundle: .module) : String(localized: "検索条件を入力すると押せます", bundle: .module))
             .accessibilityIdentifier("home-start")
         }
         .padding(12)
@@ -319,15 +319,15 @@ public struct HomeView: View {
     private var identityRow: some View {
         HStack(alignment: .center, spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
-                Text("呼ばれる名前")
+                Text("呼ばれる名前", bundle: .module)
                     .oisintFont(11, .bold)
                     .foregroundStyle(DesignTokens.Colors.text.color)
-                Text("共有したときに表示されます")
+                Text("共有したときに表示されます", bundle: .module)
                     .oisintFont(10)
                     .foregroundStyle(DesignTokens.Colors.textTertiary.color)
             }
             Spacer()
-            TextField("表示名（任意）", text: Bindable(store).localName)
+            TextField(String(localized: "表示名（任意）", bundle: .module), text: Bindable(store).localName)
                 .textFieldStyle(.plain)
                 .oisintFont(12)
                 .foregroundStyle(DesignTokens.Colors.text.color)
@@ -346,7 +346,7 @@ public struct HomeView: View {
 
     private var examples: some View {
         FlowLayout(spacing: 7) {
-            Text("別のシーン：")
+            Text("別のシーン：", bundle: .module)
                 .oisintFont(10)
                 .foregroundStyle(DesignTokens.Colors.textTertiary.color)
             ForEach(HomeStore.exampleQueries, id: \.self) { example in
@@ -373,7 +373,7 @@ public struct HomeView: View {
 
     private var historySection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("最近の調査")
+            Text("最近の調査", bundle: .module)
                 .oisintFont(16, .bold)
                 .foregroundStyle(DesignTokens.Colors.text.color)
             ForEach(app.history) { entry in
@@ -386,7 +386,7 @@ public struct HomeView: View {
                             .foregroundStyle(DesignTokens.Colors.text.color)
                             .lineLimit(1)
                         Spacer()
-                        Text("開く ↗")
+                        Text("開く ↗", bundle: .module)
                             .oisintFont(11, .bold)
                             .foregroundStyle(DesignTokens.Colors.orange.color)
                     }
@@ -400,7 +400,7 @@ public struct HomeView: View {
                     )
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("\(entry.title) を開く")
+                .accessibilityLabel(Text("\(entry.title) を開く", bundle: .module))
             }
         }
         .accessibilityElement(children: .contain)

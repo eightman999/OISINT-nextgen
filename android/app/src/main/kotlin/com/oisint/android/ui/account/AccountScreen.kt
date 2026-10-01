@@ -1,5 +1,7 @@
 package com.oisint.android.ui.account
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -54,7 +56,7 @@ fun AccountScreen(
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         Text(
-            "← 戻る",
+            stringResource(R.string.common_back),
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             color = DesignTokens.Colors.orange,
@@ -64,9 +66,9 @@ fun AccountScreen(
                 .padding(vertical = 18.dp),
         )
 
-        Text("アカウント", fontSize = 24.sp, fontWeight = FontWeight.ExtraBold, color = DesignTokens.Colors.text)
+        Text(stringResource(R.string.account_title), fontSize = 24.sp, fontWeight = FontWeight.ExtraBold, color = DesignTokens.Colors.text)
         Text(
-            "匿名で始めた調査を、この端末だけに閉じずに引き継げます。Google接続では現在の匿名ユーザーIDを維持します。",
+            stringResource(R.string.account_intro),
             fontSize = 12.sp,
             lineHeight = 19.sp,
             color = DesignTokens.Colors.textSecondary,
@@ -78,14 +80,14 @@ fun AccountScreen(
             AuthState.SignedOut -> AuthForm(state, viewModel, isAnonymous = false)
             AuthState.Loading -> CircularProgressIndicator(Modifier.testTag("account-loading"))
             is AuthState.Error ->
-                Text(authState.message, color = DesignTokens.Colors.danger, modifier = Modifier.testTag("account-auth-error"))
+                Text(stringResource(authState.messageRes), color = DesignTokens.Colors.danger, modifier = Modifier.testTag("account-auth-error"))
         }
 
-        state.noticeMessage.takeIf { it.isNotEmpty() }?.let {
-            Text(it, color = DesignTokens.Colors.success, modifier = Modifier.testTag("account-notice"))
+        state.noticeMessage?.let {
+            Text(stringResource(it), color = DesignTokens.Colors.success, modifier = Modifier.testTag("account-notice"))
         }
-        state.errorMessage.takeIf { it.isNotEmpty() }?.let {
-            Text(it, color = DesignTokens.Colors.danger, modifier = Modifier.testTag("account-error"))
+        state.errorMessage?.let {
+            Text(stringResource(it), color = DesignTokens.Colors.danger, modifier = Modifier.testTag("account-error"))
         }
         Spacer(Modifier.height(24.dp))
     }
@@ -105,10 +107,10 @@ private fun AuthenticatedCard(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Text("接続済み", fontWeight = FontWeight.Bold, color = DesignTokens.Colors.success)
-        Text(authState.email ?: "認証済みアカウント", color = DesignTokens.Colors.text)
+        Text(stringResource(R.string.account_connected), fontWeight = FontWeight.Bold, color = DesignTokens.Colors.success)
+        Text(authState.email ?: stringResource(R.string.account_authenticated_fallback), color = DesignTokens.Colors.text)
         Text(
-            "このアカウントで購入・復元できます。ログアウトするとPlus状態の表示を安全側へ戻します。",
+            stringResource(R.string.account_authenticated_body),
             fontSize = 12.sp,
             color = DesignTokens.Colors.textSecondary,
         )
@@ -117,7 +119,7 @@ private fun AuthenticatedCard(
             enabled = !state.busy,
             modifier = Modifier.fillMaxWidth().testTag("account-sign-out"),
         ) {
-            Text("ログアウト")
+            Text(stringResource(R.string.account_sign_out))
         }
         AccountDeletionControls(state, viewModel)
     }
@@ -134,9 +136,9 @@ private fun AuthForm(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         if (isAnonymous) {
-            Text("匿名利用中", fontWeight = FontWeight.Bold, color = DesignTokens.Colors.text)
+            Text(stringResource(R.string.account_anonymous_title), fontWeight = FontWeight.Bold, color = DesignTokens.Colors.text)
             Text(
-                "Google接続は現在の調査と所有権を引き継ぎます。メールで別アカウントへ入る場合は、誤移転防止のため明示確認が必要です。",
+                stringResource(R.string.account_anonymous_body),
                 fontSize = 12.sp,
                 lineHeight = 19.sp,
                 color = DesignTokens.Colors.textSecondary,
@@ -147,9 +149,9 @@ private fun AuthForm(
             enabled = !state.busy,
             modifier = Modifier.fillMaxWidth().testTag("account-google"),
         ) {
-            Text(if (isAnonymous) "Googleアカウントを接続" else "Googleで続ける")
+            Text(stringResource(if (isAnonymous) R.string.account_connect_google else R.string.account_continue_google))
         }
-        Text("メールアドレス", fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
+        Text(stringResource(R.string.account_email_label), fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
         OutlinedTextField(
             value = state.email,
             onValueChange = viewModel::onEmailChanged,
@@ -158,7 +160,7 @@ private fun AuthForm(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             modifier = Modifier.fillMaxWidth().testTag("account-email"),
         )
-        Text("パスワード", fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
+        Text(stringResource(R.string.account_password_label), fontSize = 11.sp, color = DesignTokens.Colors.textSecondary)
         OutlinedTextField(
             value = state.password,
             onValueChange = viewModel::onPasswordChanged,
@@ -175,7 +177,7 @@ private fun AuthForm(
                     onCheckedChange = { viewModel.onConfirmAccountSwitchChanged(it) },
                     enabled = !state.busy,
                 )
-                Text("別のメールアカウントへ切り替えることを確認", fontSize = 12.sp, color = DesignTokens.Colors.textSecondary)
+                Text(stringResource(R.string.account_switch_confirm), fontSize = 12.sp, color = DesignTokens.Colors.textSecondary)
             }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
@@ -183,12 +185,12 @@ private fun AuthForm(
                 onClick = viewModel::signIn,
                 enabled = !state.busy,
                 modifier = Modifier.weight(1f).testTag("account-sign-in"),
-            ) { Text("サインイン") }
+            ) { Text(stringResource(R.string.account_sign_in)) }
             OutlinedButton(
                 onClick = viewModel::signUp,
                 enabled = !state.busy,
                 modifier = Modifier.weight(1f).testTag("account-sign-up"),
-            ) { Text("新規登録") }
+            ) { Text(stringResource(R.string.account_sign_up)) }
         }
         if (state.busy) CircularProgressIndicator(Modifier.size(18.dp).testTag("account-busy"), strokeWidth = 2.dp)
         AccountDeletionControls(state, viewModel)
@@ -207,16 +209,16 @@ private fun AccountDeletionControls(
             .padding(top = 18.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Text("アカウントを完全に削除", fontWeight = FontWeight.Bold, color = DesignTokens.Colors.danger)
+        Text(stringResource(R.string.account_delete_title), fontWeight = FontWeight.Bold, color = DesignTokens.Colors.danger)
         Text(
-            "削除すると、このアカウントの個人データとログイン情報を消去します。App Store / Google Play等のサブスクリプションは解約されません。先に各ストアで管理・解約してください。",
+            stringResource(R.string.account_delete_body),
             fontSize = 12.sp,
             lineHeight = 18.sp,
             color = DesignTokens.Colors.textSecondary,
         )
         if (state.confirmAccountDeletion) {
             Text(
-                "もう一度押すと永久削除を実行します。取り消せません。",
+                stringResource(R.string.account_delete_confirmation),
                 fontSize = 12.sp,
                 color = DesignTokens.Colors.danger,
                 modifier = Modifier.testTag("account-delete-confirmation"),
@@ -226,19 +228,19 @@ private fun AccountDeletionControls(
                     onClick = viewModel::requestAccountDeletion,
                     enabled = !state.busy,
                     modifier = Modifier.weight(1f).testTag("account-delete-confirm"),
-                ) { Text("永久削除を実行") }
+                ) { Text(stringResource(R.string.account_delete_execute)) }
                 OutlinedButton(
                     onClick = viewModel::cancelAccountDeletion,
                     enabled = !state.busy,
                     modifier = Modifier.weight(1f).testTag("account-delete-cancel"),
-                ) { Text("キャンセル") }
+                ) { Text(stringResource(R.string.common_cancel)) }
             }
         } else {
             OutlinedButton(
                 onClick = viewModel::requestAccountDeletion,
                 enabled = !state.busy,
                 modifier = Modifier.fillMaxWidth().testTag("account-delete-start"),
-            ) { Text("アカウント削除を続ける") }
+            ) { Text(stringResource(R.string.account_delete_continue)) }
         }
     }
 }

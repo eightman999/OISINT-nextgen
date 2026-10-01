@@ -1,5 +1,9 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.platform.LocalConfiguration
 import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -82,13 +86,22 @@ fun CandidateDetailSection(
     var decisionFormat by remember { mutableStateOf<DecisionFormat?>(null) }
     var copied by remember { mutableStateOf(false) }
     // tsx L32-36: 毎レンダー生成 → 同一入力なら同一出力なので remember でキャッシュ
-    val decisionText = remember(investigation, candidate) {
+    // 定型文は端末/アプリのロケールの string resource から組み立てる（店舗データ由来の内容は原文）
+    val resources = LocalResources.current
+    val configuration = LocalConfiguration.current
+    val decisionLabels = remember(resources, configuration) {
+        DecisionText.Labels.from(resources::getString)
+    }
+    val decisionText = remember(investigation, candidate, decisionLabels) {
         DecisionText.generateDecisionText(
             investigation,
             candidate,
+            decisionLabels,
             DecisionText.Options(mapUrl = mapUrlFor(candidate)),
         )
     }
+    val unknownMemberName = stringResource(R.string.common_unknown)
+    val unknownSource = stringResource(R.string.decision_unknown_source)
     val clipboardManager = LocalClipboardManager.current
     val voteComments = candidate.voteComments.asSequence()
         .mapNotNull { (memberId, comment) ->
@@ -96,7 +109,7 @@ fun CandidateDetailSection(
             val displayName = investigation.members
                 .firstOrNull { it.id == memberId }
                 ?.displayName
-                ?: "不明"
+                ?: unknownMemberName
             VoteCommentDisplay(memberId, displayName, normalizedComment)
         }
         .sortedBy { it.memberId }
@@ -117,7 +130,7 @@ fun CandidateDetailSection(
 
         // tsx L60-91 条件セクション（styles.section: gap 8）
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SectionHeading("条件")
+            SectionHeading(stringResource(R.string.detail_conditions))
             candidate.evaluations.forEach { evaluation ->
                 val requirement =
                     investigation.requirements.firstOrNull { it.id == evaluation.requirementId }
@@ -127,6 +140,7 @@ fun CandidateDetailSection(
                 // tsx L67: kind = requirement?.kind ?? 'other'
                 val kindWire = (requirement?.kind ?: RequirementKind.Other).wire
 
+                val stateLabel = stringResource(Format.matchStateAccessibilityLabel(evaluation.state))
                 // tsx styles.evaluationRow: row / center / gap 12 / paddingVertical 8 / 下線 borderSoft
                 Row(
                     modifier = Modifier
@@ -143,8 +157,7 @@ fun CandidateDetailSection(
                         modifier = Modifier
                             .width(24.dp)
                             .clearAndSetSemantics {
-                                contentDescription =
-                                    Format.matchStateAccessibilityLabel(evaluation.state)
+                                contentDescription = stateLabel
                             },
                         color = Format.matchStateColor(evaluation.state),
                         fontSize = 18.sp,
@@ -171,7 +184,7 @@ fun CandidateDetailSection(
                         )
                         // tsx L84-86 styles.sourceLabel: 11sp / lineHeight 16 / colors.info
                         Text(
-                            text = sourceLabel(evidence),
+                            text = sourceLabel(evidence, unknownSource),
                             modifier = Modifier.testTag("inv-claim-source-$kindWire"),
                             color = DesignTokens.Colors.info,
                             fontSize = 11.sp,
@@ -192,7 +205,7 @@ fun CandidateDetailSection(
             } else {
                 // tsx styles.empty: 13sp / textTertiary / italic
                 Text(
-                    text = "Evidenceはまだ収集されていません",
+                    text = stringResource(R.string.evidence_empty),
                     color = DesignTokens.Colors.textTertiary,
                     fontSize = 13.sp,
                     fontStyle = FontStyle.Italic,
@@ -200,7 +213,7 @@ fun CandidateDetailSection(
             }
             // tsx L102-104 styles.evidenceFootnote: 10sp / lineHeight 15 / textTertiary
             Text(
-                text = "引用は原文照合していません。重要な条件は出典を開いて店舗へ直接確認してください。",
+                text = stringResource(R.string.evidence_footnote),
                 modifier = Modifier.testTag("inv-evidence-footnote"),
                 color = DesignTokens.Colors.textTertiary,
                 fontSize = 10.sp,
@@ -214,7 +227,7 @@ fun CandidateDetailSection(
                 modifier = Modifier.testTag("inv-contradiction"),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                SectionHeading("⚠ 矛盾")
+                SectionHeading(stringResource(R.string.detail_contradictions))
                 candidate.contradictions.forEach { contradiction ->
                     // tsx styles.contradiction: bg warningSoft / radius xs / padding 12 / gap 4 / 枠 warning
                     val shape = RoundedCornerShape(DesignTokens.Radius.xs)
@@ -249,7 +262,7 @@ fun CandidateDetailSection(
 
         // tsx L125-128 投票セクション（VoteButtons は同 package の別ファイル）
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SectionHeading("投票")
+            SectionHeading(stringResource(R.string.detail_vote))
             VoteCommentEditor(
                 candidateId = candidate.id,
                 currentVote = currentVote,
@@ -285,7 +298,8 @@ fun CandidateDetailSection(
                 .padding(top = 4.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            SectionHeading("この店に決めた")
+            SectionHeading(stringResource(R.string.detail_decided))
+            val decisionClickLabel = stringResource(R.string.detail_decision_a11y)
             // tsx styles.decisionButton: minHeight 42 / radius sm / bg orange。文字 13sp / 700 / 白
             Box(
                 modifier = Modifier
@@ -294,7 +308,7 @@ fun CandidateDetailSection(
                     .heightIn(min = 42.dp)
                     .clip(RoundedCornerShape(DesignTokens.Radius.sm))
                     .background(DesignTokens.Colors.orange)
-                    .clickable(onClickLabel = "この店に決めた。決定テキストの形式を選ぶ") {
+                    .clickable(onClickLabel = decisionClickLabel) {
                         // tsx L138-139: 既に形式選択済みなら維持（current ?? 'short'）
                         decisionFormat = decisionFormat ?: DecisionFormat.Short
                         copied = false
@@ -302,7 +316,7 @@ fun CandidateDetailSection(
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = "貼り付け用テキストを作る",
+                    text = stringResource(R.string.detail_decision_button),
                     color = DesignTokens.Colors.surface,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.W700,
@@ -316,9 +330,9 @@ fun CandidateDetailSection(
                     // tsx styles.decisionFormatRow: row / gap 8
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         FormatButton(
-                            label = "短い版",
+                            label = stringResource(R.string.detail_format_short),
                             tag = "decision-short",
-                            accessibilityLabel = "短い版を選ぶ",
+                            accessibilityLabel = stringResource(R.string.detail_format_short_a11y),
                             isSelected = format == DecisionFormat.Short,
                             onClick = {
                                 decisionFormat = DecisionFormat.Short
@@ -327,9 +341,9 @@ fun CandidateDetailSection(
                             modifier = Modifier.weight(1f),
                         )
                         FormatButton(
-                            label = "詳しい版",
+                            label = stringResource(R.string.detail_format_detailed),
                             tag = "decision-detailed",
-                            accessibilityLabel = "詳しい版を選ぶ",
+                            accessibilityLabel = stringResource(R.string.detail_format_detailed_a11y),
                             isSelected = format == DecisionFormat.Detailed,
                             onClick = {
                                 decisionFormat = DecisionFormat.Detailed
@@ -361,6 +375,9 @@ fun CandidateDetailSection(
                         )
                     }
 
+                    val copyClickLabel = stringResource(
+                        if (format == DecisionFormat.Short) R.string.detail_copy_short_a11y else R.string.detail_copy_detailed_a11y,
+                    )
                     // tsx styles.copyButton: minHeight 38 / radius xs / 枠 border。文字 12sp / 700
                     Box(
                         modifier = Modifier
@@ -374,9 +391,7 @@ fun CandidateDetailSection(
                                 RoundedCornerShape(DesignTokens.Radius.xs),
                             )
                             .clickable(
-                                onClickLabel =
-                                    if (format == DecisionFormat.Short) "短い版をコピー"
-                                    else "詳しい版をコピー",
+                                onClickLabel = copyClickLabel,
                             ) {
                                 // tsx L38-52 handleCopyDecision。Android では常に成功する（成功系のみ）
                                 clipboardManager.setText(AnnotatedString(previewText))
@@ -385,7 +400,7 @@ fun CandidateDetailSection(
                         contentAlignment = Alignment.Center,
                     ) {
                         Text(
-                            text = "コピー",
+                            text = stringResource(R.string.detail_copy),
                             color = DesignTokens.Colors.text,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.W700,
@@ -395,7 +410,7 @@ fun CandidateDetailSection(
                     // tsx L188 styles.copyStatus: 11sp / lineHeight 16 / textSecondary
                     if (copied) {
                         Text(
-                            text = "コピーしました",
+                            text = stringResource(R.string.detail_copied),
                             color = DesignTokens.Colors.textSecondary,
                             fontSize = 11.sp,
                             lineHeight = 16.sp,
@@ -448,8 +463,8 @@ internal fun VoteCommentEditor(
         modifier = Modifier
             .fillMaxWidth()
             .testTag("vote-comment-input"),
-        label = { Text("投票の任意コメント") },
-        placeholder = { Text("任意コメント（例: 辛い料理が多そう）") },
+        label = { Text(stringResource(R.string.vote_comment_label)) },
+        placeholder = { Text(stringResource(R.string.vote_comment_placeholder)) },
         minLines = 2,
         maxLines = 4,
     )
@@ -460,11 +475,11 @@ internal fun VoteCommentEditor(
             .fillMaxWidth()
             .testTag("vote-comment-save"),
     ) {
-        Text("コメントを保存")
+        Text(stringResource(R.string.vote_comment_save))
     }
     if (currentVote == null) {
         Text(
-            text = "先に票を選ぶとコメントも保存できます。",
+            text = stringResource(R.string.vote_comment_hint),
             modifier = Modifier.testTag("vote-comment-hint"),
             color = DesignTokens.Colors.textSecondary,
             fontSize = 12.sp,
@@ -493,13 +508,14 @@ private fun SectionHeading(text: String) {
 private fun EvidenceItem(evidence: Evidence, onOpenUrl: (String) -> Unit) {
     val shape = RoundedCornerShape(DesignTokens.Radius.xs)
     val sourceName = evidence.sourceTitle ?: evidence.sourceType
+    val openClickLabel = stringResource(R.string.evidence_open_a11y, sourceName)
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .clip(shape)
             .background(DesignTokens.Colors.surface)
             .border(1.dp, DesignTokens.Colors.borderSoft, shape)
-            .clickable(onClickLabel = "${sourceName}。Evidenceを開く") {
+            .clickable(onClickLabel = openClickLabel) {
                 onOpenUrl(evidence.sourceUrl)
             }
             .padding(12.dp),
@@ -587,8 +603,8 @@ private fun mapUrlFor(candidate: Candidate): String {
  * evidence 無し → 「出典不明」。URL 解析成功 → 「{sourceTitle ?? sourceType} · {domain}」
  * （hostname の先頭 www. を除去）。new URL() 失敗相当（host 無し・構文異常）→ title/type のみ。
  */
-private fun sourceLabel(evidence: Evidence?): String {
-    if (evidence == null) return "出典不明"
+private fun sourceLabel(evidence: Evidence?, unknownSource: String): String {
+    if (evidence == null) return unknownSource
     val name = evidence.sourceTitle ?: evidence.sourceType
     return try {
         val host = URI(evidence.sourceUrl).host ?: return name

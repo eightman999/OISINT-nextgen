@@ -1,5 +1,7 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -65,7 +67,7 @@ fun LocationPickerPanel(
     var status by remember {
         mutableStateOf(if (location?.source == "gps") LocationStatus.Granted else LocationStatus.Idle)
     }
-    var errorMessage by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf<Int?>(null) }
     var locationJob by remember { mutableStateOf<kotlinx.coroutines.Job?>(null) }
 
     // tsx L15-17: source='map' の選択済み値があれば入力欄の初期値にする
@@ -79,7 +81,7 @@ fun LocationPickerPanel(
         if (label.isNotEmpty()) {
             locationJob?.cancel()
             status = LocationStatus.Idle
-            errorMessage = ""
+            errorMessage = null
             onLocationChange(LocationSelection(label = label, source = "map"))
         }
     }
@@ -87,12 +89,14 @@ fun LocationPickerPanel(
     fun acquireLocation() {
         locationJob?.cancel()
         status = LocationStatus.Requesting
-        errorMessage = ""
+        errorMessage = null
         locationJob = scope.launch {
             when (val result = locationProvider.getCurrentLocation()) {
                 is DeviceLocationResult.Success -> {
                     onLocationChange(
                         LocationSelection(
+                            // label は LocationSelection のデータ値（gps はクエリ側で固定文言に置換される）。
+                            // 表示はロケール別の string resource を使う。
                             label = "現在地付近",
                             source = "gps",
                             latitude = result.latitude,
@@ -103,19 +107,19 @@ fun LocationPickerPanel(
                 }
                 DeviceLocationResult.PermissionDenied -> {
                     status = LocationStatus.Denied
-                    errorMessage = "位置情報が許可されていません。下の入力欄から場所を指定できます。"
+                    errorMessage = R.string.location_error_permission
                 }
                 DeviceLocationResult.ServicesDisabled -> {
                     status = LocationStatus.Error
-                    errorMessage = "端末の位置情報が無効です。位置情報を有効にするか、場所を入力してください。"
+                    errorMessage = R.string.location_error_disabled
                 }
                 DeviceLocationResult.Timeout -> {
                     status = LocationStatus.Error
-                    errorMessage = "現在地の取得がタイムアウトしました。場所を入力して続けてください。"
+                    errorMessage = R.string.location_error_timeout
                 }
                 DeviceLocationResult.Unavailable -> {
                     status = LocationStatus.Error
-                    errorMessage = "現在地を取得できませんでした。場所を入力して続けてください。"
+                    errorMessage = R.string.location_error_unavailable
                 }
             }
         }
@@ -128,7 +132,7 @@ fun LocationPickerPanel(
             acquireLocation()
         } else {
             status = LocationStatus.Denied
-            errorMessage = "位置情報が許可されていません。下の入力欄から場所を指定できます。"
+            errorMessage = R.string.location_error_permission
         }
     }
 
@@ -137,7 +141,7 @@ fun LocationPickerPanel(
             acquireLocation()
         } else {
             status = LocationStatus.Requesting
-            errorMessage = ""
+            errorMessage = null
             permissionLauncher.launch(
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -171,7 +175,7 @@ fun LocationPickerPanel(
             ) {
                 // tsx L80 eyebrow: 10sp / 800 / letterSpacing 1.2 / orange
                 Text(
-                    text = "01 / 場所",
+                    text = stringResource(R.string.location_eyebrow),
                     color = DesignTokens.Colors.orange,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.ExtraBold,
@@ -179,14 +183,14 @@ fun LocationPickerPanel(
                 )
                 // tsx L81 title: 15sp / 700 / text
                 Text(
-                    text = "いまいる場所から探す",
+                    text = stringResource(R.string.location_title),
                     color = DesignTokens.Colors.text,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                 )
                 // tsx L82 description: 11sp / lineHeight 17 / textSecondary
                 Text(
-                    text = "位置情報は検索条件にだけ使い、許可しない場合は地図から指定できます。",
+                    text = stringResource(R.string.location_body),
                     color = DesignTokens.Colors.textSecondary,
                     fontSize = 11.sp,
                     lineHeight = 17.sp,
@@ -201,7 +205,7 @@ fun LocationPickerPanel(
                             // tsx L69-74 clearLocation: 選択解除 + 入力もリセット
                             locationJob?.cancel()
                             status = LocationStatus.Idle
-                            errorMessage = ""
+                            errorMessage = null
                             onLocationChange(null)
                             manualLocation = ""
                         }
@@ -209,7 +213,7 @@ fun LocationPickerPanel(
                 ) {
                     // tsx L92 / L212-215: 11sp / textTertiary
                     Text(
-                        text = "クリア",
+                        text = stringResource(R.string.location_clear),
                         color = DesignTokens.Colors.textTertiary,
                         fontSize = 11.sp,
                     )
@@ -240,14 +244,16 @@ fun LocationPickerPanel(
                 Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     // tsx L299-303 selectedLabel: 13sp / 700 / text
                     Text(
-                        text = location.label,
+                        text = if (location.source == "gps") stringResource(R.string.location_near_current) else location.label,
                         color = DesignTokens.Colors.text,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
                     )
                     // tsx L102-104 selectedMeta: 11sp / textSecondary
                     Text(
-                        text = if (location.source == "gps") "GPSで取得した現在地付近" else "地図・入力から指定",
+                        text = stringResource(
+                            if (location.source == "gps") R.string.location_source_gps else R.string.location_source_map,
+                        ),
                         color = DesignTokens.Colors.textSecondary,
                         fontSize = 11.sp,
                     )
@@ -272,14 +278,14 @@ fun LocationPickerPanel(
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        text = if (requesting) "取得中…" else "◎ 現在地を使う",
+                        text = stringResource(if (requesting) R.string.location_requesting else R.string.location_use_current),
                         color = DesignTokens.Colors.surface,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                     )
                 }
                 Text(
-                    text = "または",
+                    text = stringResource(R.string.location_or),
                     color = DesignTokens.Colors.textTertiary,
                     fontSize = 11.sp,
                 )
@@ -316,7 +322,7 @@ fun LocationPickerPanel(
                         if (manualLocation.isEmpty()) {
                             // tsx L132-133 placeholder / textTertiary
                             Text(
-                                text = "例：池袋駅、渋谷",
+                                text = stringResource(R.string.location_input_placeholder),
                                 color = DesignTokens.Colors.textTertiary,
                                 fontSize = 13.sp,
                             )
@@ -337,7 +343,7 @@ fun LocationPickerPanel(
                     .padding(vertical = 4.dp),
             ) {
                 Text(
-                    text = "この場所で検索条件にする",
+                    text = stringResource(R.string.location_use_manual),
                     color = DesignTokens.Colors.orange,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
@@ -346,9 +352,10 @@ fun LocationPickerPanel(
         }
 
         // tsx L161-169 errorText / helperText
-        if (errorMessage.isNotEmpty()) {
+        val currentError = errorMessage
+        if (currentError != null) {
             Text(
-                text = errorMessage,
+                text = stringResource(currentError),
                 color = DesignTokens.Colors.danger,
                 fontSize = 11.sp,
                 lineHeight = 17.sp,
@@ -356,11 +363,13 @@ fun LocationPickerPanel(
             )
         } else {
             Text(
-                text = if (status == LocationStatus.Granted) {
-                    "現在地はこのセッションの検索条件に含まれます。"
-                } else {
-                    "GPSを拒否しても、場所名を入力して続けられます。"
-                },
+                text = stringResource(
+                    if (status == LocationStatus.Granted) {
+                        R.string.location_helper_granted
+                    } else {
+                        R.string.location_helper_default
+                    },
+                ),
                 color = DesignTokens.Colors.textTertiary,
                 fontSize = 10.sp,
                 lineHeight = 15.sp,

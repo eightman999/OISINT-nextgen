@@ -1,5 +1,7 @@
 package com.oisint.android.format
 
+import java.util.Locale
+import com.oisint.android.R
 import com.oisint.android.model.Candidate
 import com.oisint.android.model.Evidence
 import com.oisint.android.model.Investigation
@@ -10,11 +12,11 @@ import java.net.URI
 /**
  * 決定テキスト生成。正典は `src/lib/decisionText.ts`（209 行の 1:1 移植）。
  * 同一入力 → 同一出力の golden テスト（DecisionTextTest）で正典との一致を検証する。
+ * 定型文は [Labels]（string resource 由来）で受け取り、日本語は values/strings.xml に逐語で保持する。
+ * 店名・Evidence の説明文などサーバ由来の内容は翻訳しない。
  */
 object DecisionText {
 
-    private const val UNKNOWN = "不明"
-    private const val UNKNOWN_SOURCE = "出典不明"
     private const val MAX_REJECTED_CANDIDATES = 2
     private const val MAX_PHONE_QUESTIONS = 3
 
@@ -32,6 +34,60 @@ object DecisionText {
     /** decisionText.ts L20-24 */
     data class Result(val short: String, val detailed: String)
 
+    /** 定型文テンプレート。`%1$s` 等の書式は string resource と同じ。 */
+    data class Labels(
+        val unknown: String,
+        val unknownSource: String,
+        val reasonWithSource: String,
+        val reasonNone: String,
+        val reasonExtraNone: String,
+        val phoneQuestion: String,
+        val rejectedReason: String,
+        val rejectedReasonUnknown: String,
+        val selectedReason: String,
+        val storeName: String,
+        val dateTimeAddress: String,
+        val mapLink: String,
+        val phone: String,
+        val rejectedItem: String,
+        val rejectedNone: String,
+        val bullet: String,
+        val noUnknowns: String,
+        val rejectedHeader: String,
+        val remainingUnknowns: String,
+        val phoneQuestionsHeader: String,
+        val verificationUrl: String,
+    ) {
+        companion object {
+            /** `getString` には Resources::getString（UI）や strings.xml 読み出し（JVM テスト）を渡す。 */
+            fun from(getString: (Int) -> String): Labels = Labels(
+                unknown = getString(R.string.decision_unknown),
+                unknownSource = getString(R.string.decision_unknown_source),
+                reasonWithSource = getString(R.string.decision_reason_with_source),
+                reasonNone = getString(R.string.decision_reason_none),
+                reasonExtraNone = getString(R.string.decision_reason_extra_none),
+                phoneQuestion = getString(R.string.decision_phone_question),
+                rejectedReason = getString(R.string.decision_rejected_reason),
+                rejectedReasonUnknown = getString(R.string.decision_rejected_reason_unknown),
+                selectedReason = getString(R.string.decision_selected_reason),
+                storeName = getString(R.string.decision_store_name),
+                dateTimeAddress = getString(R.string.decision_datetime_address),
+                mapLink = getString(R.string.decision_map_link),
+                phone = getString(R.string.decision_phone),
+                rejectedItem = getString(R.string.decision_rejected_item),
+                rejectedNone = getString(R.string.decision_rejected_none),
+                bullet = getString(R.string.decision_bullet),
+                noUnknowns = getString(R.string.decision_no_unknowns),
+                rejectedHeader = getString(R.string.decision_rejected_header),
+                remainingUnknowns = getString(R.string.decision_remaining_unknowns),
+                phoneQuestionsHeader = getString(R.string.decision_phone_questions_header),
+                verificationUrl = getString(R.string.decision_verification_url),
+            )
+        }
+    }
+
+    private fun String.fill(vararg args: Any): String = String.format(Locale.ROOT, this, *args)
+
     /** decisionText.ts L35-38 */
     private fun nonEmpty(value: String?): String? {
         val trimmed = value?.trim()
@@ -39,7 +95,7 @@ object DecisionText {
     }
 
     /** decisionText.ts L40-42 */
-    private fun valueOrUnknown(value: String?): String = nonEmpty(value) ?: UNKNOWN
+    private fun valueOrUnknown(value: String?, labels: Labels): String = nonEmpty(value) ?: labels.unknown
 
     /** decisionText.ts L44-54（http/https のみ許可。JS の new URL 失敗 = null と同じ挙動） */
     private fun httpUrlOrUndefined(value: String?): String? {
@@ -53,13 +109,13 @@ object DecisionText {
     }
 
     /** decisionText.ts L56-65（hostname の www. を除去） */
-    private fun sourceDomain(sourceUrl: String?): String {
-        val url = httpUrlOrUndefined(sourceUrl) ?: return UNKNOWN_SOURCE
+    private fun sourceDomain(sourceUrl: String?, labels: Labels): String {
+        val url = httpUrlOrUndefined(sourceUrl) ?: return labels.unknownSource
         return try {
-            val host = URI(url).host ?: return UNKNOWN_SOURCE
-            host.replace(Regex("^www\\.", RegexOption.IGNORE_CASE), "").ifEmpty { UNKNOWN_SOURCE }
+            val host = URI(url).host ?: return labels.unknownSource
+            host.replace(Regex("^www\\.", RegexOption.IGNORE_CASE), "").ifEmpty { labels.unknownSource }
         } catch (_: Exception) {
-            UNKNOWN_SOURCE
+            labels.unknownSource
         }
     }
 
@@ -68,17 +124,17 @@ object DecisionText {
         evidenceIds.firstNotNullOfOrNull { id -> candidate.evidence.firstOrNull { it.id == id } }
 
     /** decisionText.ts L73-84 */
-    private fun evaluationReason(candidate: Candidate, states: List<MatchState>): String? {
+    private fun evaluationReason(candidate: Candidate, states: List<MatchState>, labels: Labels): String? {
         val evaluation = candidate.evaluations.firstOrNull { entry ->
             states.contains(entry.state) && nonEmpty(entry.explanation) != null
         } ?: return null
         val explanation = nonEmpty(evaluation.explanation) ?: return null
         val evidence = evidenceForEvaluation(candidate, evaluation.evidenceIds)
-        return "$explanation（${sourceDomain(evidence?.sourceUrl)}）"
+        return labels.reasonWithSource.fill(explanation, sourceDomain(evidence?.sourceUrl, labels))
     }
 
     /** decisionText.ts L86-96 */
-    private fun evidenceBackedReasons(candidate: Candidate): List<String> =
+    private fun evidenceBackedReasons(candidate: Candidate, labels: Labels): List<String> =
         candidate.evaluations.flatMap { evaluation ->
             if (evaluation.state != MatchState.Match && evaluation.state != MatchState.Partial) {
                 return@flatMap emptyList<String>()
@@ -88,27 +144,25 @@ object DecisionText {
             if (explanation == null || evidence == null) {
                 emptyList()
             } else {
-                listOf("$explanation（${sourceDomain(evidence.sourceUrl)}）")
+                listOf(labels.reasonWithSource.fill(explanation, sourceDomain(evidence.sourceUrl, labels)))
             }
         }
 
     /** decisionText.ts L98-116（3 行固定。優先順: reasons > reason > 生成） */
-    private fun reasonLines(candidate: Candidate, options: Options): List<String> {
+    private fun reasonLines(candidate: Candidate, options: Options, labels: Labels): List<String> {
         val suppliedReasons = (options.reasons ?: emptyList())
             .mapNotNull { nonEmpty(it) }
-            .map { "$it（$UNKNOWN_SOURCE）" }
-        val generatedReasons = evidenceBackedReasons(candidate)
+            .map { labels.reasonWithSource.fill(it, labels.unknownSource) }
+        val generatedReasons = evidenceBackedReasons(candidate, labels)
         val oneLineReason = nonEmpty(options.reason)
         val reasons = when {
             suppliedReasons.isNotEmpty() -> suppliedReasons
-            oneLineReason != null -> listOf("$oneLineReason（$UNKNOWN_SOURCE）")
+            oneLineReason != null -> listOf(labels.reasonWithSource.fill(oneLineReason, labels.unknownSource))
             else -> generatedReasons
         }
-        val safeReasons = reasons.ifEmpty {
-            listOf("根拠を確認できる情報は$UNKNOWN（$UNKNOWN_SOURCE）")
-        }
+        val safeReasons = reasons.ifEmpty { listOf(labels.reasonNone) }
         return (0 until 3).map { index ->
-            safeReasons.getOrNull(index) ?: "追加の選定理由は$UNKNOWN（$UNKNOWN_SOURCE）"
+            safeReasons.getOrNull(index) ?: labels.reasonExtraNone
         }
     }
 
@@ -122,82 +176,88 @@ object DecisionText {
     }
 
     /** decisionText.ts L129-144（最大 3 件） */
-    private fun phoneQuestions(unknowns: List<Requirement>, options: Options): List<String> {
+    private fun phoneQuestions(unknowns: List<Requirement>, options: Options, labels: Labels): List<String> {
         val suppliedQuestions = (options.phoneQuestions ?: emptyList())
             .mapNotNull { nonEmpty(it) }
             .take(MAX_PHONE_QUESTIONS)
         if (suppliedQuestions.isNotEmpty()) return suppliedQuestions
         return unknowns
             .mapNotNull { nonEmpty(it.text) }
-            .map { "「$it」について確認する" }
+            .map { labels.phoneQuestion.fill(it) }
             .take(MAX_PHONE_QUESTIONS)
     }
 
     /** decisionText.ts L146-149 */
-    private fun rejectedReason(candidate: Candidate): String {
+    private fun rejectedReason(candidate: Candidate, labels: Labels): String {
         val reason = evaluationReason(
             candidate,
             listOf(MatchState.Mismatch, MatchState.Partial, MatchState.Unknown),
+            labels,
         )
-        return if (reason != null) "判定理由: $reason" else "判定理由は$UNKNOWN（$UNKNOWN_SOURCE）"
+        return if (reason != null) labels.rejectedReason.fill(reason) else labels.rejectedReasonUnknown
     }
 
     /** decisionText.ts L155-209 */
     fun generateDecisionText(
         investigation: Investigation,
         selectedCandidate: Candidate,
+        labels: Labels,
         options: Options = Options(),
     ): Result {
-        val address = valueOrUnknown(selectedCandidate.place.address)
-        val dateTime = valueOrUnknown(options.dateTime)
-        val phoneNumber = valueOrUnknown(options.phoneNumber)
-        val mapUrl = httpUrlOrUndefined(options.mapUrl) ?: UNKNOWN
+        val address = valueOrUnknown(selectedCandidate.place.address, labels)
+        val dateTime = valueOrUnknown(options.dateTime, labels)
+        val phoneNumber = valueOrUnknown(options.phoneNumber, labels)
+        val mapUrl = httpUrlOrUndefined(options.mapUrl) ?: labels.unknown
         val verificationUrl = httpUrlOrUndefined(options.verificationUrl)
             ?: httpUrlOrUndefined(selectedCandidate.place.urls?.pc)
-            ?: UNKNOWN
-        val reasons = reasonLines(selectedCandidate, options)
-        val shortReason = "選んだ理由: ${reasons[0]}"
+            ?: labels.unknown
+        val reasons = reasonLines(selectedCandidate, options, labels)
+        val shortReason = labels.selectedReason.fill(reasons[0])
         val unknowns = unknownRequirements(investigation, selectedCandidate)
-        val questions = phoneQuestions(unknowns, options)
+        val questions = phoneQuestions(unknowns, options, labels)
+        val storeName = labels.storeName.fill(valueOrUnknown(selectedCandidate.place.name, labels))
+        val dateTimeAddress = labels.dateTimeAddress.fill(dateTime, address)
+        val mapLink = labels.mapLink.fill(mapUrl)
+        val phone = labels.phone.fill(phoneNumber)
         val rejected = investigation.candidates
             .filter { it.id != selectedCandidate.id }
             .sortedBy { it.rank }
             .take(MAX_REJECTED_CANDIDATES)
 
         val short = listOf(
-            "店名: ${valueOrUnknown(selectedCandidate.place.name)}",
-            "日時・住所: $dateTime / $address",
-            "地図リンク: $mapUrl",
+            storeName,
+            dateTimeAddress,
+            mapLink,
             shortReason,
-            "電話番号: $phoneNumber",
+            phone,
         ).joinToString("\n")
 
         val rejectedLines = if (rejected.isNotEmpty()) {
-            rejected.map { "・${valueOrUnknown(it.place.name)}: ${rejectedReason(it)}" }
+            rejected.map { labels.rejectedItem.fill(valueOrUnknown(it.place.name, labels), rejectedReason(it, labels)) }
         } else {
-            listOf("・比較対象: $UNKNOWN（比較対象なし）")
+            listOf(labels.rejectedNone)
         }
         val questionLines = if (questions.isNotEmpty()) {
-            questions.map { "・$it" }
+            questions.map { labels.bullet.fill(it) }
         } else {
-            listOf("・${UNKNOWN}な条件はありません")
+            listOf(labels.noUnknowns)
         }
 
         val detailed = (
             listOf(
-                "店名: ${valueOrUnknown(selectedCandidate.place.name)}",
-                "日時・住所: $dateTime / $address",
-                "地図リンク: $mapUrl",
-                "選んだ理由: ${reasons[0]}",
-                "選んだ理由: ${reasons[1]}",
-                "選んだ理由: ${reasons[2]}",
-                "落とした2件の理由:",
+                storeName,
+                dateTimeAddress,
+                mapLink,
+                labels.selectedReason.fill(reasons[0]),
+                labels.selectedReason.fill(reasons[1]),
+                labels.selectedReason.fill(reasons[2]),
+                labels.rejectedHeader,
             ) + rejectedLines + listOf(
-                "残る不明: ${unknowns.size}件",
-                "店に電話で聞くこと:",
+                labels.remainingUnknowns.fill(unknowns.size),
+                labels.phoneQuestionsHeader,
             ) + questionLines + listOf(
-                "電話番号: $phoneNumber",
-                "検証用URL: $verificationUrl",
+                phone,
+                labels.verificationUrl.fill(verificationUrl),
             )
             ).joinToString("\n")
 

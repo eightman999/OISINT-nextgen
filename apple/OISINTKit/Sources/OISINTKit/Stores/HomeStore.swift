@@ -59,7 +59,7 @@ public final class HomeStore {
         } catch let error as LocationNameError {
             locationState = error == .timedOut ? .timedOut : .unavailable
             selectedLocation = nil
-            locationErrorMessage = "現在地を地名に変換できませんでした。場所名を入力して続けてください。"
+            locationErrorMessage = String(localized: "現在地を地名に変換できませんでした。場所名を入力して続けてください。", bundle: .module)
         } catch is CancellationError {
             locationState = .idle
             selectedLocation = nil
@@ -67,7 +67,7 @@ public final class HomeStore {
         } catch {
             locationState = .unavailable
             selectedLocation = nil
-            locationErrorMessage = "現在地を取得できませんでした。場所名を入力して続けてください。"
+            locationErrorMessage = String(localized: "現在地を取得できませんでした。場所名を入力して続けてください。", bundle: .module)
         }
     }
 
@@ -91,19 +91,19 @@ public final class HomeStore {
         switch error {
         case .denied:
             locationState = .denied
-            locationErrorMessage = "位置情報が許可されていません。場所名を入力して続けてください。"
+            locationErrorMessage = String(localized: "位置情報が許可されていません。場所名を入力して続けてください。", bundle: .module)
         case .restricted:
             locationState = .restricted
-            locationErrorMessage = "端末の制限により位置情報を使用できません。場所名を入力して続けてください。"
+            locationErrorMessage = String(localized: "端末の制限により位置情報を使用できません。場所名を入力して続けてください。", bundle: .module)
         case .servicesDisabled:
             locationState = .servicesDisabled
-            locationErrorMessage = "位置情報サービスが無効です。場所名を入力して続けてください。"
+            locationErrorMessage = String(localized: "位置情報サービスが無効です。場所名を入力して続けてください。", bundle: .module)
         case .timedOut:
             locationState = .timedOut
-            locationErrorMessage = "現在地の取得がタイムアウトしました。場所名を入力して続けてください。"
+            locationErrorMessage = String(localized: "現在地の取得がタイムアウトしました。場所名を入力して続けてください。", bundle: .module)
         case .unavailable:
             locationState = .unavailable
-            locationErrorMessage = "現在地を取得できませんでした。場所名を入力して続けてください。"
+            locationErrorMessage = String(localized: "現在地を取得できませんでした。場所名を入力して続けてください。", bundle: .module)
         }
     }
 
@@ -126,7 +126,7 @@ public final class HomeStore {
             // Homeの表示stateではなく、create開始直前のprovider auth sessionからsubjectを確定する。
             requestSubject = try await app.provider.getUserId()
         } catch {
-            errorMessage = "調査を開始できませんでした。入力内容を確認して、もう一度お試しください。"
+            errorMessage = String(localized: "調査を開始できませんでした。入力内容を確認して、もう一度お試しください。", bundle: .module)
             return
         }
         let idempotencyKey = createIdempotencyKeyState.keyFor(
@@ -172,7 +172,7 @@ public final class HomeStore {
             app.openInvestigation(id: created.investigationId, shareToken: created.shareToken)
             createIdempotencyKeyState.clear()
         } catch {
-            errorMessage = "調査を開始できませんでした。入力内容を確認して、もう一度お試しください。"
+            errorMessage = String(localized: "調査を開始できませんでした。入力内容を確認して、もう一度お試しください。", bundle: .module)
         }
     }
 }

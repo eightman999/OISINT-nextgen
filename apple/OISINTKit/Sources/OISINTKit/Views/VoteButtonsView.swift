@@ -12,9 +12,9 @@ public struct VoteButtonsView: View {
     }
 
     private static let options: [(value: VoteValue, label: String)] = [
-        (.up, "行きたい"),
-        (.neutral, "どちらでも"),
-        (.down, "行きたくない"),
+        (.up, String(localized: "行きたい", bundle: .module)),
+        (.neutral, String(localized: "どちらでも", bundle: .module)),
+        (.down, String(localized: "行きたくない", bundle: .module)),
     ]
 
     public var body: some View {

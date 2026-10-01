@@ -12,7 +12,7 @@ public struct RequirementListView: View {
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("条件")
+            Text("条件", bundle: .module)
                 .oisintFont(16, .bold)
                 .foregroundStyle(DesignTokens.Colors.text.color)
                 .padding(.bottom, 2)
@@ -30,7 +30,7 @@ public struct RequirementListView: View {
                 }
                 if let onAddPress {
                     Button(action: onAddPress) {
-                        Text("＋ 条件を追加")
+                        Text("＋ 条件を追加", bundle: .module)
                             .oisintFont(12, .semibold)
                             .foregroundStyle(DesignTokens.Colors.orange.color)
                             .padding(.vertical, 5)
@@ -38,7 +38,7 @@ public struct RequirementListView: View {
                             .frame(minHeight: 28)
                     }
                     .buttonStyle(.plain)
-                    .accessibilityLabel("条件を追加")
+                    .accessibilityLabel(Text("条件を追加", bundle: .module))
                 }
             }
         }

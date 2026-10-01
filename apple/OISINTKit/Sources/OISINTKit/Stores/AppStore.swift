@@ -124,7 +124,7 @@ public final class AppStore {
             try await synchronizeAuth(state, logInToEntitlement: true, generation: generation)
         } catch {
             guard isCurrent(generation) else { return }
-            await failClosedAuth("認証状態を確認できませんでした。時間をおいて再度お試しください。")
+            await failClosedAuth(String(localized: "認証状態を確認できませんでした。時間をおいて再度お試しください。", bundle: .module))
         }
     }
 
@@ -138,7 +138,7 @@ public final class AppStore {
 
     public func signInWithGoogle() async {
         guard mode == .live, let authService else {
-            authErrorMessage = "GoogleログインはSupabaseの本番設定後に利用できます。"
+            authErrorMessage = String(localized: "GoogleログインはSupabaseの本番設定後に利用できます。", bundle: .module)
             return
         }
         let previousState = currentAuthSessionState()
@@ -151,7 +151,7 @@ public final class AppStore {
         } catch {
             guard isCurrent(generation) else { return }
             applyAuthState(previousState)
-            authErrorMessage = "Googleログインを開始できませんでした。設定を確認して再度お試しください。"
+            authErrorMessage = String(localized: "Googleログインを開始できませんでした。設定を確認して再度お試しください。", bundle: .module)
         }
         if isCurrent(generation) { authBusy = false }
     }
@@ -162,7 +162,7 @@ public final class AppStore {
         confirmAccountSwitch: Bool = false
     ) async {
         guard mode == .live, let authService else {
-            authErrorMessage = "メールログインはSupabaseの本番設定後に利用できます。"
+            authErrorMessage = String(localized: "メールログインはSupabaseの本番設定後に利用できます。", bundle: .module)
             return
         }
         let previousState = currentAuthSessionState()
@@ -179,11 +179,11 @@ public final class AppStore {
         } catch is AuthSwitchConfirmationRequired {
             guard isCurrent(generation) else { return }
             applyAuthState(previousState)
-            authErrorMessage = "別のアカウントへ切り替える場合は、確認欄にチェックしてください。"
+            authErrorMessage = String(localized: "別のアカウントへ切り替える場合は、確認欄にチェックしてください。", bundle: .module)
         } catch {
             guard isCurrent(generation) else { return }
             let message = (error as? EmailLoginFailure)?.localizedDescription
-                ?? "ログインを完了できませんでした。通信状態を確認して再度お試しください。"
+                ?? String(localized: "ログインを完了できませんでした。通信状態を確認して再度お試しください。", bundle: .module)
             if previousState.userId != nil {
                 applyAuthState(previousState)
                 authErrorMessage = message
@@ -198,7 +198,7 @@ public final class AppStore {
     public func signUpWithEmail(email: String, password: String, confirmAccountSwitch: Bool = false) async -> Bool {
         guard !authBusy, !isAuthenticated else { return false }
         guard mode == .live, let authService else {
-            authErrorMessage = "新規登録はSupabaseの本番設定後に利用できます。"
+            authErrorMessage = String(localized: "新規登録はSupabaseの本番設定後に利用できます。", bundle: .module)
             return false
         }
         let generation = authGeneration
@@ -211,17 +211,17 @@ public final class AppStore {
                 email: email, password: password, confirmAccountSwitch: confirmAccountSwitch
             )
             guard isCurrent(generation) else { return false }
-            authNoticeMessage = "確認メールを送信しました。メール内のリンクを開き、確認後にこの画面でログインしてください。届かない場合は迷惑メールも確認してください。登録済みの場合はログインしてください。"
+            authNoticeMessage = String(localized: "確認メールを送信しました。メール内のリンクを開き、確認後にこの画面でログインしてください。届かない場合は迷惑メールも確認してください。登録済みの場合はログインしてください。", bundle: .module)
             return true
         } catch is AuthSwitchConfirmationRequired {
             guard isCurrent(generation) else { return false }
-            authErrorMessage = "別のアカウントを作成する場合は、確認欄にチェックしてください。"
+            authErrorMessage = String(localized: "別のアカウントを作成する場合は、確認欄にチェックしてください。", bundle: .module)
         } catch is EmailConfirmationUnavailable {
             guard isCurrent(generation) else { return false }
-            await failClosedAuth("メール確認の設定を確認できないため、新規登録を完了できませんでした。サポートへお問い合わせください。")
+            await failClosedAuth(String(localized: "メール確認の設定を確認できないため、新規登録を完了できませんでした。サポートへお問い合わせください。", bundle: .module))
         } catch {
             guard isCurrent(generation) else { return false }
-            authErrorMessage = "登録を受け付けられませんでした。入力内容と通信状態を確認してください。登録済みの場合はログインし、再送する場合は時間をおいてお試しください。"
+            authErrorMessage = String(localized: "登録を受け付けられませんでした。入力内容と通信状態を確認してください。登録済みの場合はログインし、再送する場合は時間をおいてお試しください。", bundle: .module)
         }
         return false
     }
@@ -236,10 +236,10 @@ public final class AppStore {
         do {
             try await authService.resendSignUpConfirmation(email: email)
             guard isCurrent(generation) else { return }
-            authNoticeMessage = "確認待ちのアカウントがある場合は確認メールを再送しました。メール内のリンクを開いてください。"
+            authNoticeMessage = String(localized: "確認待ちのアカウントがある場合は確認メールを再送しました。メール内のリンクを開いてください。", bundle: .module)
         } catch {
             guard isCurrent(generation) else { return }
-            authErrorMessage = "確認メールを再送できませんでした。時間をおいて再度お試しください。"
+            authErrorMessage = String(localized: "確認メールを再送できませんでした。時間をおいて再度お試しください。", bundle: .module)
         }
     }
 
@@ -265,18 +265,18 @@ public final class AppStore {
                 entitlementErrorMessage = nil
             } catch {
                 // Authのlogout成功は維持し、課金SDKの失敗だけを別状態にする。
-                entitlementErrorMessage = "Plusの状態を解除できません。次回起動時に再試行します。"
+                entitlementErrorMessage = String(localized: "Plusの状態を解除できません。次回起動時に再試行します。", bundle: .module)
             }
         } catch {
             guard isCurrent(generation) else { return }
-            await failClosedAuth("ログアウトできませんでした。通信状態を確認して再度お試しください。")
+            await failClosedAuth(String(localized: "ログアウトできませんでした。通信状態を確認して再度お試しください。", bundle: .module))
         }
         if isCurrent(generation) { authBusy = false }
     }
 
     public func deleteAccount() async {
         guard mode == .live, let authService, userId != nil else {
-            authErrorMessage = "アカウント削除には認証が必要です。"
+            authErrorMessage = String(localized: "アカウント削除には認証が必要です。", bundle: .module)
             return
         }
         let deletedUserId = userId
@@ -287,14 +287,14 @@ public final class AppStore {
             guard isCurrent(generation) else { return }
             applyAuthState(state)
             if state.localSessionCleanupFailed {
-                authErrorMessage = "サーバー上のアカウントを削除しましたが、端末セッションの破棄に失敗しました。アプリを再起動して再確認してください。"
+                authErrorMessage = String(localized: "サーバー上のアカウントを削除しましたが、端末セッションの破棄に失敗しました。アプリを再起動して再確認してください。", bundle: .module)
             }
             if let deletedUserId { purgeLocalState(for: deletedUserId) }
             try? await entitlementProvider.logOut()
             entitlementErrorMessage = nil
         } catch {
             guard isCurrent(generation) else { return }
-            await failClosedAuth("アカウントを削除できませんでした。通信状態を確認して再度お試しください。")
+            await failClosedAuth(String(localized: "アカウントを削除できませんでした。通信状態を確認して再度お試しください。", bundle: .module))
         }
         if isCurrent(generation) { authBusy = false }
     }
@@ -309,7 +309,7 @@ public final class AppStore {
             try await synchronizeAuth(state, logInToEntitlement: true, generation: generation)
         } catch {
             guard isCurrent(generation) else { return }
-            await failClosedAuth("認証リンクを確認できませんでした。確認メールを再送するか、再度ログインしてください。")
+            await failClosedAuth(String(localized: "認証リンクを確認できませんでした。確認メールを再送するか、再度ログインしてください。", bundle: .module))
         }
     }
 
@@ -337,7 +337,7 @@ public final class AppStore {
             // Supabase Authの確定状態は維持し、課金だけFree/fail-closedへ倒す。
             // このエラーを上位へthrowするとログイン成功を「パスワード不正」と誤表示する。
             try? await entitlementProvider.logOut()
-            entitlementErrorMessage = "Plusの状態を確認できません。無料プランとして継続します。"
+            entitlementErrorMessage = String(localized: "Plusの状態を確認できません。無料プランとして継続します。", bundle: .module)
         }
     }
 

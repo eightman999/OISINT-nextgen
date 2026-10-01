@@ -1,5 +1,8 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -51,7 +54,7 @@ fun ComparisonPanel(investigation: Investigation, modifier: Modifier = Modifier)
     // live/mock とも取得時点で rank 昇順ソート済み）
     val candidates = investigation.candidates
 
-    Panel(title = "比較", modifier = modifier) {
+    Panel(title = stringResource(R.string.panel_comparison), modifier = modifier) {
         // tsx L23-30 ヘッダ行: 先頭は空セル + 候補名
         Row(
             modifier = Modifier
@@ -109,6 +112,7 @@ fun ComparisonPanel(investigation: Investigation, modifier: Modifier = Modifier)
                     val state = candidate.evaluations
                         .firstOrNull { it.requirementId == requirement.id }
                         ?.state ?: MatchState.Unknown
+                    val stateLabel = stringResource(Format.matchStateAccessibilityLabel(state))
                     // tsx styles.tableMatch: 11sp / 800 / fonts.brand（Manrope）+ 状態色。
                     // TalkBack へは記号でなく日本語ラベル（tsx L43）
                     Text(
@@ -116,7 +120,7 @@ fun ComparisonPanel(investigation: Investigation, modifier: Modifier = Modifier)
                         modifier = Modifier
                             .weight(1f)
                             .clearAndSetSemantics {
-                                contentDescription = Format.matchStateAccessibilityLabel(state)
+                                contentDescription = stateLabel
                             },
                         color = Format.matchStateColor(state),
                         fontSize = 11.sp,
@@ -139,7 +143,7 @@ fun VotePanel(
     // tsx L64: [...candidates].sort((a, b) => a.rank - b.rank)
     val sorted = investigation.candidates.sortedBy { it.rank }
 
-    Panel(title = "みんなの投票", modifier = modifier) {
+    Panel(title = stringResource(R.string.panel_votes), modifier = modifier) {
         // tsx styles.voteList: gap 7
         Column(verticalArrangement = Arrangement.spacedBy(7.dp)) {
             sorted.forEach { candidate ->
@@ -179,7 +183,7 @@ fun VotePanel(
                     )
                     // tsx L80 styles.voteCount: `{upVotes}票`（10sp / textSecondary）
                     Text(
-                        text = "${upVotes}票",
+                        text = pluralStringResource(R.plurals.panel_vote_count, upVotes, upVotes),
                         color = DesignTokens.Colors.textSecondary,
                         fontSize = 10.sp,
                     )
@@ -190,6 +194,7 @@ fun VotePanel(
         // voteButton: minHeight 38 / radius 7 / bg orange / marginTop 10、文字 12sp / 700 / 白
         if (onVotePress != null) {
             val buttonShape = RoundedCornerShape(7.dp)
+            val voteClickLabel = stringResource(R.string.panel_vote_a11y)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -197,11 +202,11 @@ fun VotePanel(
                     .heightIn(min = 38.dp)
                     .clip(buttonShape)
                     .background(DesignTokens.Colors.orange)
-                    .clickable(onClickLabel = "候補に投票する") { onVotePress() },
+                    .clickable(onClickLabel = voteClickLabel) { onVotePress() },
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = "投票する",
+                    text = stringResource(R.string.panel_vote),
                     color = DesignTokens.Colors.surface,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.W700,
@@ -220,7 +225,7 @@ fun EvidencePanel(investigation: Investigation, modifier: Modifier = Modifier) {
         if (evidence.isEmpty()) {
             // tsx styles.empty: 11sp / textTertiary / italic
             Text(
-                text = "Evidenceはまだ収集されていません",
+                text = stringResource(R.string.evidence_empty),
                 color = DesignTokens.Colors.textTertiary,
                 fontSize = 11.sp,
                 fontStyle = FontStyle.Italic,

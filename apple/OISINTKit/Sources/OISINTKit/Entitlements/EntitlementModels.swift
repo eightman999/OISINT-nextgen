@@ -54,11 +54,11 @@ public enum EntitlementError: Error, LocalizedError, Sendable, Equatable {
 
     public var errorDescription: String? {
         switch self {
-        case .cancelled: return "購入をキャンセルしました。"
-        case .packageUnavailable: return "購入プランを読み込めませんでした。"
-        case .anonymousNotAllowed: return "購入には恒久アカウントの接続が必要です。"
-        case .notConfigured: return "購入機能は現在設定されていません。"
-        case .pending: return "購入を受け付けました。サーバー反映を待ってからPlus状態を確認します。"
+        case .cancelled: return String(localized: "購入をキャンセルしました。", bundle: .module)
+        case .packageUnavailable: return String(localized: "購入プランを読み込めませんでした。", bundle: .module)
+        case .anonymousNotAllowed: return String(localized: "購入には恒久アカウントの接続が必要です。", bundle: .module)
+        case .notConfigured: return String(localized: "購入機能は現在設定されていません。", bundle: .module)
+        case .pending: return String(localized: "購入を受け付けました。サーバー反映を待ってからPlus状態を確認します。", bundle: .module)
         case .message(let message): return message
         }
     }

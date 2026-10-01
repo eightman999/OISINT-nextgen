@@ -1,5 +1,7 @@
 package com.oisint.android.ui.join
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -95,7 +97,7 @@ fun JoinScreen(
                         modifier = Modifier.testTag("join-context-preview"),
                     )
                     Text(
-                        "候補を先に確認できます。表示名は投票や条件追加のときに使います。",
+                        stringResource(R.string.join_preview_intro),
                         fontSize = 13.sp,
                         lineHeight = 20.sp,
                         color = DesignTokens.Colors.textSecondary,
@@ -112,7 +114,7 @@ fun JoinScreen(
                         }
                     }
                     Text(
-                        "今すぐ決めなくても、候補と根拠を見てから参加できます。",
+                        stringResource(R.string.join_impulse_exit),
                         fontSize = 12.sp,
                         lineHeight = 18.sp,
                         color = DesignTokens.Colors.textTertiary,
@@ -123,22 +125,23 @@ fun JoinScreen(
 
             // tsx L84-87
             Text(
-                "この調査に参加",
+                stringResource(R.string.join_title),
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = (-0.5).sp,
                 color = DesignTokens.Colors.text,
             )
             Text(
-                "まず候補を見てから、必要なら表示名を設定できます。",
+                stringResource(R.string.join_subtitle),
                 fontSize = 13.sp,
                 lineHeight = 20.sp,
                 color = DesignTokens.Colors.textSecondary,
             )
 
             // tsx L89-99 表示名入力
+            val displayNameLabel = stringResource(R.string.join_display_name)
             Text(
-                "表示名",
+                displayNameLabel,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 color = DesignTokens.Colors.textSecondary,
@@ -151,7 +154,7 @@ fun JoinScreen(
                     .fillMaxWidth()
                     .background(DesignTokens.Colors.surface, RoundedCornerShape(DesignTokens.Radius.md))
                     .border(1.dp, DesignTokens.Colors.border, RoundedCornerShape(DesignTokens.Radius.md))
-                    .semantics { contentDescription = "表示名" },
+                    .semantics { contentDescription = displayNameLabel },
                 textStyle = TextStyle(fontSize = 16.sp, color = DesignTokens.Colors.text),
                 cursorBrush = SolidColor(DesignTokens.Colors.text),
                 singleLine = true,
@@ -160,7 +163,7 @@ fun JoinScreen(
                         if (state.displayName.isEmpty()) {
                             // tsx L97-98: placeholder（#9ca3af は tsx 直書き値）
                             Text(
-                                "任意（未入力はゲスト）",
+                                stringResource(R.string.join_display_name_placeholder),
                                 fontSize = 16.sp,
                                 color = androidx.compose.ui.graphics.Color(0xFF9CA3AF),
                             )
@@ -171,6 +174,9 @@ fun JoinScreen(
             )
 
             // tsx L101-117 参加ボタン
+            val joinDescription = stringResource(
+                if (state.loading) R.string.join_joining_a11y else R.string.join_join_a11y,
+            )
             Box(
                 Modifier
                     .testTag("join-button")
@@ -182,7 +188,7 @@ fun JoinScreen(
                     )
                     .clickable(enabled = !state.loading, role = Role.Button) { viewModel.join() }
                     .semantics {
-                        contentDescription = if (state.loading) "調査に参加中" else "調査に参加"
+                        contentDescription = joinDescription
                     }
                     .padding(vertical = 14.dp),
                 contentAlignment = Alignment.Center,
@@ -195,7 +201,7 @@ fun JoinScreen(
                     )
                 } else {
                     Text(
-                        "参加",
+                        stringResource(R.string.join_button),
                         color = DesignTokens.Colors.surface,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
@@ -204,9 +210,9 @@ fun JoinScreen(
             }
 
             // tsx L118-122 エラー
-            if (state.errorMessage.isNotEmpty()) {
+            state.errorMessage?.let { errorRes ->
                 Text(
-                    state.errorMessage,
+                    stringResource(errorRes),
                     fontSize = 12.sp,
                     lineHeight = 18.sp,
                     color = DesignTokens.Colors.danger,

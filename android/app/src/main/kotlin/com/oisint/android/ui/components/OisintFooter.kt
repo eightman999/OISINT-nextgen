@@ -1,5 +1,8 @@
 package com.oisint.android.ui.components
 
+import com.oisint.android.R
+import androidx.compose.ui.res.stringResource
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -32,16 +35,16 @@ import com.oisint.android.design.DesignTokens
 /** Footer.tsx L16-39 の 4 リンク（label / accessibilityLabel 逐語。URL は oisint.com 絶対 URL） */
 private data class FooterLinkSpec(
     val testTag: String,
-    val label: String,
-    val accessibilityLabel: String,
+    @StringRes val label: Int,
+    @StringRes val accessibilityLabel: Int,
     val url: String,
 )
 
 private val FOOTER_LINKS = listOf(
-    FooterLinkSpec("footer-help", "使い方", "OISINTの使い方ガイドを開く", "https://oisint.com/help"),
-    FooterLinkSpec("footer-support", "サポート", "OISINTのサポートを開く", "https://oisint.com/support"),
-    FooterLinkSpec("footer-contact", "お問い合わせ", "OISINTにお問い合わせする", "https://oisint.com/contact"),
-    FooterLinkSpec("footer-feedback", "フィードバック", "OISINTにフィードバックを送る", "https://oisint.com/feedback"),
+    FooterLinkSpec("footer-help", R.string.footer_help, R.string.footer_help_a11y, "https://oisint.com/help"),
+    FooterLinkSpec("footer-support", R.string.footer_support, R.string.footer_support_a11y, "https://oisint.com/support"),
+    FooterLinkSpec("footer-contact", R.string.footer_contact, R.string.footer_contact_a11y, "https://oisint.com/contact"),
+    FooterLinkSpec("footer-feedback", R.string.footer_feedback, R.string.footer_feedback_a11y, "https://oisint.com/feedback"),
 )
 
 /**
@@ -166,17 +169,18 @@ private fun FooterCredit() {
 /** Footer.tsx L46-68 FooterLink: minHeight 32 / paddingHorizontal 8、orange・12sp・Bold */
 @Composable
 private fun FooterLink(spec: FooterLinkSpec, onOpenLink: (String) -> Unit) {
+    val accessibilityLabel = stringResource(spec.accessibilityLabel)
     Box(
         modifier = Modifier
             .testTag(spec.testTag)
-            .semantics { contentDescription = spec.accessibilityLabel }
+            .semantics { contentDescription = accessibilityLabel }
             .clickable(role = Role.Button) { onOpenLink(spec.url) }
             .defaultMinSize(minHeight = 32.dp)
             .padding(horizontal = 8.dp),
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            "${spec.label} ↗",
+            "${stringResource(spec.label)} ↗",
             color = DesignTokens.Colors.orange,
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,

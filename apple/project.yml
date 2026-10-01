@@ -4,6 +4,8 @@
 name: OISINT
 options:
   createIntermediateGroups: true
+  # 開発言語は日本語。英語は String Catalog（OISINTKit/Localizable.xcstrings・App/InfoPlist.xcstrings）で提供する。
+  developmentLanguage: ja
   deploymentTarget:
     iOS: "18.0"
     macOS: "15.0"
