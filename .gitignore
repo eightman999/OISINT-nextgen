@@ -64,3 +64,6 @@ data/rail/quarantine/
 
 expo-env.d.ts
 # @end expo-cli
+
+# SwiftPM
+.build/

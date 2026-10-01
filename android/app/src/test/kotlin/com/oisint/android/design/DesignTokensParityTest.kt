@@ -18,18 +18,18 @@ class DesignTokensParityTest {
 
     private fun repoRoot(): File {
         // build.gradle.kts の testOptions が渡す oisint.repo.root を優先し、
-        // 無ければ user.dir から親方向へ spec.md を探す（worktree でも動く）
+        // 無ければ user.dir から親方向へ src/theme.ts を探す（worktree でも動く）
         val propRoot: String? = System.getProperty("oisint.repo.root")
         if (propRoot != null) {
             val dir = File(propRoot)
-            if (File(dir, "spec.md").isFile) return dir
+            if (File(dir, "src/theme.ts").isFile) return dir
         }
         var dir: File? = File(System.getProperty("user.dir"))
         while (dir != null) {
-            if (File(dir, "spec.md").isFile) return dir
+            if (File(dir, "src/theme.ts").isFile) return dir
             dir = dir.parentFile
         }
-        fail("リポジトリルート（spec.md のある階層）が見つかりません")
+        fail("リポジトリルート（src/theme.ts のある階層）が見つかりません")
         error("unreachable")
     }
 
