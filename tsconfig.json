@@ -1,0 +1,30 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@/assets/*": [
+        "./assets/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "scripts/test-restaurant-image-catalog-migration.ts",
+    "supabase",
+    "e2e",
+    "dist",
+    "apps",
+    "tools",
+    "scripts/test-adaptive-preference-migration.ts"
+  ]
+}

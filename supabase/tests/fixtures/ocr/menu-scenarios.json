@@ -1,0 +1,63 @@
+[
+  {
+    "id": "menu-3000",
+    "image": "menu-3000.png",
+    "scenario": "裸数字 3000",
+    "expectedClaims": [
+      { "key": "budget_dinner", "value": { "min": 3000, "max": 3000 } }
+    ],
+    "notes": "夕食の予算として構造化できる合成fixture"
+  },
+  {
+    "id": "menu-3000-comma",
+    "image": "menu-3000-comma.png",
+    "scenario": "3,000円",
+    "expectedClaims": [
+      { "key": "budget_dinner", "value": { "min": 3000, "max": 3000 } }
+    ],
+    "notes": "桁区切りを正規化した合成fixture"
+  },
+  {
+    "id": "menu-tax-included",
+    "image": "menu-tax-included.png",
+    "scenario": "税込表示",
+    "expectedClaims": [
+      { "key": "budget_dinner", "value": { "min": 3300, "max": 3300 } }
+    ],
+    "notes": "税区分そのものはClaimKeyにないためraw extractionの文脈に残す"
+  },
+  {
+    "id": "menu-lunch-dinner",
+    "image": "menu-lunch-dinner.png",
+    "scenario": "ランチ/ディナー別価格",
+    "expectedClaims": [
+      { "key": "budget_dinner", "value": { "min": 3500, "max": 3500 } }
+    ],
+    "notes": "budget_lunchは固定ClaimKeyにないため夕食値だけを採用"
+  },
+  {
+    "id": "menu-course-item",
+    "image": "menu-course-item.png",
+    "scenario": "コース/単品",
+    "expectedClaims": [
+      { "key": "budget_dinner", "value": { "min": 5000, "max": 5000 } }
+    ],
+    "notes": "単品とコースを混同せずコース価格を夕食claimにする合成fixture"
+  },
+  {
+    "id": "menu-strikethrough",
+    "image": "menu-strikethrough.png",
+    "scenario": "画像内打消し線",
+    "expectedClaims": [
+      { "key": "budget_dinner", "value": { "min": 4000, "max": 4000 } }
+    ],
+    "notes": "打消し価格をclaimへ入れず現在価格だけを採用"
+  },
+  {
+    "id": "menu-low-quality",
+    "image": "menu-low-quality.png",
+    "scenario": "低品質画像",
+    "expectedClaims": [],
+    "notes": "confidenceが閾値未満のためunknown相当でclaim 0件"
+  }
+]

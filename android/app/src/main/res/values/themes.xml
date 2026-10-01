@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ダークパレットは正典に存在しないためライト固定（計画書 §3.7）。DayNight を使わない -->
+    <style name="Theme.Oisint" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/oisint_bg</item>
+        <item name="android:statusBarColor">@color/oisint_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

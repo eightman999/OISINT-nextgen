@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OISINT Design Preview</title>
+  <style>
+    :root {
+      --font-ui: "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif;
+      --font-brand: "Manrope", "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif;
+
+      --color-bg: #f7f6f3;
+      --color-canvas: #fbfaf8;
+      --color-surface: #ffffff;
+      --color-surface-soft: #f5f3ef;
+
+      --color-text: #101214;
+      --color-text-secondary: #5f666d;
+      --color-text-tertiary: #8a9096;
+
+      --color-border: #dedbd5;
+      --color-border-soft: #ece9e4;
+
+      --color-black: #0b0d0f;
+      --color-black-hover: #202326;
+
+      --color-orange: #f4511e;
+      --color-orange-hover: #dd3f10;
+      --color-amber: #f4a000;
+      --color-red: #ef3e3e;
+
+      --color-success: #2c9a66;
+      --color-success-soft: #e8f5ee;
+      --color-warning: #e9a329;
+      --color-warning-soft: #fff3d9;
+      --color-danger: #e14d4d;
+      --color-danger-soft: #fdeaea;
+      --color-info: #2a77c7;
+
+      --shadow-app: 0 18px 50px rgba(25, 22, 18, 0.12);
+      --shadow-card: 0 3px 12px rgba(25, 22, 18, 0.07);
+
+      --radius-xs: 6px;
+      --radius-sm: 9px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 22px;
+      --radius-pill: 999px;
+
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+
+      --sidebar-width: 150px;
+      --mobile-width: 230px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    html,
+    body,
+    button,
+    input,
+    select,
+    textarea {
+      font-family: var(--font-ui);
+    }
+
+    button,
+    input {
+      font: inherit;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .logo,
+    .english-label,
+    .score,
+    .rank-badge,
+    .vote-rank,
+    .match {
+      font-family: var(--font-brand);
+    }
+
+    /* === Layout === */
+    .concept-page {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      padding: 22px 26px 30px;
+      display: grid;
+      grid-template-columns: 250px minmax(720px, 1fr) 220px;
+      gap: 26px;
+      align-items: start;
+    }
+
+    /* === Brand Panel === */
+    .brand-panel {
+      min-height: 900px;
+      padding: 10px 0 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--color-black);
+      color: white;
+      font-size: 18px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      font-size: 38px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -1.8px;
+    }
+
+    .brand-subtitle {
+      margin-top: 12px;
+      font-size: 10px;
+      line-height: 1.45;
+      color: #353a3f;
+    }
+
+    .brand-copy {
+      margin: 34px 0 18px;
+      font-size: 24px;
+      line-height: 1.55;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+
+    .brand-description {
+      max-width: 225px;
+      margin: 0;
+      color: var(--color-text-secondary);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .feature-list {
+      margin-top: 30px;
+      display: grid;
+      gap: 19px;
+    }
+
+    .feature {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .feature-icon {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.45);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .feature:nth-child(1) .feature-icon {
+      color: var(--color-amber);
+    }
+
+    .feature:nth-child(2) .feature-icon {
+      color: var(--color-orange);
+    }
+
+    .feature:nth-child(3) .feature-icon {
+      color: var(--color-success);
+    }
+
+    .feature-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .feature-text {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+      line-height: 1.55;
+    }
+
+    .food-collage {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 30px;
+    }
+
+    .food-cell {
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 10px;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+    }
+
+    /* === App Shell === */
+    .app-shell {
+      min-height: 900px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-soft);
+      border-radius: 14px;
+      box-shadow: var(--shadow-app);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    }
+
+    /* Sidebar */
+    .app-sidebar {
+      background: #faf9f7;
+      border-right: 1px solid var(--color-border-soft);
+      padding: 15px 12px;
+    }
+
+    .app-sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 26px;
+      padding: 0 7px;
+      font-family: var(--font-brand);
+      font-weight: 800;
+      font-size: 17px;
+    }
+
+    .app-sidebar-logo .brand-mark {
+      width: 26px;
+      height: 26px;
+      font-size: 12px;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 38px;
+      padding: 0 11px;
+      color: #32363a;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 500;
+      border-radius: 8px;
+    }
+
+    .nav-item:hover {
+      background: #f0eeea;
+    }
+
+    .nav-item.is-active {
+      background: #fff0e8;
+      color: var(--color-orange);
+      font-weight: 700;
+    }
+
+    .nav-item span {
+      font-size: 13px;
+      width: 14px;
+      text-align: center;
+    }
+
+    /* App Content */
+    .app-content {
+      min-width: 0;
+      padding: 18px 22px 22px;
+    }
+
+    .app-topbar {
+      min-height: 40px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      background: #ddd;
+    }
+
+    .avatar + .avatar {
+      margin-left: -6px;
+    }
+
+    .share-button {
+      min-height: 32px;
+      padding: 0 13px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      background: white;
+      color: var(--color-text);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Search */
+    .search-section h2 {
+      margin: 2px 0 13px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+
+    .search-box {
+      display: grid;
+      grid-template-columns: 1fr 132px;
+      gap: 12px;
+      padding: 11px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      background: white;
+    }
+
+    .search-input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--color-text);
+      font-size: 12px;
+    }
+
+    .search-button {
+      border: 0;
+      border-radius: 7px;
+      min-height: 40px;
+      background: var(--color-black);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.16s ease;
+    }
+
+    .search-button:hover {
+      background: var(--color-black-hover);
+      transform: translateY(-1px);
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      min-height: 28px;
+      padding: 0 10px;
+      border: 1px solid var(--color-border-soft);
+      border-radius: var(--radius-pill);
+      background: #faf8f5;
+      color: #4f555a;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .chip-add {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    /* Section heading */
+    .section-heading {
+      margin-top: 22px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .section-heading h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .section-heading small {
+      margin-left: 10px;
+      color: var(--color-text-secondary);
+      font-size: 10px;
+    }
+
+    /* Restaurant grid */
+    .restaurant-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .restaurant-card {
+      min-width: 0;
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: 9px;
+      box-shadow: 0 2px 7px rgba(30, 26, 22, 0.04);
+    }
+
+    .restaurant-image-wrap {
+      position: relative;
+      aspect-ratio: 1.35 / 1;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .restaurant-image {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      padding: 6px;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .rank-badge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 27px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-family: var(--font-brand);
+      font-size: 13px;
+      font-weight: 800;
+      border-radius: 0 0 8px 0;
+    }
+
+    .rank-1 { background: #d99a00; }
+    .rank-2 { background: #ef3e3e; }
+    .rank-3 { background: #ef5a18; }
+    .rank-4 { background: #83abb2; }
+    .rank-5 { background: #e2a65e; }
+
+    .restaurant-card-body {
+      padding: 10px 9px 9px;
+    }
+
+    .restaurant-card h4 {
+      margin: 0 0 4px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .restaurant-meta {
+      margin: 0;
+      color: var(--color-text-secondary);
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      margin-top: 7px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 18px;
+      padding: 0 6px;
+      border-radius: var(--radius-pill);
+      font-size: 8px;
+      font-weight: 700;
+    }
+
+    .tag-green {
+      color: #277c56;
+      background: #e6f4ed;
+    }
+
+    .tag-blue {
+      color: #247d86;
+      background: #e5f4f6;
+    }
+
+    .tag-orange {
+      color: #d44b22;
+      background: #fff0e6;
+    }
+
+    .tag-red {
+      color: #d74444;
+      background: #fde9e9;
+    }
+
+    .restaurant-summary {
+      margin: 8px 0;
+      min-height: 32px;
+      color: #555d63;
+      font-size: 8.5px;
+      line-height: 1.55;
+    }
+
+    .match-list {
+      margin-top: 8px;
+      padding-top: 7px;
+      border-top: 1px solid var(--color-border-soft);
+      display: grid;
+      gap: 3px;
+    }
+
+    .match-list > div {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 8.5px;
+    }
+
+    .match {
+      font-family: var(--font-brand);
+      font-weight: 800;
+    }
+
+    .match-ok { color: var(--color-success); }
+    .match-warn { color: var(--color-warning); }
+    .match-no { color: var(--color-danger); }
+    .match-unknown { color: #777; }
+
+    .price {
+      margin-top: 8px;
+      padding-top: 7px;
+      border-top: 1px solid var(--color-border-soft);
+      color: #4e555b;
+      font-size: 8.5px;
+    }
+
+    /* === Bottom grid === */
+    .bottom-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.95fr 1.1fr;
+      gap: 10px;
+    }
+
+    .panel {
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      background: white;
+      padding: 12px;
+    }
+
+    .panel-title {
+      margin: 0 0 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Comparison table */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 6px 4px;
+      border-bottom: 1px solid var(--color-border-soft);
+      text-align: center;
+      font-size: 8px;
+    }
+
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+      text-align: left;
+      width: 26%;
+    }
+
+    .comparison-table thead th {
+      color: var(--color-text-secondary);
+      font-weight: 700;
+    }
+
+    /* Vote panel */
+    .vote-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .vote-item {
+      min-height: 36px;
+      padding: 6px 8px;
+      border: 1px solid var(--color-border-soft);
+      border-radius: 7px;
+      display: grid;
+      grid-template-columns: 20px 1fr auto;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .vote-rank {
+      font-family: var(--font-brand);
+      font-weight: 800;
+    }
+
+    .vote-name {
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .vote-count {
+      font-size: 9px;
+      color: var(--color-text-secondary);
+    }
+
+    .vote-button {
+      width: 100%;
+      margin-top: 10px;
+      min-height: 38px;
+      border: 0;
+      border-radius: 7px;
+      background: var(--color-orange);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .vote-button:hover {
+      background: var(--color-orange-hover);
+    }
+
+    /* Evidence panel */
+    .evidence-list {
+      display: grid;
+      gap: 6px;
+    }
+
+    .evidence-item {
+      min-height: 38px;
+      padding: 6px 7px;
+      border: 1px solid var(--color-border-soft);
+      border-radius: 7px;
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr) 16px;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .source-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      display: grid;
+      place-items: center;
+      background: #f1f1f1;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-text-secondary);
+    }
+
+    .source-name {
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .source-meta {
+      margin-top: 2px;
+      color: var(--color-text-secondary);
+      font-size: 7px;
+      line-height: 1.4;
+    }
+
+    .evidence-date {
+      font-size: 8px;
+      color: var(--color-text-tertiary);
+      text-align: right;
+    }
+
+    /* === Phone Preview === */
+    .phone-preview {
+      padding-top: 85px;
+    }
+
+    .phone-frame {
+      width: 218px;
+      padding: 9px;
+      border-radius: 34px;
+      background: #111;
+      box-shadow:
+        0 12px 34px rgba(0, 0, 0, 0.18),
+        inset 0 0 0 2px #3b3b3b;
+    }
+
+    .phone-screen {
+      height: 650px;
+      overflow: hidden;
+      border-radius: 27px;
+      background: white;
+      padding: 18px 14px;
+    }
+
+    .phone-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-brand);
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .phone-logo .brand-mark {
+      width: 22px;
+      height: 22px;
+      font-size: 10px;
+    }
+
+    .phone-search {
+      height: 34px;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: var(--color-surface-soft);
+      color: var(--color-text-secondary);
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin-bottom: 14px;
+    }
+
+    .phone-cards {
+      display: grid;
+      gap: 10px;
+    }
+
+    .phone-card {
+      border: 1px solid var(--color-border-soft);
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .phone-card-img {
+      height: 96px;
+      display: flex;
+      align-items: flex-end;
+      padding: 6px;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .phone-card-body {
+      padding: 8px;
+    }
+
+    .phone-card-title {
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .phone-card-meta {
+      font-size: 8px;
+      color: var(--color-text-secondary);
+    }
+
+    /* === Responsive === */
+    @media (max-width: 1100px) {
+      .concept-page {
+        grid-template-columns: 200px minmax(0, 1fr);
+      }
+
+      .phone-preview {
+        display: none;
+      }
+
+      .restaurant-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .logo {
+        font-size: 30px;
+      }
+
+      .brand-copy {
+        font-size: 20px;
+      }
+
+      .brand-description {
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .concept-page {
+        display: block;
+        padding: 0;
+      }
+
+      .brand-panel {
+        display: none;
+      }
+
+      .app-shell {
+        min-height: 100vh;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        display: block;
+      }
+
+      .app-sidebar {
+        display: none;
+      }
+
+      .app-content {
+        padding: 14px;
+      }
+
+      .app-topbar {
+        justify-content: space-between;
+      }
+
+      .search-section h2 {
+        font-size: 17px;
+      }
+
+      .search-box {
+        grid-template-columns: 1fr;
+      }
+
+      .search-button {
+        width: 100%;
+      }
+
+      .restaurant-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 10px;
+        margin-right: -14px;
+        padding-right: 14px;
+      }
+
+      .restaurant-card {
+        flex: 0 0 82%;
+        scroll-snap-align: start;
+      }
+
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison-panel {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="concept-page">
+    <!-- Brand Panel -->
+    <aside class="brand-panel">
+      <div>
+        <div class="brand">
+          <div class="brand-mark">◉</div>
+          <div>
+            <div class="logo">OISINT</div>
+            <div class="brand-subtitle">
+              Open Intelligence for Savory<br>
+              Information, Navigation &amp; Taste
+            </div>
+          </div>
+        </div>
+
+        <h1 class="brand-copy">
+          みんなの「おいしい」を、<br>
+          いちばん賢く。
+        </h1>
+
+        <p class="brand-description">
+          OISINTは、みんなで集めたリアルな情報をもとに、
+          最適なレストラン選びをサポートするサービスです。
+        </p>
+
+        <div class="feature-list">
+          <div class="feature">
+            <div class="feature-icon">◎</div>
+            <div>
+              <div class="feature-title">幅広いジャンル</div>
+              <div class="feature-text">ラーメンから高級店まで、同じUIで幅広く扱えます。</div>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">✦</div>
+            <div>
+              <div class="feature-title">根拠のある比較</div>
+              <div class="feature-text">Evidence・口コミ・条件適合度をすぐに確認できます。</div>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">✓</div>
+            <div>
+              <div class="feature-title">みんなで決める</div>
+              <div class="feature-text">投票と共有でグループの好みをすばやくまとめます。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="food-collage">
+        <div class="food-cell" style="background: linear-gradient(135deg, #f6a636, #d98e1c);">ラーメン</div>
+        <div class="food-cell" style="background: linear-gradient(135deg, #c77947, #8d5836);">バーガー</div>
+        <div class="food-cell" style="background: linear-gradient(135deg, #e84c4c, #b83232);">寿司</div>
+        <div class="food-cell" style="background: linear-gradient(135deg, #d4b996, #a88b6a);">カフェ</div>
+        <div class="food-cell" style="background: linear-gradient(135deg, #f4c430, #d4931e);">ピザ</div>
+        <div class="food-cell" style="background: linear-gradient(135deg, #7cb0b5, #567f83);">居酒屋</div>
+        <div class="food-cell" style="background: linear-gradient(135deg, #b94d4d, #7f2d2d);">焼肉</div>
+        <div class="food-cell" style="background: linear-gradient(135deg, #7cb87c, #568c56);">ファミレス</div>
+        <div class="food-cell" style="background: linear-gradient(135deg, #2a2a2a, #111111);">高級フレンチ</div>
+        <div class="food-cell" style="background: linear-gradient(135deg, #6c9bd1, #4a73a8);">定食</div>
+      </div>
+    </aside>
+
+    <!-- Main App -->
+    <section class="app-shell">
+      <aside class="app-sidebar">
+        <div class="app-sidebar-logo">
+          <span class="brand-mark">◉</span> OISINT
+        </div>
+
+        <nav class="nav-list">
+          <a class="nav-item is-active" href="#"><span>⌂</span> ホーム</a>
+          <a class="nav-item" href="#"><span>▣</span> マイリサーチ</a>
+          <a class="nav-item" href="#"><span>☆</span> お気に入り</a>
+          <a class="nav-item" href="#"><span>◷</span> 最近の検索</a>
+          <a class="nav-item" href="#"><span>♙</span> グループ</a>
+          <a class="nav-item" href="#"><span>⚙</span> 設定</a>
+        </nav>
+      </aside>
+
+      <main class="app-content">
+        <header class="app-topbar">
+          <div class="topbar-actions">
+            <div class="avatar-row">
+              <div class="avatar" style="background:#9ca3af;"></div>
+              <div class="avatar" style="background:#6b7280;"></div>
+              <div class="avatar" style="background:#4b5563;"></div>
+              <div class="avatar" style="background:#374151;"></div>
+            </div>
+            <button class="share-button" type="button">共有する</button>
+          </div>
+        </header>
+
+        <section class="search-section">
+          <h2>新しいリサーチをはじめる</h2>
+
+          <div class="search-box">
+            <input
+              class="search-input"
+              value="渋谷で、予算は1人2,000円前後で、みんなで楽しく食事ができるお店を探して"
+            >
+            <button class="search-button" type="button">⌕ 検索する</button>
+          </div>
+
+          <div class="filter-row">
+            <button class="chip" type="button">渋谷⌄</button>
+            <button class="chip" type="button">予算 ～2,000円⌄</button>
+            <button class="chip" type="button">用途 みんなで⌄</button>
+            <button class="chip" type="button">ジャンル すべて⌄</button>
+            <button class="chip" type="button">子連れOK</button>
+            <button class="chip chip-add" type="button">＋ 条件を追加</button>
+          </div>
+        </section>
+
+        <div class="section-heading">
+          <div>
+            <h3>おすすめのレストラン</h3>
+            <small>5件の候補が見つかりました</small>
+          </div>
+        </div>
+
+        <section class="restaurant-grid">
+          <!-- Card 1 -->
+          <article class="restaurant-card">
+            <div class="restaurant-image-wrap">
+              <div class="restaurant-image" style="background: linear-gradient(135deg, #f6a636, #d98e1c);">ラーメン</div>
+              <span class="rank-badge rank-1">1</span>
+            </div>
+            <div class="restaurant-card-body">
+              <h4>麺屋 渋谷</h4>
+              <p class="restaurant-meta">
+                ラーメン・つけ麺<br>
+                渋谷駅 徒歩5分
+              </p>
+              <div class="tag-row">
+                <span class="tag tag-green">安い</span>
+                <span class="tag tag-blue">ひとりOK</span>
+                <span class="tag tag-orange">子連れOK</span>
+              </div>
+              <p class="restaurant-summary">
+                濃厚スープが人気のラーメン店。ランチは行列必至！
+              </p>
+              <div class="match-list">
+                <div><span>予算 ～2,000円</span><b class="match match-ok">○</b></div>
+                <div><span>みんなで楽しい</span><b class="match match-warn">△</b></div>
+                <div><span>子連れOK</span><b class="match match-no">×</b></div>
+                <div><span>口コミ評価</span><b class="match match-ok">○</b></div>
+              </div>
+              <div class="price">予算目安　～1,000円 / 人</div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="restaurant-card">
+            <div class="restaurant-image-wrap">
+              <div class="restaurant-image" style="background: linear-gradient(135deg, #c77947, #8d5836);">バーガー</div>
+              <span class="rank-badge rank-2">2</span>
+            </div>
+            <div class="restaurant-card-body">
+              <h4>SHIBUYA DINER</h4>
+              <p class="restaurant-meta">
+                ハンバーガー・アメリカン<br>
+                渋谷駅 徒歩3分
+              </p>
+              <div class="tag-row">
+                <span class="tag tag-green">安い</span>
+                <span class="tag tag-blue">みんなで</span>
+                <span class="tag tag-orange">子連れOK</span>
+              </div>
+              <p class="restaurant-summary">
+                ボリューム満点のハンバーガーが自慢。平日ランチがお得。
+              </p>
+              <div class="match-list">
+                <div><span>予算 ～2,000円</span><b class="match match-ok">○</b></div>
+                <div><span>みんなで楽しい</span><b class="match match-ok">○</b></div>
+                <div><span>子連れOK</span><b class="match match-ok">○</b></div>
+                <div><span>口コミ評価</span><b class="match match-ok">○</b></div>
+              </div>
+              <div class="price">予算目安　～1,500円 / 人</div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="restaurant-card">
+            <div class="restaurant-image-wrap">
+              <div class="restaurant-image" style="background: linear-gradient(135deg, #e04f4f, #9c2d2d);">居酒屋</div>
+              <span class="rank-badge rank-3">3</span>
+            </div>
+            <div class="restaurant-card-body">
+              <h4>炭火焼鳥 渋谷</h4>
+              <p class="restaurant-meta">
+                居酒屋・焼鳥<br>
+                渋谷駅 徒歩6分
+              </p>
+              <div class="tag-row">
+                <span class="tag tag-blue">みんなで</span>
+                <span class="tag tag-green">安い</span>
+                <span class="tag tag-red">遅くまで</span>
+              </div>
+              <p class="restaurant-summary">
+                炭火で焼き上げる焼鳥と地酒が揃う。にぎやかな店内。
+              </p>
+              <div class="match-list">
+                <div><span>予算 ～2,000円</span><b class="match match-ok">○</b></div>
+                <div><span>みんなで楽しい</span><b class="match match-ok">○</b></div>
+                <div><span>子連れOK</span><b class="match match-no">×</b></div>
+                <div><span>口コミ評価</span><b class="match match-ok">○</b></div>
+              </div>
+              <div class="price">予算目安　～2,500円 / 人</div>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="restaurant-card">
+            <div class="restaurant-image-wrap">
+              <div class="restaurant-image" style="background: linear-gradient(135deg, #d4b996, #a88b6a);">カフェ</div>
+              <span class="rank-badge rank-4">4</span>
+            </div>
+            <div class="restaurant-card-body">
+              <h4>CAFE&amp;BAR 渋谷</h4>
+              <p class="restaurant-meta">
+                カフェ・パンケーキ<br>
+                渋谷駅 徒歩4分
+              </p>
+              <div class="tag-row">
+                <span class="tag tag-orange">子連れOK</span>
+                <span class="tag tag-blue">Wi-Fi</span>
+                <span class="tag tag-red">カフェ</span>
+              </div>
+              <p class="restaurant-summary">
+                ふわふわパンケーキとコーヒー。子連れでもゆっくりできる。
+              </p>
+              <div class="match-list">
+                <div><span>予算 ～2,000円</span><b class="match match-ok">○</b></div>
+                <div><span>みんなで楽しい</span><b class="match match-warn">△</b></div>
+                <div><span>子連れOK</span><b class="match match-ok">○</b></div>
+                <div><span>口コミ評価</span><b class="match match-ok">○</b></div>
+              </div>
+              <div class="price">予算目安　～1,200円 / 人</div>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="restaurant-card">
+            <div class="restaurant-image-wrap">
+              <div class="restaurant-image" style="background: linear-gradient(135deg, #f4c430, #d4931e);">ピザ</div>
+              <span class="rank-badge rank-5">5</span>
+            </div>
+            <div class="restaurant-card-body">
+              <h4>PIZZA STUDIO</h4>
+              <p class="restaurant-meta">
+                ピザ・イタリアン<br>
+                渋谷駅 徒歩7分
+              </p>
+              <div class="tag-row">
+                <span class="tag tag-blue">みんなで</span>
+                <span class="tag tag-orange">子連れOK</span>
+                <span class="tag tag-red">貸切</span>
+              </div>
+              <p class="restaurant-summary">
+                窯焼きピザが人気。団体利用も相談可能。
+              </p>
+              <div class="match-list">
+                <div><span>予算 ～2,000円</span><b class="match match-warn">△</b></div>
+                <div><span>みんなで楽しい</span><b class="match match-ok">○</b></div>
+                <div><span>子連れOK</span><b class="match match-ok">○</b></div>
+                <div><span>口コミ評価</span><b class="match match-unknown">?</b></div>
+              </div>
+              <div class="price">予算目安　～2,000円 / 人</div>
+            </div>
+          </article>
+        </section>
+
+        <section class="bottom-grid">
+          <!-- Comparison -->
+          <div class="panel comparison-panel">
+            <h4 class="panel-title">比較</h4>
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>麺屋</th>
+                  <th>DINER</th>
+                  <th>焼鳥</th>
+                  <th>CAFE</th>
+                  <th>PIZZA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>予算</td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-warn">△</span></td>
+                </tr>
+                <tr>
+                  <td>駅からの距離</td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-warn">△</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-warn">△</span></td>
+                </tr>
+                <tr>
+                  <td>子連れOK</td>
+                  <td><span class="match match-no">×</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-no">×</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                </tr>
+                <tr>
+                  <td>駐車場</td>
+                  <td><span class="match match-no">×</span></td>
+                  <td><span class="match match-no">×</span></td>
+                  <td><span class="match match-warn">△</span></td>
+                  <td><span class="match match-no">×</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                </tr>
+                <tr>
+                  <td>喫煙</td>
+                  <td><span class="match match-warn">△</span></td>
+                  <td><span class="match match-no">×</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-no">×</span></td>
+                  <td><span class="match match-warn">△</span></td>
+                </tr>
+                <tr>
+                  <td>口コミ評価</td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-ok">○</span></td>
+                  <td><span class="match match-unknown">?</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Vote -->
+          <div class="panel vote-panel">
+            <h4 class="panel-title">みんなの投票</h4>
+            <div class="vote-list">
+              <div class="vote-item">
+                <span class="vote-rank">1</span>
+                <span class="vote-name">麺屋 渋谷</span>
+                <span class="vote-count">12票</span>
+              </div>
+              <div class="vote-item">
+                <span class="vote-rank">2</span>
+                <span class="vote-name">SHIBUYA DINER</span>
+                <span class="vote-count">8票</span>
+              </div>
+              <div class="vote-item">
+                <span class="vote-rank">3</span>
+                <span class="vote-name">炭火焼鳥 渋谷</span>
+                <span class="vote-count">5票</span>
+              </div>
+              <div class="vote-item">
+                <span class="vote-rank">4</span>
+                <span class="vote-name">CAFE&amp;BAR 渋谷</span>
+                <span class="vote-count">3票</span>
+              </div>
+              <div class="vote-item">
+                <span class="vote-rank">5</span>
+                <span class="vote-name">PIZZA STUDIO</span>
+                <span class="vote-count">2票</span>
+              </div>
+            </div>
+            <button class="vote-button" type="button">投票する</button>
+          </div>
+
+          <!-- Evidence -->
+          <div class="panel evidence-panel">
+            <h4 class="panel-title">Evidence</h4>
+            <div class="evidence-list">
+              <div class="evidence-item">
+                <div class="source-icon">T</div>
+                <div>
+                  <div class="source-name">食べログ</div>
+                  <div class="source-meta">麺屋 渋谷の濃厚ラーメンについて高評価多数</div>
+                </div>
+                <span class="evidence-date">06/18</span>
+              </div>
+              <div class="evidence-item">
+                <div class="source-icon">G</div>
+                <div>
+                  <div class="source-name">Google</div>
+                  <div class="source-meta">SHIBUYA DINERは家族連れでも入りやすい雰囲気</div>
+                </div>
+                <span class="evidence-date">06/17</span>
+              </div>
+              <div class="evidence-item">
+                <div class="source-icon">R</div>
+                <div>
+                  <div class="source-name">Retty</div>
+                  <div class="source-meta">焼鳥店は深夜まで営業、にぎやかな店内</div>
+                </div>
+                <span class="evidence-date">06/16</span>
+              </div>
+              <div class="evidence-item">
+                <div class="source-icon">一</div>
+                <div>
+                  <div class="source-name">一休.com</div>
+                  <div class="source-meta">PIZZA STUDIOは団体予約が可能</div>
+                </div>
+                <span class="evidence-date">06/15</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <!-- Phone Preview -->
+    <aside class="phone-preview">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-logo">
+            <span class="brand-mark">◉</span> OISINT
+          </div>
+
+          <div class="phone-search">
+            渋谷で、予算は1人2,000円前後で…
+          </div>
+
+          <div class="phone-cards">
+            <div class="phone-card">
+              <div class="phone-card-img" style="background: linear-gradient(135deg, #f6a636, #d98e1c);">
+                ラーメン
+              </div>
+              <div class="phone-card-body">
+                <div class="phone-card-title">麺屋 渋谷</div>
+                <div class="phone-card-meta">ラーメン · 渋谷 5分</div>
+              </div>
+            </div>
+            <div class="phone-card">
+              <div class="phone-card-img" style="background: linear-gradient(135deg, #c77947, #8d5836);">
+                バーガー
+              </div>
+              <div class="phone-card-body">
+                <div class="phone-card-title">SHIBUYA DINER</div>
+                <div class="phone-card-meta">ハンバーガー · 渋谷 3分</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>

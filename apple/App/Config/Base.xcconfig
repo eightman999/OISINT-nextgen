@@ -1,0 +1,12 @@
+// Base.xcconfig contains non-secret defaults only.
+// Server-only secrets must never be placed here.
+// URL の // は xcconfig コメント扱いのため $() でエスケープする
+
+OISINT_API_BASE_URL = https:/$()/api.oisint.com
+OISINT_SUPABASE_URL =
+OISINT_SUPABASE_ANON_KEY =
+// The public RevenueCat SDK key is injected locally or by CI. Server keys are not accepted.
+REVENUECAT_API_KEY =
+
+// Local values are ignored by git and are optional for the mock build.
+#include? "Local.xcconfig"

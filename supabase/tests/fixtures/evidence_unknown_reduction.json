@@ -1,0 +1,108 @@
+{
+  "caseId": "issue-312-controlled-evidence-reuse-v1",
+  "seed": "not-applicable-deterministic-pure-functions",
+  "fixedNow": "2026-08-16T03:00:00.000Z",
+  "conditions": {
+    "candidateId": "candidate-fixture-1",
+    "placeId": "place-fixture-1",
+    "fetchedPageCount": 0,
+    "unresolvedResearchOutcome": "unknown"
+  },
+  "requirements": [
+    {
+      "id": "req-budget",
+      "originalText": "予算 3000円前後",
+      "normalizedText": "予算 3000円前後",
+      "kind": "budget",
+      "priority": "must",
+      "sourceAttested": true
+    },
+    {
+      "id": "req-payment",
+      "originalText": "クレジットカード利用可能",
+      "normalizedText": "クレジットカード利用可能",
+      "kind": "payment",
+      "priority": "must",
+      "sourceAttested": true
+    },
+    {
+      "id": "req-party",
+      "originalText": "1人で利用可能",
+      "normalizedText": "1人で利用可能",
+      "kind": "party_size",
+      "priority": "should",
+      "sourceAttested": true
+    },
+    {
+      "id": "req-time",
+      "originalText": "朝食営業",
+      "normalizedText": "朝食営業",
+      "kind": "time",
+      "priority": "must",
+      "sourceAttested": true
+    },
+    {
+      "id": "req-atmosphere",
+      "originalText": "静かで落ち着いた雰囲気",
+      "normalizedText": "静かで落ち着いた雰囲気",
+      "kind": "atmosphere",
+      "priority": "should",
+      "sourceAttested": true
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-geoapify-0",
+      "sourceUrl": "https://www.openstreetmap.org/node/5140000001",
+      "sourceType": "major_place_provider",
+      "sourceQuality": 0.85,
+      "observedAt": "2026-08-16T02:00:00.000Z",
+      "structuredClaims": [
+        {
+          "key": "budget_dinner",
+          "value": { "min": 2500, "max": 3500 },
+          "rawText": "予算 2500〜3500円"
+        },
+        {
+          "key": "card_accepted",
+          "value": true,
+          "rawText": "カード利用可"
+        },
+        {
+          "key": "capacity",
+          "value": 40,
+          "rawText": "総席数40席"
+        },
+        {
+          "key": "opening_hours",
+          "value": "17:00-23:00",
+          "rawText": "営業時間 17:00〜23:00"
+        }
+      ]
+    }
+  ],
+  "expected": {
+    "legacyAllOrNothingUnknownCount": 5,
+    "perRequirementUnknownCount": 2,
+    "resolvedRequirementIds": [
+      "req-budget",
+      "req-payment",
+      "req-party"
+    ],
+    "resolvedStates": [
+      { "requirementId": "req-budget", "state": "match" },
+      { "requirementId": "req-payment", "state": "match" },
+      { "requirementId": "req-party", "state": "partial" }
+    ],
+    "unresolvedRequirementIds": [
+      "req-time",
+      "req-atmosphere"
+    ],
+    "usedEvidenceSources": [
+      {
+        "id": "evidence-geoapify-0",
+        "sourceUrl": "https://www.openstreetmap.org/node/5140000001"
+      }
+    ]
+  }
+}

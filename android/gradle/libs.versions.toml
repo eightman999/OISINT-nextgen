@@ -1,0 +1,59 @@
+# バージョン確定根拠（2026-08-16 実測。ANDROID_NATIVE_PLAN.md §2.4 の確定手順）
+# - 公開日は各 POM の Last-Modified ヘッダを curl -sI で実測し、7 日以上前公開のみ採用:
+#   AGP 8.13.2 = 2025-12-11 / Kotlin 2.3.21 = 2026-04-22 / Compose BOM 2026.06.01 = 2026-07-01
+#   （BOM 2026.08.00 は 2026-08-12 公開で 7 日未満のため不採用）
+#   supabase-kt 3.7.0 = 2026-07-20 / navigation-compose 2.9.8 = 2026-04-22
+#   lifecycle 2.9.4 = 2025-09-17 / activity-compose 1.13.0 = 2026-03-11 / core-ktx 1.17.0 = 2025-08-13
+# - core-ktx 1.19.0 / lifecycle 2.11.0 は compileSdk 37 + AGP 9.1 を要求するため不採用
+#   （2026-08-16 の :app:checkDebugAarMetadata 実測エラー。SDK は android-36 までインストール済）
+# - Ktor 3.5.1 は supabase-kt 3.7.0 の realtime-kt POM が依存する版に一致させる（実測）
+# - Gradle wrapper 8.14.3（AGP 8.13 系の対応範囲。JDK 17 で実行する）
+
+[versions]
+agp = "8.13.2"
+kotlin = "2.3.21"
+composeBom = "2026.06.01"
+activityCompose = "1.13.0"
+coreKtx = "1.17.0"
+lifecycle = "2.9.4"
+navigationCompose = "2.9.8"
+coroutines = "1.10.2"
+serialization = "1.9.0"
+supabase = "3.7.0"
+ktor = "3.5.1"
+junit = "4.13.2"
+# RevenueCat Android SDK (Test Store対応の安定版。公開SDK keyはlocal.propertiesのみ)
+revenuecat = "10.16.1"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-material3-window-size = { group = "androidx.compose.material3", name = "material3-window-size-class" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
+supabase-bom = { group = "io.github.jan-tennert.supabase", name = "bom", version.ref = "supabase" }
+supabase-auth = { group = "io.github.jan-tennert.supabase", name = "auth-kt" }
+supabase-postgrest = { group = "io.github.jan-tennert.supabase", name = "postgrest-kt" }
+supabase-realtime = { group = "io.github.jan-tennert.supabase", name = "realtime-kt" }
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
+revenuecat-purchases = { group = "com.revenuecat.purchases", name = "purchases", version.ref = "revenuecat" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

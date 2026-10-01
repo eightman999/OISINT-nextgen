@@ -1,0 +1,2604 @@
+{
+  "schemaVersion": "issue-596-prerank-fixture.v1",
+  "source": "synthetic/anonymized",
+  "privacy": {
+    "containsLiveQueries": false,
+    "containsProviderResponses": false,
+    "containsPersonalData": false,
+    "containsRealPlaceIdentifiers": false
+  },
+  "requirements": [
+    {
+      "id": "r-budget",
+      "kind": "budget",
+      "priority": "must",
+      "weight": 1,
+      "normalizedText": "予算は一人3000円以内（税・サービス料を含む）",
+      "originalText": "予算は一人3000円以内（税・サービス料を含む）"
+    },
+    {
+      "id": "r-cuisine",
+      "kind": "cuisine",
+      "priority": "should",
+      "weight": 0.8,
+      "normalizedText": "焼肉を食べたい",
+      "originalText": "焼肉を食べたい"
+    },
+    {
+      "id": "r-reservation",
+      "kind": "reservation",
+      "priority": "should",
+      "weight": 0.7,
+      "normalizedText": "予約できる",
+      "originalText": "予約できる"
+    },
+    {
+      "id": "r-atmosphere",
+      "kind": "atmosphere",
+      "priority": "nice",
+      "weight": 0.4,
+      "normalizedText": "静かな雰囲気",
+      "originalText": "静かな雰囲気"
+    }
+  ],
+  "cases": [
+    {
+      "id": "candidates-20",
+      "candidateCount": 20,
+      "candidates": [
+        {
+          "id": "synthetic-20:c01",
+          "name": "合成候補20-01",
+          "provider": "fixture-a",
+          "distanceM": 120,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c02",
+          "name": "合成候補20-02",
+          "provider": "fixture-b",
+          "distanceM": 157,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c03",
+          "name": "合成候補20-03",
+          "provider": "fixture-c",
+          "distanceM": 194,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-20:c04",
+          "name": "合成候補20-04",
+          "provider": "fixture-d",
+          "distanceM": 231,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c05",
+          "name": "合成候補20-05",
+          "provider": "fixture-e",
+          "distanceM": 268,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c06",
+          "name": "合成候補20-06",
+          "provider": "fixture-a",
+          "distanceM": 305,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c07",
+          "name": "合成候補20-07",
+          "provider": "fixture-b",
+          "distanceM": 342,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c08",
+          "name": "合成候補20-08",
+          "provider": "fixture-c",
+          "distanceM": 379,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-20:c09",
+          "name": "合成候補20-09",
+          "provider": "fixture-d",
+          "distanceM": 416,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c10",
+          "name": "合成候補20-10",
+          "provider": "fixture-e",
+          "distanceM": 453,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c11",
+          "name": "合成候補20-11",
+          "provider": "fixture-a",
+          "distanceM": 490,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c12",
+          "name": "合成候補20-12",
+          "provider": "fixture-b",
+          "distanceM": 527,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c13",
+          "name": "合成候補20-13",
+          "provider": "fixture-c",
+          "distanceM": 564,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-20:c14",
+          "name": "合成候補20-14",
+          "provider": "fixture-d",
+          "distanceM": 601,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c15",
+          "name": "合成候補20-15",
+          "provider": "fixture-e",
+          "distanceM": 638,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c16",
+          "name": "合成候補20-16",
+          "provider": "fixture-a",
+          "distanceM": 675,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c17",
+          "name": "合成候補20-17",
+          "provider": "fixture-b",
+          "distanceM": 712,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c18",
+          "name": "合成候補20-18",
+          "provider": "fixture-c",
+          "distanceM": 749,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-20:c19",
+          "name": "合成候補20-19",
+          "provider": "fixture-d",
+          "distanceM": 786,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-20:c20",
+          "name": "合成候補20-20",
+          "provider": "fixture-e",
+          "distanceM": 823,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "candidates-30",
+      "candidateCount": 30,
+      "candidates": [
+        {
+          "id": "synthetic-30:c01",
+          "name": "合成候補30-01",
+          "provider": "fixture-a",
+          "distanceM": 120,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c02",
+          "name": "合成候補30-02",
+          "provider": "fixture-b",
+          "distanceM": 157,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c03",
+          "name": "合成候補30-03",
+          "provider": "fixture-c",
+          "distanceM": 194,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-30:c04",
+          "name": "合成候補30-04",
+          "provider": "fixture-d",
+          "distanceM": 231,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c05",
+          "name": "合成候補30-05",
+          "provider": "fixture-e",
+          "distanceM": 268,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c06",
+          "name": "合成候補30-06",
+          "provider": "fixture-a",
+          "distanceM": 305,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c07",
+          "name": "合成候補30-07",
+          "provider": "fixture-b",
+          "distanceM": 342,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c08",
+          "name": "合成候補30-08",
+          "provider": "fixture-c",
+          "distanceM": 379,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-30:c09",
+          "name": "合成候補30-09",
+          "provider": "fixture-d",
+          "distanceM": 416,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c10",
+          "name": "合成候補30-10",
+          "provider": "fixture-e",
+          "distanceM": 453,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c11",
+          "name": "合成候補30-11",
+          "provider": "fixture-a",
+          "distanceM": 490,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c12",
+          "name": "合成候補30-12",
+          "provider": "fixture-b",
+          "distanceM": 527,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c13",
+          "name": "合成候補30-13",
+          "provider": "fixture-c",
+          "distanceM": 564,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-30:c14",
+          "name": "合成候補30-14",
+          "provider": "fixture-d",
+          "distanceM": 601,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c15",
+          "name": "合成候補30-15",
+          "provider": "fixture-e",
+          "distanceM": 638,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c16",
+          "name": "合成候補30-16",
+          "provider": "fixture-a",
+          "distanceM": 675,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c17",
+          "name": "合成候補30-17",
+          "provider": "fixture-b",
+          "distanceM": 712,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c18",
+          "name": "合成候補30-18",
+          "provider": "fixture-c",
+          "distanceM": 749,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-30:c19",
+          "name": "合成候補30-19",
+          "provider": "fixture-d",
+          "distanceM": 786,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c20",
+          "name": "合成候補30-20",
+          "provider": "fixture-e",
+          "distanceM": 823,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c21",
+          "name": "合成候補30-21",
+          "provider": "fixture-a",
+          "distanceM": 860,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c22",
+          "name": "合成候補30-22",
+          "provider": "fixture-b",
+          "distanceM": 897,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c23",
+          "name": "合成候補30-23",
+          "provider": "fixture-c",
+          "distanceM": 934,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-30:c24",
+          "name": "合成候補30-24",
+          "provider": "fixture-d",
+          "distanceM": 971,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c25",
+          "name": "合成候補30-25",
+          "provider": "fixture-e",
+          "distanceM": 1008,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c26",
+          "name": "合成候補30-26",
+          "provider": "fixture-a",
+          "distanceM": 1045,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c27",
+          "name": "合成候補30-27",
+          "provider": "fixture-b",
+          "distanceM": 1082,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c28",
+          "name": "合成候補30-28",
+          "provider": "fixture-c",
+          "distanceM": 1119,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-30:c29",
+          "name": "合成候補30-29",
+          "provider": "fixture-d",
+          "distanceM": 1156,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-30:c30",
+          "name": "合成候補30-30",
+          "provider": "fixture-e",
+          "distanceM": 1193,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "candidates-50",
+      "candidateCount": 50,
+      "candidates": [
+        {
+          "id": "synthetic-50:c01",
+          "name": "合成候補50-01",
+          "provider": "fixture-a",
+          "distanceM": 120,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c02",
+          "name": "合成候補50-02",
+          "provider": "fixture-b",
+          "distanceM": 157,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c03",
+          "name": "合成候補50-03",
+          "provider": "fixture-c",
+          "distanceM": 194,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-50:c04",
+          "name": "合成候補50-04",
+          "provider": "fixture-d",
+          "distanceM": 231,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c05",
+          "name": "合成候補50-05",
+          "provider": "fixture-e",
+          "distanceM": 268,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c06",
+          "name": "合成候補50-06",
+          "provider": "fixture-a",
+          "distanceM": 305,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c07",
+          "name": "合成候補50-07",
+          "provider": "fixture-b",
+          "distanceM": 342,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c08",
+          "name": "合成候補50-08",
+          "provider": "fixture-c",
+          "distanceM": 379,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-50:c09",
+          "name": "合成候補50-09",
+          "provider": "fixture-d",
+          "distanceM": 416,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c10",
+          "name": "合成候補50-10",
+          "provider": "fixture-e",
+          "distanceM": 453,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c11",
+          "name": "合成候補50-11",
+          "provider": "fixture-a",
+          "distanceM": 490,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c12",
+          "name": "合成候補50-12",
+          "provider": "fixture-b",
+          "distanceM": 527,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c13",
+          "name": "合成候補50-13",
+          "provider": "fixture-c",
+          "distanceM": 564,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-50:c14",
+          "name": "合成候補50-14",
+          "provider": "fixture-d",
+          "distanceM": 601,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c15",
+          "name": "合成候補50-15",
+          "provider": "fixture-e",
+          "distanceM": 638,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c16",
+          "name": "合成候補50-16",
+          "provider": "fixture-a",
+          "distanceM": 675,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c17",
+          "name": "合成候補50-17",
+          "provider": "fixture-b",
+          "distanceM": 712,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c18",
+          "name": "合成候補50-18",
+          "provider": "fixture-c",
+          "distanceM": 749,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-50:c19",
+          "name": "合成候補50-19",
+          "provider": "fixture-d",
+          "distanceM": 786,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c20",
+          "name": "合成候補50-20",
+          "provider": "fixture-e",
+          "distanceM": 823,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c21",
+          "name": "合成候補50-21",
+          "provider": "fixture-a",
+          "distanceM": 860,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c22",
+          "name": "合成候補50-22",
+          "provider": "fixture-b",
+          "distanceM": 897,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c23",
+          "name": "合成候補50-23",
+          "provider": "fixture-c",
+          "distanceM": 934,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-50:c24",
+          "name": "合成候補50-24",
+          "provider": "fixture-d",
+          "distanceM": 971,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c25",
+          "name": "合成候補50-25",
+          "provider": "fixture-e",
+          "distanceM": 1008,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c26",
+          "name": "合成候補50-26",
+          "provider": "fixture-a",
+          "distanceM": 1045,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c27",
+          "name": "合成候補50-27",
+          "provider": "fixture-b",
+          "distanceM": 1082,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c28",
+          "name": "合成候補50-28",
+          "provider": "fixture-c",
+          "distanceM": 1119,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-50:c29",
+          "name": "合成候補50-29",
+          "provider": "fixture-d",
+          "distanceM": 1156,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c30",
+          "name": "合成候補50-30",
+          "provider": "fixture-e",
+          "distanceM": 1193,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c31",
+          "name": "合成候補50-31",
+          "provider": "fixture-a",
+          "distanceM": 1230,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c32",
+          "name": "合成候補50-32",
+          "provider": "fixture-b",
+          "distanceM": 1267,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c33",
+          "name": "合成候補50-33",
+          "provider": "fixture-c",
+          "distanceM": 1304,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-50:c34",
+          "name": "合成候補50-34",
+          "provider": "fixture-d",
+          "distanceM": 1341,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c35",
+          "name": "合成候補50-35",
+          "provider": "fixture-e",
+          "distanceM": 1378,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c36",
+          "name": "合成候補50-36",
+          "provider": "fixture-a",
+          "distanceM": 1415,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c37",
+          "name": "合成候補50-37",
+          "provider": "fixture-b",
+          "distanceM": 1452,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c38",
+          "name": "合成候補50-38",
+          "provider": "fixture-c",
+          "distanceM": 1489,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-50:c39",
+          "name": "合成候補50-39",
+          "provider": "fixture-d",
+          "distanceM": 1526,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c40",
+          "name": "合成候補50-40",
+          "provider": "fixture-e",
+          "distanceM": 1563,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c41",
+          "name": "合成候補50-41",
+          "provider": "fixture-a",
+          "distanceM": 1600,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c42",
+          "name": "合成候補50-42",
+          "provider": "fixture-b",
+          "distanceM": 1637,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c43",
+          "name": "合成候補50-43",
+          "provider": "fixture-c",
+          "distanceM": 1674,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-50:c44",
+          "name": "合成候補50-44",
+          "provider": "fixture-d",
+          "distanceM": 1711,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c45",
+          "name": "合成候補50-45",
+          "provider": "fixture-e",
+          "distanceM": 1748,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c46",
+          "name": "合成候補50-46",
+          "provider": "fixture-a",
+          "distanceM": 1785,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1000,
+                "max": 2800
+              },
+              "rawText": "合成価格"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンル"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            },
+            {
+              "key": "noise_level",
+              "value": "quiet",
+              "rawText": "合成静音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c47",
+          "name": "合成候補50-47",
+          "provider": "fixture-b",
+          "distanceM": 1822,
+          "categories": [
+            "sushi"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 5000,
+                "max": 9000
+              },
+              "rawText": "合成価格外"
+            },
+            {
+              "key": "genre",
+              "value": [
+                "寿司"
+              ],
+              "rawText": "合成ジャンル外"
+            },
+            {
+              "key": "reservation",
+              "value": false,
+              "rawText": "合成予約不可"
+            },
+            {
+              "key": "noise_level",
+              "value": "loud",
+              "rawText": "合成騒音"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c48",
+          "name": "合成候補50-48",
+          "provider": "fixture-c",
+          "distanceM": 1859,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": []
+        },
+        {
+          "id": "synthetic-50:c49",
+          "name": "合成候補50-49",
+          "provider": "fixture-d",
+          "distanceM": 1896,
+          "categories": [
+            "yakiniku"
+          ],
+          "knownClaims": [
+            {
+              "key": "genre",
+              "value": [
+                "焼肉"
+              ],
+              "rawText": "合成ジャンルのみ"
+            }
+          ]
+        },
+        {
+          "id": "synthetic-50:c50",
+          "name": "合成候補50-50",
+          "provider": "fixture-e",
+          "distanceM": 1933,
+          "categories": [
+            "yakiniku",
+            "izakaya"
+          ],
+          "knownClaims": [
+            {
+              "key": "budget_dinner",
+              "value": {
+                "min": 1200,
+                "max": 2900
+              },
+              "rawText": "合成価格のみ"
+            },
+            {
+              "key": "reservation",
+              "value": true,
+              "rawText": "合成予約可"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

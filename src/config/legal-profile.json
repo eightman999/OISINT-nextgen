@@ -1,0 +1,32 @@
+{
+  "ja": {
+    "businessName": "OISINT Public Snapshot",
+    "tradeName": "OISINT",
+    "representativeName": "Project contributors",
+    "address": "公開用サンプル。実運用では運営者情報を設定してください",
+    "phone": "公開用サンプル",
+    "email": "contact@example.com",
+    "contactHours": "実運用では設定してください",
+    "governingLaw": "実運用では設定してください",
+    "jurisdiction": "実運用では設定してください",
+    "disclosureFee": "実運用では設定してください",
+    "disclosureIdentityVerification": "実運用では設定してください",
+    "disclosureResponseTime": "実運用では設定してください",
+    "certifiedPrivacyOrganization": "なし"
+  },
+  "en": {
+    "businessName": "OISINT Public Snapshot",
+    "tradeName": "OISINT",
+    "representativeName": "Project contributors",
+    "address": "Public example; configure operator details before production use",
+    "phone": "Public example",
+    "email": "contact@example.com",
+    "contactHours": "Configure before production use",
+    "governingLaw": "Configure before production use",
+    "jurisdiction": "Configure before production use",
+    "disclosureFee": "Configure before production use",
+    "disclosureIdentityVerification": "Configure before production use",
+    "disclosureResponseTime": "Configure before production use",
+    "certifiedPrivacyOrganization": "None"
+  }
+}

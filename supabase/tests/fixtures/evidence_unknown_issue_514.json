@@ -1,0 +1,42 @@
+{
+  "requirements": [
+    {
+      "id": "req-cuisine",
+      "kind": "cuisine",
+      "originalText": "Yakiniku",
+      "normalizedText": "焼肉"
+    },
+    {
+      "id": "req-budget",
+      "kind": "budget",
+      "originalText": "under ¥4,000",
+      "normalizedText": "4000円以下"
+    },
+    {
+      "id": "req-location",
+      "kind": "location",
+      "originalText": "Ikebukuro",
+      "normalizedText": "池袋"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate-a",
+      "address": "東京都豊島区西池袋1丁目",
+      "budget": { "min": 2001, "max": 3000 },
+      "expectedBudgetState": "match"
+    },
+    {
+      "id": "candidate-b",
+      "address": "東京都豊島区西池袋2丁目",
+      "budget": { "min": 5001, "max": 6000 },
+      "expectedBudgetState": "mismatch"
+    },
+    {
+      "id": "candidate-c",
+      "address": "東京都豊島区南池袋1丁目",
+      "budget": { "min": 3001, "max": 4000 },
+      "expectedBudgetState": "match"
+    }
+  ]
+}

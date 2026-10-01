@@ -1,0 +1,26 @@
+{
+  "name": "oisint-api",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "types:check": "wrangler types src/worker-configuration.d.ts --config wrangler.toml --include-runtime=false --strict-vars=false --env-interface=CloudflareEnv --check",
+    "test": "npm run test:workerd && npm run test:security",
+    "test:watch": "vitest --config vitest.config.ts",
+    "test:workerd": "vitest run --config vitest.config.ts",
+    "test:security": "vitest run --config vitest.security.config.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4.5.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "0.21.3",
+    "@cloudflare/workers-types": "5.20260901.1",
+    "typescript": "^7.0.2",
+    "vitest": "4.1.10",
+    "wrangler": "4.127.1"
+  }
+}

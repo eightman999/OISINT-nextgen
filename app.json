@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "OISINT",
+    "slug": "oisint",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "userInterfaceStyle": "automatic",
+    "scheme": "oisint",
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png",
+      "name": "OISINT | 根拠で選ぶレストラン調査",
+      "shortName": "OISINT",
+      "lang": "ja",
+      "description": "公開情報と根拠を比べ、みんなでレストランを決める調査サービス"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#f1ece2",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 76
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

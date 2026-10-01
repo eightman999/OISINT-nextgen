@@ -1,0 +1,30 @@
+{
+  "$comment": "issue #367: 同一入力ベクタを edge (Deno zod) と front (Node zod) の同種スキーマへ通し、判定一致を固定する共有フィクスチャ。edge 側は supabase/tests/validation_parity_test.ts、front 側は src/lib/__tests__/validation_parity.test.ts が読む。判定を変える場合は両テストと #367 の表を同時に更新する。",
+  "uuid": [
+    { "input": "00000000-0000-0000-0000-000000000000", "valid": true, "note": "nil UUID (RFC 9562 特例)" },
+    { "input": "12345678-1234-1234-1234-123456789012", "valid": false, "note": "8-4-4-4-12 hex だが variant/version 非準拠。zod3 は受理していた (#367 実測差分の負例)" },
+    { "input": "1b4e28ba-2fa1-11d2-883f-0016d3cca427", "valid": true, "note": "UUIDv1" },
+    { "input": "9f1c1c74-1c7c-4c1e-9a1b-3f6a2b8c0d11", "valid": true, "note": "UUIDv4" },
+    { "input": "9F1C1C74-1C7C-4C1E-9A1B-3F6A2B8C0D11", "valid": true, "note": "大文字 UUIDv4 も両層で受理" },
+    { "input": "not-a-uuid", "valid": false, "note": "非 UUID 文字列" }
+  ],
+  "shareToken": [
+    { "input": "0123456789abcdef0123456789abcdef", "valid": true, "note": "32 桁小文字 hex (契約: ^[0-9a-f]{32}$)" },
+    { "input": "0123456789abcdef0123456789abcde", "valid": false, "note": "31 桁で短い" },
+    { "input": "0123456789ABCDEF0123456789ABCDEF", "valid": false, "note": "大文字は契約外" },
+    { "input": "0123456789abcdef0123456789abcdeg", "valid": false, "note": "hex 外の文字 g を含む" }
+  ],
+  "matchState": [
+    { "input": "match", "valid": true },
+    { "input": "unknown", "valid": true },
+    { "input": "MATCH", "valid": false, "note": "enum は大文字小文字を区別" },
+    { "input": "maybe", "valid": false, "note": "契約外の状態" }
+  ],
+  "weight": [
+    { "input": 0, "valid": true, "note": "下限境界" },
+    { "input": 1, "valid": true, "note": "上限境界" },
+    { "input": 0.5, "valid": true, "note": "中間値" },
+    { "input": -0.1, "valid": false, "note": "下限未満" },
+    { "input": 1.5, "valid": false, "note": "上限超過" }
+  ]
+}

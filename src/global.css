@@ -1,0 +1,170 @@
+:root {
+  /* 色は src/theme.ts が正本（#219）。CSS 変数は theme.ts と同値で定義し、利用箇所は var() を使う */
+  --color-bg: #f1ece2; /* = src/theme.ts colors.bg */
+  /* 外部フォントを取得せず、OS標準フォントと日本語ローカルフォントへフォールバックする */
+  --font-ui:
+    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Yu Gothic UI', Meiryo,
+    sans-serif;
+  --font-brand:
+    'Avenir Next', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans',
+    'Yu Gothic UI', Meiryo, sans-serif;
+  --font-display:
+    'Avenir Next', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans',
+    'Yu Gothic UI', Meiryo, ui-sans-serif, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  --font-rounded: 'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
+}
+
+html,
+body {
+  font-family: var(--font-ui);
+  background: var(--color-bg);
+}
+
+/*
+ * React Native Web gives a screen-level ScrollView a viewport-sized flex box and
+ * hides document scrolling.  Screens that render Footer beside that ScrollView
+ * then leave the Footer at the viewport bottom while the content scrolls inside
+ * the sibling, which makes it appear to cover the last content/CTA.  A Footer
+ * direct child marks those screens; let their content and Footer participate in
+ * the document flow instead.  The dvh fallback keeps short pages usable while
+ * Safari's visual viewport changes (browser chrome / software keyboard).
+ */
+html,
+body {
+  min-height: 100%;
+}
+
+body:has([data-testid='footer-credit']) {
+  height: auto !important;
+  overflow-y: auto !important;
+}
+
+#root:has([data-testid='footer-credit']) {
+  height: auto !important;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+#root:has([data-testid='footer-credit']) div:has(> [data-testid='footer-credit']) {
+  flex: 0 0 auto !important;
+  height: auto !important;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+#root:has([data-testid='footer-credit']) div:has(> [data-testid='footer-credit']) > div:first-child {
+  flex: 0 0 auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+/* Keep the Footer's bottom controls clear of an iPhone home indicator. */
+[data-testid='footer-credit'] {
+  padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+  padding-left: max(16px, env(safe-area-inset-left)) !important;
+  padding-right: max(16px, env(safe-area-inset-right)) !important;
+}
+
+@media (min-width: 720px) {
+  [data-testid='footer-credit'] {
+    padding-bottom: max(16px, env(safe-area-inset-bottom)) !important;
+    padding-left: max(24px, env(safe-area-inset-left)) !important;
+    padding-right: max(24px, env(safe-area-inset-right)) !important;
+  }
+}
+
+/* Keep every route usable for people who ask the OS to reduce motion. JS-driven
+ * animation also reads AccessibilityInfo; this is the web safety net for CSS,
+ * browser smooth scrolling, and future third-party transitions. */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* The responsive flex direction is kept in CSS so the static Expo web route
+ * gets the same desktop layout before hydration as it does after hydration. */
+[data-testid='lp-hero'],
+[data-testid='lp-workbench'],
+[data-testid='lp-search-box'] {
+  flex-direction: column !important;
+}
+
+/* scene cards are a 2x2 quick-start on compact web widths.  The cards themselves
+ * own their wrapping so text can grow the row without being clipped. */
+[data-testid='lp-scene-grid'] {
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+}
+
+@media (min-width: 920px) {
+  [data-testid='lp-hero'],
+  [data-testid='lp-scene-grid'],
+  [data-testid='lp-workbench'] {
+    flex-direction: row !important;
+  }
+
+  [data-testid='lp-scene-grid'] {
+    flex-wrap: nowrap !important;
+  }
+
+  /* 操作カードと説明カードは各々の高さを保った独立カードとして並べる（#308） */
+  [data-testid='lp-workbench'] {
+    align-items: flex-start !important;
+  }
+
+  [data-testid='lp-search-box'] {
+    flex-direction: row !important;
+    align-items: center;
+  }
+
+  /* 操作(main)と説明(aside)はほぼ 1:1 の別カード配置（#308） */
+  [data-testid='lp-workbench-main'],
+  [data-testid='lp-workbench-aside'] {
+    flex: 1 !important;
+  }
+
+  /* 固定390pxを上限付きへ（#220）。isWide 境界近くで親が 390px を割っても溢れない */
+  [data-testid='lp-brief-card'] {
+    width: min(390px, 100%) !important;
+    max-width: 100% !important;
+    flex: 0 1 390px !important;
+  }
+}
+
+/* 600px 未満のコンパクト幅（#220）。JS には 600px の分岐を持たせず、この 1 箇所に集約する。
+ * 「呼ばれる名前」の行は identityCopy(約130px) + gap12 + 入力 minWidth:190 = 約332px を要し、
+ * 360/390px ではカード右端を越えて見切れるため、縦積み + 入力全幅に切り替える。 */
+@media (max-width: 599.98px) {
+  /* LocationPickerの入力欄は、右側の地図ボタンと同じ行で
+   * min-content幅を保持すると320px幅でボタンを右へ押し出す。入力欄だけを
+   * 縮小可能にして、ボタンの操作領域と文言は維持する。 */
+  [data-testid='location-map-input'] {
+    min-width: 0 !important;
+  }
+
+  [data-testid='lp-identity-row'] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  [data-testid='home-display-name'] {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}

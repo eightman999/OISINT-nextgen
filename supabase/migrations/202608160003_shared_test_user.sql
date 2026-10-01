@@ -1,0 +1,2 @@
+-- Local demo migration placeholder. The seed file owns the local test fixture.
+--

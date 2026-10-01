@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "asset_id": "oisint-product-concept-v1",
+  "issue_url": "https://github.com/eightman999/OISINT/issues/443",
+  "source_kind": "first-party-ui-capture",
+  "license": "OISINT project-owned first-party material; all rights reserved",
+  "provenance": {
+    "capture_base_commit": "63b25b9b048220bb4b5d77edee42f37e0aa98c03",
+    "capture_script": "e2e/scripts/capture-concept-video.mjs",
+    "captured_at": "2026-08-16T16:04:46+09:00",
+    "data_provider_mode": "mock",
+    "source_ui": "OISINT repository mock Web UI",
+    "contains_external_footage": false,
+    "contains_human_likenesses": false,
+    "contains_real_restaurant_imagery": false,
+    "contains_third_party_service_data": false,
+    "uses_repository_brand_assets": true,
+    "uses_repository_generated_demo_illustrations": true,
+    "generated_demo_illustration_manifest": "assets/demo/restaurants/catalog.json"
+  },
+  "video": {
+    "file": "oisint-product-concept-v1.mp4",
+    "sha256": "e0c5b068bc49edeb99d88358f9c456c12b24720c54c0d0aaf620023cd1a4f342",
+    "bytes": 524723,
+    "duration_seconds": 15.92,
+    "width": 1280,
+    "height": 720,
+    "frame_rate": 25,
+    "codec": "h264",
+    "profile": "Main",
+    "level": "4.0",
+    "pixel_format": "yuv420p",
+    "audio": "none",
+    "fast_start": true,
+    "captions": "burned-in Japanese product-step captions"
+  },
+  "web_fallback": {
+    "file": "oisint-product-concept-v1.webm",
+    "derived_from": "oisint-product-concept-v1.mp4",
+    "sha256": "e04d4cf0829f54ae8deb61b0042f6a2ffc99317c5ecf953b65b673a7bd37745b",
+    "bytes": 626517,
+    "duration_seconds": 15.92,
+    "width": 1280,
+    "height": 720,
+    "frame_rate": 25,
+    "codec": "vp9",
+    "profile": "Profile 0",
+    "pixel_format": "yuv420p",
+    "audio": "none",
+    "captions": "burned-in Japanese product-step captions"
+  },
+  "poster": {
+    "file": "oisint-product-concept-v1-poster.jpg",
+    "sha256": "61e7f7edc551f0b73964a8885a5476cdd0d36d821e56324f91ab9f147f790618",
+    "bytes": 48515,
+    "width": 960,
+    "height": 540
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "/",
+  "name": "OISINT | 根拠で選ぶレストラン調査",
+  "short_name": "OISINT",
+  "description": "公開情報と根拠を比べ、みんなでレストランを決める調査サービス",
+  "lang": "ja",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#f1ece2",
+  "background_color": "#f1ece2",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
