@@ -15,7 +15,7 @@ operations material, or store-signing assets.
 ## Demo
 
 - Web demo: <https://oisint.com/DEMO>
-- Product video: <https://youtu.be/i-6UBDHzch8>
+- Product video: <https://youtu.be/gQNt_Z_Md04>
 
 The Next Gen submission is evaluated from the demo video and this public code
 repository. External provider credentials are optional for the deterministic
