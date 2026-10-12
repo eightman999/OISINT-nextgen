@@ -30,6 +30,7 @@ import {
 } from "../_shared/prerank.ts";
 import type { PlaceSearchResult } from "../_shared/providers/types.ts";
 import { getDomainProfile } from "../_shared/domain_contract.ts";
+import { canonicalPlaceMetadata } from "../_shared/place_metadata.ts";
 import { selectRefreshTargets } from "../_shared/provider_ttl.ts";
 import { checkRateLimit } from "../_shared/rate_limit.ts";
 import {
@@ -2347,6 +2348,7 @@ async function upsertPlaceFromResult(
   // domain はproviderの明示値だけをmetadataへ保存する。未知値や欠落値を
   // restaurantへ補完せず、既存行との互換を保つ (#125)。
   const domain = getDomainProfile(r.domain)?.id;
+  const metadata = canonicalPlaceMetadata(r.metadata);
   const { data: placeRow } = await db
     .from("places")
     .upsert(
@@ -2357,7 +2359,7 @@ async function upsertPlaceFromResult(
         address: r.address,
         lat: r.lat,
         lng: r.lng,
-        metadata: domain ? { ...r.metadata, domain } : r.metadata,
+        metadata: domain ? { ...metadata, domain } : metadata,
         refreshed_at: r.fetchedAt ?? new Date().toISOString(),
       },
       { onConflict: "provider,provider_place_id" },
