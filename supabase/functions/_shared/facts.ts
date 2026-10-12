@@ -834,8 +834,8 @@ function judgeRequirement(
       state: enoughTotalSeats ? "partial" : "mismatch",
       usedFacts: [f],
       explanation: enoughTotalSeats
-        ? `蓄積済みの総席数は ${f.value}席で ${n}人以上ですが、同時利用や同一テーブルの可否までは確認できません`
-        : `蓄積済みの席数 (${f.value}席) では ${n}人に不足します`,
+        ? `蓄積済みの総席数は ${f.value}席で人数条件を満たしますが、同時利用や同一テーブルの可否までは確認できません`
+        : `蓄積済みの席数 (${f.value}席) では人数条件に不足します`,
     };
   }
   if (intent.kind === "reservation") {
@@ -880,8 +880,7 @@ function judgeRequirement(
     return {
       state: matched ? "match" : "mismatch",
       usedFacts: [f],
-      explanation: "公開情報の最寄り駅から徒歩" + f.value + "分は、徒歩" +
-        intent.maxMinutes + "分以内の条件と" +
+      explanation: "公開情報の最寄り駅から徒歩" + f.value + "分で、徒歩時間の条件と" +
         (matched ? "一致します" : "一致しません"),
     };
   }
