@@ -414,16 +414,6 @@ function comparableBudgetIntent(
     : null;
 }
 
-function budgetIntentLabel(intent: ComparableBudgetIntent): string {
-  if (intent.type === "vague") return `目安上限${intent.constraint.maxYen}円`;
-  const value = intent.requirement;
-  if (value.operator === "range") return `${value.min}〜${value.max}円`;
-  if (value.operator === "max_strict") return `${value.amount}円未満`;
-  if (value.operator === "min_inclusive") return `${value.amount}円以上`;
-  if (value.operator === "around") return `${value.amount}円前後`;
-  return `上限${value.amount}円`;
-}
-
 function evaluateBudgetRequirement(
   intent: ComparableBudgetIntent,
   claims: ClaimWithEvidence[],
@@ -458,14 +448,13 @@ function evaluateBudgetRequirement(
     };
   }
   const states = new Set(judged.map((j) => j.state));
-  const limit = budgetIntentLabel(intent);
   if (states.size > 1) {
     // claim 同士が食い違う場合は断定しない (§15 は別途矛盾として表示する)
     return {
       state: "partial",
       confidence: CODE_MATCH_CONFIDENCE.partial,
       explanation:
-        `情報源によって価格帯が食い違うため、予算条件 (${limit}) は部分適合として扱います`,
+        "情報源によって価格帯が食い違うため、予算条件は部分適合として扱います",
       evidenceIds,
     };
   }
@@ -478,12 +467,12 @@ function evaluateBudgetRequirement(
   ].sort();
   const observed = ranges.join(" / ");
   const explanation = state === "match"
-    ? `店舗情報の夕食予算帯 (${observed}) が予算条件 (${limit}) の範囲内です`
+    ? `店舗情報の夕食予算帯 (${observed}) が予算条件の範囲内です`
     : state === "mismatch"
     ? intent.type === "vague"
-      ? `店舗情報の夕食予算帯 (${observed}) が予算条件 (${limit}) を上回ります`
-      : `店舗情報の夕食予算帯 (${observed}) が予算条件 (${limit}) と一致しません`
-    : `店舗情報の夕食予算帯 (${observed}) が予算条件 (${limit}) をまたぐため部分適合です`;
+      ? `店舗情報の夕食予算帯 (${observed}) が予算条件を上回ります`
+      : `店舗情報の夕食予算帯 (${observed}) が予算条件と一致しません`
+    : `店舗情報の夕食予算帯 (${observed}) が予算条件をまたぐため部分適合です`;
   return {
     state,
     confidence: CODE_MATCH_CONFIDENCE[state],
@@ -527,7 +516,7 @@ function evaluateTimeRequirement(
       state: "partial",
       confidence: CODE_MATCH_CONFIDENCE.partial,
       explanation:
-        `情報源によって営業時間が食い違うため、「${window.label}」の時間帯は部分適合として扱います`,
+        "情報源によって営業時間が食い違うため、希望時間帯は部分適合として扱います",
       evidenceIds,
     };
   }
@@ -538,10 +527,10 @@ function evaluateTimeRequirement(
     ),
   ].sort().join(" / ");
   const explanation = state === "match"
-    ? `営業時間 ${hours} が「${window.label}」の時間帯と重なるため適合です`
+    ? `営業時間 ${hours} が希望時間帯と重なるため適合です`
     : state === "mismatch"
-    ? `営業時間 ${hours} は「${window.label}」の時間帯と重ならないため不適合です`
-    : `営業時間 ${hours} は「${window.label}」の時間帯と一部しか重ならないため部分適合です`;
+    ? `営業時間 ${hours} は希望時間帯と重ならないため不適合です`
+    : `営業時間 ${hours} は希望時間帯と一部しか重ならないため部分適合です`;
   return {
     state,
     confidence: CODE_MATCH_CONFIDENCE[state],

@@ -760,7 +760,15 @@ export function guardEvaluation(
 ): GuardedEvaluation {
   let state = finding.state;
   let confidence: number | null = finding.confidence;
-  let explanation = finding.explanation;
+  // Model prose has seen private requirement text and may quote or paraphrase it.
+  // Only code-generated explanations may be persisted to publicly readable rows.
+  // Keep model state/confidence/evidence handling, but never copy its free text.
+  let explanation = {
+    match: "公開情報に基づく評価は適合です",
+    partial: "公開情報に基づく評価は部分適合です",
+    mismatch: "公開情報に基づく評価は不適合です",
+    unknown: "公開情報からは確認できませんでした",
+  }[state];
   let evidenceIds: string[] = [];
 
   // A model-supplied citation is an untrusted reference, not a hint that can
