@@ -13,6 +13,7 @@ import {
   json,
 } from "../_shared/db.ts";
 import { refreshPlaceFacts } from "../_shared/facts.ts";
+import { canonicalPlaceMetadata } from "../_shared/place_metadata.ts";
 import { EVIDENCE_EXCERPT_LIMIT } from "../_shared/evidence_content.ts";
 import { throwIfDatabaseError } from "../_shared/database_error.ts";
 import {
@@ -317,7 +318,7 @@ async function upsertPlace(
       address: result.address,
       lat: result.lat,
       lng: result.lng,
-      metadata: result.metadata,
+      metadata: canonicalPlaceMetadata(result.metadata),
       refreshed_at: observedAt,
     })
     .eq("id", target.placeId)
