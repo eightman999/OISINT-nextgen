@@ -3,14 +3,14 @@ import { describe, expect, it } from 'vitest';
 import { buildShareUrl } from '@/lib/shareUrl';
 
 describe('buildShareUrl', () => {
-  it('URL パラメータの shareToken を優先して参加URLを作る', () => {
+  it('調査本体の正本 token を URL パラメータより優先する', () => {
     expect(
       buildShareUrl({
         paramToken: 'a'.repeat(32),
         investigationShareToken: 'b'.repeat(32),
         investigationId: 'inv-1',
       })
-    ).toBe(`https://oisint.com/i/${'a'.repeat(32)}`);
+    ).toBe(`https://oisint.com/i/${'b'.repeat(32)}`);
   });
 
   it('パラメータが無くても調査本体の share_token で参加URLを作る', () => {
@@ -40,3 +40,4 @@ describe('buildShareUrl', () => {
     ).toBe(`https://oisint.com/i/${'b'.repeat(32)}`);
   });
 });
+
