@@ -12,15 +12,16 @@ interface ShareUrlInput {
  * 共有・コピー用の URL を組み立てる（spec.md §25.4）。
  *
  * 参加導線になり得るのは share_token 付き URL だけで、`/investigations/<id>` は
- * RLS により未参加ユーザーが開いても何も見えない。よって URL パラメータが
- * 落ちている場合も調査本体の share_token を使い、どちらも無い場合に限り
- * id 形式へ退避する。
+ * RLS により未参加ユーザーが開いても何も見えない。調査本体の share_token を
+ * 正本とし、未取得の場合だけ URL パラメータへ、どちらも無い場合は id 形式へ
+ * 退避する。再発行直後の応答と古い snapshot の調停は useInvestigationShareUrl が行う。
  */
 export function buildShareUrl({
   paramToken,
   investigationShareToken,
   investigationId,
 }: ShareUrlInput): string {
-  const token = paramToken || investigationShareToken;
+  const token = investigationShareToken || paramToken;
   return token ? `${SITE_ORIGIN}/i/${token}` : `${SITE_ORIGIN}/investigations/${investigationId}`;
 }
+

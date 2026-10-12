@@ -53,7 +53,7 @@ import {
 } from '@/lib/behaviorRecognition';
 import { recordPreferenceObservationLocally } from '@/lib/personalization';
 import { saveResearchAgainPrefill } from '@/lib/researchPrefill';
-import { buildShareUrl } from '@/lib/shareUrl';
+import { useInvestigationShareUrl } from '@/hooks/useInvestigationShareUrl';
 import { retryAfterAmbiguousMutation } from '@/lib/userActionRetry';
 import { LOCATION_ANCHOR_REQUIRED_MESSAGE } from '@/lib/validation';
 import { useAuth } from '@/providers/AuthProvider';
@@ -106,7 +106,6 @@ export default function InvestigationScreen() {
   const [actionRetry, setActionRetry] = useState<ActionRetry>(null);
   const [retrying, setRetrying] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const [rotatedShareToken, setRotatedShareToken] = useState<string | null>(null);
   // React state更新より先に到達する連打も含め、書き込みと再評価を一度に一つへ絞る。
   const actionInFlightRef = useRef(false);
   const voteTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -151,13 +150,11 @@ export default function InvestigationScreen() {
     ].join('|');
   }, [investigation]);
 
-  // 共有リンク再発行（#177）後は URL パラメータの旧 token より新 token を優先する。
-  // 画面遷移で shareToken パラメータが落ちた場合も、調査本体が持つ share_token を使う（§25.4）。
-  const effectiveShareToken = rotatedShareToken ?? shareToken;
-  const shareUrl = buildShareUrl({
-    paramToken: effectiveShareToken,
-    investigationShareToken: investigation?.shareToken,
+  const { shareUrl, onRotated } = useInvestigationShareUrl({
     investigationId: id,
+    subjectKey: investigationSubjectKey,
+    paramToken: shareToken,
+    investigationShareToken: investigation?.id === id ? investigation.shareToken : undefined,
   });
 
   const handleShare = useCallback(() => {
@@ -528,7 +525,7 @@ export default function InvestigationScreen() {
             <ShareTokenRotate
               investigationId={investigation.id}
               userId={userId ?? undefined}
-              onRotated={setRotatedShareToken}
+              onRotated={onRotated}
             />
           )}
           <MemberList members={investigation.members} />
@@ -1094,3 +1091,4 @@ const styles = StyleSheet.create({
     backgroundColor: colors.border,
   },
 });
+
