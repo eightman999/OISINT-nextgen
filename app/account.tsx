@@ -1052,6 +1052,7 @@ export function AccountDashboard({ isWide }: { isWide: boolean }) {
         </View>
       </View>
       <GoogleMapsImportPanel
+        key={`${subjectKey}:${identityGeneration}`}
         isAuthenticated
         subject={personalizationSubject}
         baseProfile={visibleStoredProfile}

@@ -17,6 +17,7 @@ import {
   PERSONALIZATION_CONSENT_VERSION,
   type PersonalizationSaveSource,
 } from '@/lib/personalizationConsent';
+import { getAuthSubjectGeneration } from '@/lib/authSubjectGeneration';
 import { clearPersistedAuthSession } from '@/lib/authStorage';
 import { normalizeTrustedOrigin } from '@/lib/trustedOrigins';
 import { z } from 'zod';
@@ -131,32 +132,89 @@ export async function loadFeedbackLearningBase(): Promise<{
   };
 }
 
+/** A Maps payload and its consent belong to the initiating subject/lifetime. */
+export interface PreferenceProfileSaveBoundary {
+  expectedSubjectId: string;
+  signal: AbortSignal;
+}
+
 export async function saveStoredPreferenceProfile(
   snapshot: LocalPersonalizationSnapshot,
   baseRevision: PreferenceProfileBaseRevision,
   source: PersonalizationSaveSource = 'account',
+  boundary?: PreferenceProfileSaveBoundary,
 ): Promise<void> {
   if (baseRevision.profileExists && !baseRevision.updatedAt) {
     throw new AccountOperationError('保存済みプロフィールの基準版を確認できません。再読み込みしてから再度お試しください。');
   }
-  const { supabase } = await getPermanentUser();
-  const { error } = await supabase.rpc('save_user_preference_profile', {
-    p_scenario_id: snapshot.scenarioId,
-    p_axis_scores: snapshot.scores,
-    p_likes: snapshot.likes,
-    p_avoid: snapshot.avoid,
-    p_model_version: snapshot.modelVersion,
-    p_source_kinds: snapshot.sourceKinds,
-    p_learning_state: preferenceLearningStateForCloud(snapshot.learningState),
-    p_consent_version: PERSONALIZATION_CONSENT_VERSION,
-    p_save_source: source,
-    p_expected_updated_at: baseRevision.profileExists ? baseRevision.updatedAt : null,
-    p_base_profile_exists: baseRevision.profileExists,
-  });
-  if (error?.code === '40001') {
-    throw new AccountOperationError('保存済みプロフィールが更新されました。再読み込みしてから再度お試しください。');
+  if (source === 'maps_takeout' && !boundary) {
+    throw new AccountOperationError('取込元のアカウントを確認できません。ファイルを選び直してください。');
   }
-  if (error) throw new AccountOperationError('好みプロフィールを保存できませんでした。');
+  // Capture before the first await; the singleton observer sees A -> B -> A
+  // even while this module's lazy client import is resolving.
+  const subjectGeneration = getAuthSubjectGeneration();
+  const { supabase } = await import('@/lib/supabase');
+  const controller = boundary ? new AbortController() : null;
+  const cancel = () => controller?.abort();
+  const assertCurrent = () => {
+    if (boundary && (!boundary.expectedSubjectId || boundary.signal.aborted || controller?.signal.aborted ||
+        getAuthSubjectGeneration() !== subjectGeneration)) {
+      throw new AccountOperationError('アカウントまたは取込内容が変わりました。ファイルを選び直してください。');
+    }
+  };
+  boundary?.signal.addEventListener('abort', cancel, { once: true });
+  // Observe actual auth changes too: A -> B -> A must remain cancelled even if
+  // React has not rendered the intermediate identity. Never await in this callback.
+  const subscription = boundary ? supabase.auth.onAuthStateChange((_event, session) => {
+    if (session?.user.id !== boundary.expectedSubjectId || session.user.is_anonymous) cancel();
+  }).data.subscription : null;
+  try {
+    assertCurrent();
+    const { user } = await getPermanentUser();
+    assertCurrent();
+    let accessToken: string | undefined;
+    if (boundary) {
+      if (user.id !== boundary.expectedSubjectId) {
+        throw new AccountOperationError('保存先のアカウントが変わりました。ファイルを選び直してください。');
+      }
+      const { data, error: sessionError } = await supabase.auth.getSession();
+      assertCurrent();
+      if (sessionError || !data.session?.access_token ||
+          data.session.user.id !== boundary.expectedSubjectId || data.session.user.is_anonymous) {
+        throw new AccountOperationError('保存先のアカウントを確認できません。再読み込みしてください。');
+      }
+      accessToken = data.session.access_token;
+    }
+    const request = supabase.rpc('save_user_preference_profile', {
+      p_scenario_id: snapshot.scenarioId,
+      p_axis_scores: snapshot.scores,
+      p_likes: snapshot.likes,
+      p_avoid: snapshot.avoid,
+      p_model_version: snapshot.modelVersion,
+      p_source_kinds: snapshot.sourceKinds,
+      p_learning_state: preferenceLearningStateForCloud(snapshot.learningState),
+      p_consent_version: PERSONALIZATION_CONSENT_VERSION,
+      p_save_source: source,
+      p_expected_updated_at: baseRevision.profileExists ? baseRevision.updatedAt : null,
+      p_base_profile_exists: baseRevision.profileExists,
+    });
+
+    if (boundary && controller && accessToken) {
+      // Pin this request only. The shared client's later token lookup must not
+      // turn an A payload into a B write. No token is persisted or logged here.
+      request.setHeader('Authorization', `Bearer ${accessToken}`).abortSignal(controller.signal);
+    }
+    assertCurrent();
+    const { error } = await request;
+    assertCurrent();
+    if (error?.code === '40001') {
+      throw new AccountOperationError('保存済みプロフィールが更新されました。再読み込みしてから再度お試しください。');
+    }
+    if (error) throw new AccountOperationError('好みプロフィールを保存できませんでした。');
+  } finally {
+    subscription?.unsubscribe();
+    boundary?.signal.removeEventListener('abort', cancel);
+  }
 }
 
 /**
