@@ -12,6 +12,6 @@ export default defineConfig({
     },
   },
   test: {
-    include: ["src/index.security.test.ts"],
+    include: ["src/index.security.test.ts", "src/index.error-boundary.test.ts"],
   },
 });

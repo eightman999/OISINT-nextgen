@@ -302,7 +302,7 @@ describe("Edge Function プロキシ: ヘッダ転送", () => {
 // ------------------------------------------- 4. 上流レスポンスの中継
 
 describe("Edge Function プロキシ: 上流レスポンス中継", () => {
-  it("上流の 400 JSON をステータスごと中継する", async () => {
+  it("上流の 400 本文を固定エラーへ縮約しステータスを保持する", async () => {
     stubUpstream(() => jsonResponse({ error: "invalid query" }, 400));
     const res = await app.request(
       "/v1/investigations",
@@ -317,7 +317,7 @@ describe("Edge Function プロキシ: 上流レスポンス中継", () => {
       baseEnv,
     );
     expect(res.status).toBe(400);
-    expect(await res.json()).toEqual({ error: "invalid query" });
+    expect(await res.json()).toEqual({ error: "リクエストが不正です" });
     expect(res.headers.get("Content-Type")).toBe("application/json");
   });
 
@@ -345,7 +345,7 @@ describe("Edge Function プロキシ: 上流レスポンス中継", () => {
     expect(res.headers.get("Content-Type")).toBe("application/json");
   });
 
-  it("JSON を名乗る壊れた body は生テキストのまま上流ステータスで中継する", async () => {
+  it("エラーの壊れた JSON 本文を公開せず上流ステータスを保持する", async () => {
     stubUpstream(
       () =>
         new Response("{oops", {
@@ -366,8 +366,8 @@ describe("Edge Function プロキシ: 上流レスポンス中継", () => {
       baseEnv,
     );
     expect(res.status).toBe(500);
-    expect(await res.text()).toBe("{oops");
-    expect(res.headers.get("Content-Type")).toBe("application/json; charset=utf-8");
+    expect(await res.json()).toEqual({ error: "上流サービスの応答を処理できません" });
+    expect(res.headers.get("Content-Type")).toBe("application/json");
   });
 
   it("text/plain は生のまま中継する", async () => {
