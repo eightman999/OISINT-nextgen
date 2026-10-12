@@ -1,5 +1,5 @@
 import type { ChangeEvent, ElementType } from 'react';
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { Linking, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import {
@@ -43,13 +43,32 @@ interface GoogleMapsImportPanelProps {
   onApplied?: (snapshot: LocalPersonalizationSnapshot) => void;
 }
 
-export function GoogleMapsImportPanel({
+export function GoogleMapsImportPanel(props: GoogleMapsImportPanelProps) {
+  // Keep file contents, selection and consent in a single subject-owned lifetime.
+  const subjectKey = JSON.stringify([
+    props.isAuthenticated, props.subject?.kind ?? null, props.subject?.id ?? null,
+  ]);
+  return <SubjectGoogleMapsImportPanel key={subjectKey} {...props} />;
+}
+
+function SubjectGoogleMapsImportPanel({
   isAuthenticated,
   subject,
   baseProfile,
   baseProfileLoaded = true,
   onApplied,
 }: GoogleMapsImportPanelProps) {
+  const operationRef = useRef<AbortController | null>(null);
+  // Each controller is a unique operation generation, including A -> B -> A.
+  // Layout cleanup invalidates old work as soon as this subject is unmounted.
+  useLayoutEffect(() => () => operationRef.current?.abort(), []);
+  const beginOperation = () => {
+    operationRef.current?.abort();
+    const operation = new AbortController();
+    operationRef.current = operation;
+    return operation;
+  };
+
   const [summary, setSummary] = useState<GoogleMapsImportSummary | null>(null);
   const [fileName, setFileName] = useState('');
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
@@ -62,6 +81,8 @@ export function GoogleMapsImportPanel({
     const file = event.currentTarget.files?.[0];
     event.currentTarget.value = '';
     if (!file) return;
+    const operation = beginOperation();
+    const isCurrent = () => !operation.signal.aborted;
 
     setBusy(true);
     setErrorMessage('');
@@ -75,11 +96,13 @@ export function GoogleMapsImportPanel({
         throw new GoogleMapsImportError('too_large', 'ファイルは5MB以下にしてください。');
       }
       const text = await file.text();
+      if (!isCurrent()) return;
       const nextSummary = parseGoogleMapsTakeout(text, file.name);
       setFileName(file.name.slice(0, 120));
       setSummary(nextSummary);
       setSelectedLabels(nextSummary.inferredLikes.map((signal) => signal.label));
     } catch (error) {
+      if (!isCurrent()) return;
       setFileName('');
       setSelectedLabels([]);
       setErrorMessage(
@@ -88,20 +111,25 @@ export function GoogleMapsImportPanel({
           : 'ファイルを読み取れませんでした。別の書き出しファイルをお試しください。',
       );
     } finally {
-      setBusy(false);
+      if (isCurrent()) setBusy(false);
     }
   };
 
   const applySummary = async () => {
-    if (!summary || !consent) return;
+    if (!summary || !consent || busy) return;
     const selectedSignals = selectInferredTasteSignals(summary, selectedLabels);
     const selectedLikes = selectedSignals.map((signal) => signal.label);
     if (selectedLikes.length === 0) return;
+    const operation = beginOperation();
+    const isCurrent = () => !operation.signal.aborted;
     setBusy(true);
     setErrorMessage('');
     setSuccessMessage('');
 
     try {
+      if (isAuthenticated && (!subject?.id || subject.kind !== 'permanent')) {
+        throw new Error('保存先のアカウントを確認できません。再読み込みしてください。');
+      }
       if (isAuthenticated && !baseProfileLoaded) {
         throw new Error('保存済みプロフィールを確認中です。少し待ってから再度お試しください。');
       }
@@ -125,8 +153,10 @@ export function GoogleMapsImportPanel({
             updatedAt: baseProfile?.updatedAt ?? null,
           },
           'maps_takeout',
+          { expectedSubjectId: subject!.id, signal: operation.signal },
         );
       }
+      if (!isCurrent()) return;
       commitImportedTasteMerge(merge, subject);
       onApplied?.(merge.snapshot);
       setSuccessMessage(
@@ -135,13 +165,14 @@ export function GoogleMapsImportPanel({
           : '集約した好みだけを、この端末に保存しました。',
       );
     } catch (error) {
+      if (!isCurrent()) return;
       setErrorMessage(
         error instanceof Error
           ? error.message
           : '好みプロフィールへ反映できませんでした。',
       );
     } finally {
-      setBusy(false);
+      if (isCurrent()) setBusy(false);
     }
   };
 
@@ -254,6 +285,7 @@ export function GoogleMapsImportPanel({
                     }
                     accessibilityState={{ checked: selected }}
                     aria-checked={selected}
+                    disabled={busy}
                     onPress={() => toggleSignal(signal.label)}
                     style={[styles.signalChip, !selected && styles.signalChipOff]}
                   >
@@ -288,6 +320,7 @@ export function GoogleMapsImportPanel({
             accessibilityLabel="表示された集約タグだけを好みプロフィールへ追加することに同意"
             accessibilityState={{ checked: consent }}
             aria-checked={consent}
+            disabled={busy}
             onPress={() => setConsent((current) => !current)}
             style={styles.consentRow}
           >

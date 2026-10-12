@@ -1,10 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
 import { isTrustedApiOrigin, isTrustedSupabaseOrigin } from '@/lib/trustedOrigins';
 
+const onAuthStateChange = vi.hoisted(() => vi.fn());
+
 const createClient = vi.hoisted(() => vi.fn((url: string, key: string, options: unknown) => ({
   url,
   key,
   options,
+  auth: { onAuthStateChange },
 })));
 
 vi.mock('@supabase/supabase-js', () => ({ createClient }));
@@ -37,6 +40,23 @@ describe('Supabase auth boundary', () => {
       }),
     );
     expect(JSON.stringify(createClient.mock.calls)).not.toMatch(/provider_(?:refresh_)?token/i);
+  });
+
+  it('records identity generations synchronously, including A -> B -> A before a render', async () => {
+    await import('@/lib/supabase');
+    const { getAuthSubjectGeneration } = await import('@/lib/authSubjectGeneration');
+    expect(onAuthStateChange).toHaveBeenCalledTimes(1);
+    const observe = onAuthStateChange.mock.calls[0][0];
+    const session = (id: string) => ({ user: { id, is_anonymous: false } });
+    observe('SIGNED_IN', session('synthetic-A'));
+    const generation = getAuthSubjectGeneration();
+    observe('TOKEN_REFRESHED', session('synthetic-A'));
+    expect(getAuthSubjectGeneration()).toBe(generation);
+    observe('SIGNED_IN', session('synthetic-B'));
+    observe('SIGNED_IN', session('synthetic-A'));
+    expect(getAuthSubjectGeneration()).toBe(generation + 2);
+    observe('SIGNED_OUT', null);
+    expect(getAuthSubjectGeneration()).toBe(generation + 3);
   });
 
   it('Auth JWTの宛先は正規originへ限定し、悪性URLをfail-closedにする', () => {

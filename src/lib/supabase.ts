@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
+import { observeAuthSubject } from '@/lib/authSubjectGeneration';
 import { providerSafeAuthStorage } from '@/lib/authStorage';
 import { isTrustedSupabaseOrigin } from '@/lib/trustedOrigins';
 
@@ -33,3 +34,10 @@ export const supabase = createClient(
     },
   },
 );
+
+// Keep an identity epoch for the lifetime of this singleton. Unlike temporary
+// operation listeners, it also sees switches during a caller's first lazy import.
+// The observer retains only a subject key/counter, never a session or token.
+supabase.auth.onAuthStateChange((_event, session) => {
+  observeAuthSubject(session?.user ?? null);
+});
