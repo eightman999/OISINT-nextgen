@@ -467,6 +467,18 @@ async function callFunction(
   if (!upstreamBody.ok) {
     return c.json({ error: "上流サービスの応答を処理できません" }, 502);
   }
+  if (!res.ok) {
+    // Edge/gateway diagnostics are not a public response contract. Keep the
+    // status for client retry/auth handling, but never relay or log the body.
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    const retryAfter = publicRetryAfter(res.headers.get("Retry-After"));
+    if (retryAfter !== null) headers["Retry-After"] = retryAfter;
+    return c.newResponse(
+      JSON.stringify({ error: publicRpcErrorMessage(res.status) }),
+      res.status as StatusCode,
+      headers,
+    );
+  }
   const text = upstreamBody.text;
   const contentType = res.headers.get("Content-Type") ?? "application/json";
   const responseHeaders: Record<string, string> = {
@@ -475,7 +487,7 @@ async function callFunction(
   const retryAfter = res.headers.get("Retry-After");
   if (retryAfter) responseHeaders["Retry-After"] = retryAfter;
 
-  // JSON ならパースして返す。壊れていても原因を隠蔽せず中継する。
+  // Successful response contracts remain unchanged; error bodies never reach here.
   if (contentType.includes("application/json")) {
     try {
       const parsed = JSON.parse(text);
@@ -491,6 +503,19 @@ async function callFunction(
     }
   }
   return c.newResponse(text, res.status as StatusCode, responseHeaders);
+}
+
+function publicRetryAfter(value: string | null): string | null {
+  if (value === null || value.length > 128) return null;
+  // RFC delay-seconds or canonical IMF-fixdate only, never arbitrary text.
+  if (/^\d+$/.test(value)) return value;
+  if (!/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \d{2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4} \d{2}:\d{2}:\d{2} GMT$/.test(value)) {
+    return null;
+  }
+  const timestamp = Date.parse(value);
+  return Number.isFinite(timestamp) && new Date(timestamp).toUTCString() === value
+    ? value
+    : null;
 }
 
 // Supabase PostgREST RPC へプロキシ (P1 書き込み系 #106)。

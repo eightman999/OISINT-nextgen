@@ -766,7 +766,7 @@ describe("API Worker gateway", () => {
     expect(response.headers.get("retry-after")).toBe("120");
   });
 
-  it("上流の非2xx JSONをstatusと本文を保って返す", async () => {
+  it("上流の非2xx JSONはstatusだけを保って固定エラーを返す", async () => {
     vi.stubGlobal(
       "fetch",
       vi.fn(async () =>
@@ -788,7 +788,7 @@ describe("API Worker gateway", () => {
     );
 
     expect(response.status).toBe(503);
-    await expect(response.json()).resolves.toEqual({ error: "provider unavailable" });
+    await expect(response.json()).resolves.toEqual({ error: "上流サービスの応答を処理できません" });
   });
 
   it("RPC失敗は元statusを保ちつつ内部messageを秘匿する", async () => {
